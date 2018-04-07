@@ -1,0 +1,8 @@
+
+<div class="chat-input" id="chat-input">
+	<form method="post" id="user-input-form" action="response.jsp;jsessionid=<%=session.getId()%>" onsubmit="if (document.getElementById('user-input').value.length < 1) return false;">
+    	<input type="text" id="user-input" name="usertText" class="user-input" autocomplete="off" placeholder="Pregunta a UBUassistant">
+    	<input type="submit" id="enviar" class="enviar" value="Enviar">
+  	</form>
+</div>
+		

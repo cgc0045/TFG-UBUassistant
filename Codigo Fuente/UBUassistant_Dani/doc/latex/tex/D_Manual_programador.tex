@@ -1,0 +1,289 @@
+\apendice{Documentación técnica de programación}
+
+\section{Introducción}
+
+En la documentación técnica del programador se explica la estructura final de directorios de la aplicación desarrollada, así como los pasos para compilar, instalar y ejecutar el proyecto. Además se incluye un manual para el programador y se lleva a cabo una explicación de las pruebas realizadas al sistema.
+
+\section{Estructura de directorios}
+
+El proyecto consta de los siguientes directorios:
+
+\begin{itemize}
+\tightlist
+\item \textbf{/:} el directorio raíz del proyecto contiene el fichero de la licencia, el archivo README y el fichero que almacena las dependencias que se cargarán dinámicamente mediante \emph{Maven}. Además, se encuentran todas las carpetas que se especifican a continuación.
+\item \textbf{/doc:} documentación del proyecto.
+\item \textbf{/doc/javadoc:} documentación del código generada por JavaDoc.
+\item \textbf{/doc/latex:} documentación generada mediante \emph{LaTeX}.
+\item \textbf{/doc/latex/img:} imágenes utilizadas en la documentación.
+\item \textbf{/doc/latex/tex:} ficheros utilizados en para generar la documentación \emph{LaTeX}.
+\item \textbf{/lib:} archivos binarios y recursos del algoritmo de inteligencia artificial para añadir al \emph{path} del proyecto y hacerlo funcionar.
+\item \textbf{/rsc:} recursos del proyecto, como el fichero de creación de base de datos y los distintos ejecutables para realizar las pruebas con \emph{Selenium}.
+\item \textbf{/src:} código fuente de la aplicación web.
+\item \textbf{/src/main:} clases, recursos y páginas HTML/JSP del proyecto.
+\item \textbf{/src/main/java:} clases Java del proyecto y fichero \emph{log4j.properties} que configura el logger.
+\item \textbf{/src/main/resources:} recursos de configuración.
+\item \textbf{/src/main/webapp:} ficheros para la página web (HTML, JSP, CSS, JS, Imágenes, XML)
+\item \textbf{/src/test/java: } test unitarios, de integración y de interfaz.
+\item \textbf{/target:} clases compiladas de nuestro proyecto.
+\end{itemize}
+
+\section{Manual del programador}
+
+En el proyecto se han utilizado varias herramientas que son necesarias tener instaladas en el sistema para trabajar con el proyecto.
+
+\begin{itemize}
+\tightlist
+\item \textbf{Java JDK 8.}
+\item \textbf{Eclipse JEE.}
+\item \textbf{Git.}
+\item \textbf{Tomcat.}
+\end{itemize}
+
+\subsection{Java JDK 8}
+
+JDK \emph{(Java Development Kit)} son un conjunto de herramientas de desarrollo que permiten crear una aplicación Java. Para su descarga desde la página web oficial \cite{down:jdk} hay que seleccionar la versión deseada y la distribución y arquitectura del sistema operativo adecuada. Una vez realizada la descarga se procede con la instalación siguiendo los pasos del asistente. Finalizada la instalación hay que configurar las variables de entorno. 
+
+Existen tres variables de entorno a configurar \cite{wiki:jdk}
+
+\begin{itemize}
+\tightlist
+\item \textbf{JAVAPATH:} ruta completa de la instalación de JDK.
+\item \textbf{CLASSPATH:} ruta que contiene las bibliotecas o clases del usuario.
+\item \textbf{PATH:} variable de entorno donde hay que agregar la ruta de JDK.
+\end{itemize}
+
+\subsection{Eclipse JEE}
+
+Eclipse JEE es la distribución del IDE de Eclipse con las herramientas necesarias para el desarrollo web en Java. Este paquete de Eclipse contiene herramientas como Git, Maven, Java EE Developer Tools, JavaScript Developer Tools y demás que hacen posible la programación de una aplicación web \cite{wiki:ecli}.
+
+La descarga se realiza desde la página web oficial \cite{down:ecli} seleccionando la versión Eclipse JEE junto con la arquitectura adecuada del sistema operativo. Una vez descargado se descomprimen los archivos en la ruta deseada.
+
+\imagen{Eclipse.png}{Interfaz Elipse JEE.}
+
+\subsection{Git}
+
+Para comunicarse con el repositorio de control de versiones GitHub, es necesario tener instalado Git. Al utilizar el IDE Eclipse tenemos dos posibilidades de instalación, instalar Git de manera independiente y utilizar comando en consola para trabajar, o optar por instalar el paquete Git que se integra en Eclipse y trabajar mediante una interfaz gráfica.
+
+\imagen{GitBash.png}{Terminal Git Bash.}
+
+\imagen{GitEclipse.png}{Interfaz de Git en Eclipse.}
+
+La descarga de la versión independiente se puede realizar desde la página oficial \cite{down:git}.
+
+La descarga de la versión integrada en Eclipse puede realizarse desde el \emph{MarketPlace}. Se recomienda instalar EGit. Las distribuciones de Eclipse suelen traer instalado de forma automática Git.
+
+\imagen{GitEclipseInstallation}{Descargar de Git desde Eclipse MarketPlace.}
+
+\subsection{Tomcat}
+
+Para realizar las pruebas y poder ejecutar el proyecto durante su desarrollo es necesario disponer de un servidor que incorpore una máquina virtual de Java. Tomcat es un contenedor de aplicaciones Java que puede actuar como servidor para aplicaciones web \cite{wiki:tomc}. Su descarga puede realizarse desde la página oficial \cite{down:tomc}. Una vez descargado debemos configurar la variable de entorno \emph{CATALINA\_HOME} estableciendo la ruta de la carpeta de Tomcat. Además hay que incluir en el path la ruta de la carpeta \emph{bin} de Tomcat.
+
+Terminada la configuración se puede realizar el proceso de su integración en Eclipse o desplegar la aplicación en la versión independiente.
+
+
+\section{Compilación, instalación y ejecución del proyecto}
+
+\subsection{Obtener código fuente}
+
+Para obtener el código fuente desde GitHub se necesita clonar el repositorio.
+
+Como se ha utilizado la herramienta de Git integrada en Eclipse se procede a explicar los pasos para realizar el proceso en este entorno.
+
+\begin{enumerate}
+\item Nos desplazamos a la vista de Git.
+\imagen{GitView.png}{Vista de Git en Eclipse.}
+\item Pulsamos el botón de clonar repositorio y pegamos la URL obtenida desde GitHub.
+\imagen{GitClone1.png}{Paso 1 clonar repositorio.}
+\item Pulsamos siguiente y seleccionamos la rama a clonar.
+\imagen{GitClone2.png}{Paso 2 clonar repositorio.}
+\item Por último seleccionamos el directorio donde queremos clonar el repositorio y pulsamos en \emph{Finish}.
+\imagen{GitClone3.png}{Paso 3 clonar repositorio.}
+\end{enumerate}
+
+\subsection{Crear proyecto}
+
+Una vez hemos clonado el repositorio en nuestro disco local debemos crear un proyecto para importar los ficheros al entorno de trabajo de Eclipse. Para ello creamos un proyecto en el directorio donde se ha clonado el repositorio anteriormente.
+
+\imagen{CreateProject.png}{Creación de un proyecto en Eclipse.}
+
+Una vez hemos creado el proyecto ya es posible editar o modificar todos los ficheros deseados teniendo en cuenta la estructura de un proyecto Maven \cite{maven:dir}.
+
+\begin{itemize}
+\item \textbf{src/main/java:} Código fuente de la aplicación.
+\item \textbf{src/main/resources:} Recursos de la aplicación.
+\item \textbf{src/main/webapp:} Código de la aplicación web.
+\item \textbf{src/test/java:} Código de test.
+\item \textbf{src/test/resources:} Recursos de los test.
+\item \textbf{pom.xml:} Fichero para declarar dependencias de forma dinámica.
+\end{itemize}
+
+
+\subsection{Compilación y ejecución}
+
+El proceso de compilación en Eclipse está configurado por defecto para realizarse automáticamente.
+
+Antes de realizar la ejecución del proyecto es necesario incluir en el \emph{path} las dependencias de la carpeta \emph{lib}.
+
+Para la ejecución del proyecto hay que seleccionar el proyecto y especificar la ejecución en servidor.
+
+\imagen{RunAs.png}{Ejecutar en servidor.}
+
+Seleccionamos Tomcat y automáticamente arranca el servidor y carga nuestra aplicación web.
+
+Otra opción, si no se ha integrado el servidor Tomcat en Eclipse, es exportar la aplicación, copiar el archivo resultante en la carpeta específica del servidor y arrancarlo para que cargue nuestra aplicación.
+
+Para realizar este proceso, se despliega el menú contextual del proyecto y se selecciona \emph{export}. En la siguiente pantalla se selecciona el formato en el que se exportará el proyecto, seleccionando WAR.
+
+\imagen{Export1.png}{Paso 1 exportar proyecto.}
+
+Al pulsar siguiente nos pide especificar la ruta donde colocar el fichero resultante. Se introduce y se finaliza la operación.
+
+\imagen{Export2.png}{Paso 2 exportar proyecto.}
+
+Una vez hemos obtenido el fichero, es necesario copiarlo en la ruta de nuestro servidor Tomcat.
+
+./apache-tomcat-9.0.0.M17/webapps.
+
+AL finalizar este paso, se procede a iniciar el servidor mediante el comando \emph{startup}.
+
+\imagen{startup.png}{Arrancar el servidor.}
+
+En el proceso de arranque, el servidor se encarga de construir la aplicación, quedando accesible desde la dirección local del servidor Tomcat.
+
+\subsection{SonarQube}
+
+SonarQube sirve para analizar la calidad del proyecto y ha sido utilizado en su versión local.
+
+Para descargar SonarQube hay que dirigirse a su página oficial \cite{down:sonq}. Además hay que descargar Sonar Runner \cite{down:sonr}. Una vez que tenemos todo descargado hay que arrancar SonarQube dirigiendose a:
+
+./sonarqube-6.4/bin/\{VersionSO\}
+
+Y ejecutar StartSonar.bat en el caso de Windows.
+
+\imagen{SonarQube.png}{SonarQube.}
+
+Arrancado SonarQube podemos proceder a analizar el proyecto deseado. Para ello abrimos una terminal y nos situamos en el directorio del proyecto. Al tratarse de un proyecto Maven, ejecutamos los comandos \emph{mvn clean} para limpiar las versiones anteriores compiladas y \emph{mvn install} para compilar las clases.
+
+\imagen{SonarRunner1.png}{Paso 1 ejecución SonarQube.}
+
+Acabado este paso se puede proceder a analizar el proyecto mediante el comando \emph{mvn sonar:sonar}
+
+\imagen{SonarRunner2.png}{Paso 2 ejecución SonarQube.}
+
+Cuando termina el análisis tenemos disponible en la página local de SonarQube el resumen del análisis.
+
+\imagen{SonarQubeAnalisys.png}{Resumen análisis SonarQube.}
+
+El resumen completo puede verse en \href{https://sonarcloud.io/dashboard?id=UBUassistant}{Resumen SonarQube.}
+
+\section{Pruebas del sistema}
+
+Se han realizado dos tipos de pruebas para comprobar el correcto funcionamiento del sistema, pruebas unitarias de cada módulo y pruebas de integración e interfaz.
+
+\subsection{Test unitarios}
+
+Los test unitarios han sido realizados con JUnit 4, comprobando que cada módulo independiente del sistema tiene un funcionamiento correcto.
+
+Se han realizado 21 test unitarios que realizan comprobaciones de los módulos de 7 clases que no necesitan un entorno web para funcionar. 
+
+\imagen{TestUnitarios.png}{Test unitarios.}
+
+Para su ejecución simplemente se seleccionan los test deseados y se ejecutan como JUnit.
+
+\imagen{EjecucionTestUnitarios.png}{Ejecucion de una clase de test unitarios.}
+
+\subsection{Test de interfaz}
+
+Los test de interfaz han sido realizados mediante el framework de Selenium que otorga herramientas para realizar test de interfaz de forma automática sobre aplicaciones web. Estos test además comprueban la interacción de cada uno de los módulos testeados individualmente mediante los test unitarios.
+
+Se ha realizado test que comprueban cada requisito funcional.
+
+\imagen{TestInterfaz.png}{Test de interfaz.}
+
+
+
+\tablaSinColores{Requisitos por test de interfaz.}
+{L{4cm} L{8cm}}
+{2}
+{Requisitos por test de interfaz.}
+{\textbf{Test} & \textbf{Requisito} \\}
+{AdminAddCase.java 		&
+ \begin{itemize}
+ \item RF-7.1 Listar casos.
+ \item RF-7.2 Añadir caso.
+ \item RF-7.6 Ordenar casos.
+ \end{itemize}  				
+ \\
+ AdminLearn.java 		&
+ \begin{itemize}
+ \item RF-8.1 Listar recomendaciones.
+ \item RF-8.2 Aprender recomendación.
+ \item RF-8.3 Descartar recomendación.
+ \item RF-8.4 Exportar recomendaciones.
+ \item RF-8.5 Ordenar recomendaciones.
+ \end{itemize}  				
+ \\
+ AdminLog.java 		&
+ \begin{itemize}
+ \item RF-6.1 Listar log.
+ \item RF-6.2 Limpiar log.
+ \item RF-6.3 Exportar log.
+ \item RF-6.4 Ordenar log.
+ \end{itemize}  				
+ \\
+ AdminModifyCase.java 		&
+ \begin{itemize}
+ \item RF-7.1 Listar casos.
+ \item RF-7.3 Editar caso.
+ \item RF-7.4 Eliminar caso.
+ \item RF-7.5 Exportar casos.
+ \item RF-7.6 Ordenar casos.
+ \end{itemize}  				
+ \\
+ EnterAdminCase.java 		&
+ \begin{itemize}
+ \item RF-6 Gestión del log.
+ \item RF-7 Gestión de casos.
+ \item RF-8 Gestión de aprendizaje.
+ \end{itemize}  				
+ \\
+ MinimizeAndClose.java 		&
+ \begin{itemize}
+ \item RF-1 Reconocimiento de texto.
+ \item RF-2 Búsqueda de respuesta.
+ \item RF-3 Aprendizaje bajo supervisión.
+ \item RF-4 Realizar recomendaciones.
+ \item RF-5 Ofrecer mecanismo de valoración.
+ \end{itemize}  				
+ \\
+ MultipleAnswer.java 		&
+ \begin{itemize}
+ \item RF-1 Reconocimiento de texto.
+ \item RF-2 Búsqueda de respuesta.
+ \item RF-4 Realizar recomendaciones.
+ \item RF-5 Ofrecer mecanismo de valoración.
+ \end{itemize}  				
+ \\
+ NoAnswer.java 		&
+ \begin{itemize}
+ 	\item RF-1 Reconocimiento de texto.
+ 	\item RF-2 Búsqueda de respuesta.
+ 	\item RF-3 Aprendizaje bajo supervisión.
+ 	\item RF-4 Realizar recomendaciones.
+ 	\item RF-5 Ofrecer mecanismo de valoración.
+ \end{itemize}  				
+ \\
+ ReservedAndSimpleAnswer.java 		&
+ \begin{itemize}
+ \item RF-1 Reconocimiento de texto.
+ \item RF-2 Búsqueda de respuesta.
+ \item RF-5 Ofrecer mecanismo de valoración.
+ \end{itemize}  				
+ \\
+ SimpleAnswerAndStarBar.java 		&
+ \begin{itemize}
+ \item RF-1 Reconocimiento de texto.
+ \item RF-2 Búsqueda de respuesta.
+ \item RF-5 Ofrecer mecanismo de valoración.
+ \end{itemize}  				
+ \\}

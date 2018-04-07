@@ -1,0 +1,24 @@
+
+@media screen and (max-width: 768px) {
+  table#tabla{
+  	table-layout: fixed;
+  	
+  }
+  
+  table#tabla caption { background-image: none; word-wrap: break-word; }
+  table#tabla thead { display: none; }
+  table#tabla tbody td { 
+    display: block; padding: .6rem; 
+    word-wrap: break-word;
+  }
+  table#tabla tbody tr td:first-child { 
+    background: #0FB0DF; color: #fff; 
+    word-wrap: break-word;
+  }
+  table#tabla tbody td:before { 
+    content: attr(data-th) "\a";
+    white-space: pre;
+    font-weight: bold;
+    word-wrap: break-word;
+  }
+}
