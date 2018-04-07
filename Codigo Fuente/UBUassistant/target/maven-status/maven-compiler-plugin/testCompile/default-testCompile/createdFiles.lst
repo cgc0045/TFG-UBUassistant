@@ -1,0 +1,16 @@
+representation\CaseSolutionTest.class
+util\UtilTest.class
+database\DatabaseAdministrationTest.class
+selenium\ReservedAndSimpleAnswer.class
+selenium\SimpleAnswerAndStarBar.class
+selenium\NoAnswer.class
+selenium\AdminAddCase.class
+storage\StorageTest.class
+selenium\EnterAdminPage.class
+representation\CaseDescriptionTest.class
+selenium\AdminModifyCase.class
+selenium\MinimizeAndClose.class
+selenium\MultipleAnswer.class
+selenium\AdminLog.class
+selenium\AdminLearn.class
+database\DatabaseConnectionTest.class

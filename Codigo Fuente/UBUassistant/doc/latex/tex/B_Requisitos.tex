@@ -1,0 +1,1138 @@
+\apendice{Especificación de Requisitos}
+
+\section{Introducción}
+
+La especificación de requisitos del software consiste en realizar una descripción completa del comportamiento del sistema que va a desarrollarse. Puede verse como un contrato entre los desarrolladores y el cliente.
+
+En esta especificación se incluyen un conjunto de casos de uso donde se detallan los pasos o actividades de un usuario de la aplicación para llevar a cabo un determinado proceso.
+
+Se recomienda el uso de un lenguaje cotidiano e informal para que el documento obtenido sea comprendido fácilmente por todos los involucrados en el desarrollo del sistema.
+
+Se pueden identificar varios tipos de requisitos, centrándonos en los requisitos funcionales y requisitos no funcionales \cite{wiki:ers}.
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Requisitos funcionales:} determinan los servicios que el sistema debe proporcionar. Están relacionados con los casos de uso.
+\item
+  \textbf{Requisitos no funcionales:}  determinan cómo debe ser el sistema imponiendo restricciones de diseño o implementación.
+\end{itemize}
+
+Existen una serie de características que hacen que una especificación de requisitos del software disponga de una calidad adecuada. Estas características están definidas por el estándar IEEE 830-1998, el cual determina que una buena especificación de requisitos debe ser \cite{wiki:ers}:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Completa:} se deben reflejar todos los requerimientos y definir correctamente sus relaciones.
+\item
+  \textbf{Consistente:} no deben existir incoherencias entre los requerimientos.
+\item
+  \textbf{Inequívoca:} se debe usar un lenguaje sencillo para no dar lugar a equivocaciones.
+\item
+  \textbf{Correcta:} el producto debe cumplir todos los requerimientos.
+\item
+  \textbf{Trazable:} se deben identificar de forma única los requerimientos.
+\item
+  \textbf{Priorizable:}  se deben poder organizar los requisitos según su importancia.
+\item
+  \textbf{Modificable:} cualquier requerimiento debe ser modificable de forma sencilla.
+\item
+  \textbf{Verificable:} se debe poder probar mediante algún método.
+\end{itemize}
+
+
+\section{Objetivos generales}
+
+Como objetivos generales marcados para el proyecto se consideran:
+
+\begin{itemize}
+\tightlist
+\item
+  Desarrollar una aplicación web que permita a los usuarios de la página web de la Universidad de Burgos disponer de un asistente virtual con el que poder interactuar en busca de respuestas y apartados concretos del sitio web.
+\item
+  Favorecer la búsqueda de información de forma simple y natural.
+\item
+  Realizar un aprendizaje de nuevos casos en los que no existe respuesta de manera supervisada.
+\item
+  Dotar a un administrador del log de uso del asistente virtual en busca de perfeccionar respuestas a conceptos más buscados, así como ofrecer la posibilidad de añadir nuevos casos, y editar o eliminar los existentes.
+\end{itemize}
+
+\section{Catalogo de requisitos}
+
+De los objetivos generales anteriormente citados podemos obtener el siguiente catálogo de requisitos.
+
+\subsection{Requisitos funcionales}
+
+\begin{itemize}
+\tightlist
+\item
+\textbf{RF-1 Reconocimiento de texto:} la aplicación debe ser capaz de reconocer una pregunta en forma de texto de un usuario.
+\item
+\textbf{RF-2 Búsqueda de respuesta:} el sistema debe ser capaz de otorgar una respuesta a la pregunta introducida por el usuario.
+\item
+\textbf{RF-3 Aprendizaje bajo supervisión:} la aplicación debe tener la capacidad de aprender nuevos conceptos del uso por parte del usuario.
+\item
+\textbf{RF-4 Realizar recomendaciones:} el sistema debe mostrar recomendaciones cuando no existan respuestas o cuando existan varias.
+\item
+\textbf{RF-5 Ofrecer mecanismo de valoración:} la aplicación debe ofrecer un mecanismo de valoración para cada respuesta otorgada.
+\item
+\textbf{RF-6 Gestión del log:} la aplicación debe ofrecer la posibilidad gestionar el log recogido del uso de la aplicación.
+	\begin{itemize}
+	\tightlist
+	\item
+	\textbf{RF-6.1 Listar log:} la aplicación debe ser capaz de listar las entradas del log obtenidas desde la interfaz del asistente.
+	\item
+	\textbf{RF-6.2 Limpiar log:} la aplicación debe ofrecer la posibilidad de limpiar las entradas del log.	
+	\item
+	\textbf{RF-6.3 Exportar log:} la aplicación debe tener la capacidad de exportar el log de uso a distintos formatos.
+	\item
+	\textbf{RF-6.4 Ordenar log:} la aplicación debe tener la capacidad de ordenar las entradas del log según un campo deseado.
+	\end{itemize}
+\item
+\textbf{RF-7 Gestión de casos:} el sistema debe otorgar una interfaz para gestionar los casos almacenados.
+	\begin{itemize}
+	\tightlist
+	\item
+	\textbf{RF-7.1 Listar casos:} la aplicación debe ser capaz de listar los casos almacenados en la base de datos.
+	\item
+	\textbf{RF-7.2 Añadir caso:} el sistema debe ofrecer la posibilidad de añadir nuevos casos a la base de datos.
+	\item
+	\textbf{RF-7.3 Editar caso:} el sistema debe ofrecer la posibilidad de editar los casos de la base de datos.
+	\item
+	\textbf{RF-7.4 Eliminar caso:} el sistema debe ofrecer la posibilidad de eliminar los casos de la base de datos.
+	\item
+	\textbf{RF-7.5 Exportar casos:} la aplicación debe tener la capacidad de exportar la tabla de casos a distintos formatos.
+	\item
+	\textbf{RF-7.6 Ordenar casos:} la aplicación debe tener la capacidad de ordenar la tabla de casos según el campo deseado.
+	\end{itemize}
+
+\item
+\textbf{RF-8 Gestión de aprendizaje:} la aplicación debe ofrecer un mecanismo para gestionar las recomendaciones de aprendizaje.
+	\begin{itemize}
+	\tightlist
+	\item
+	\textbf{RF-8.1 Listar recomendaciones:} la aplicación debe ser capaz de listar las recomendaciones obtenidas desde la interfaz del asistente.
+	\item
+	\textbf{RF-8.2 Aprender recomendación:} el sistema debe ser capaz de aprender las recomendaciones listadas.
+	\item
+	\textbf{RF-8.3 Descartar recomendación:} el sistema debe ofrecer la posibilidad de descartar las recomendaciones listadas.
+	\item
+	\textbf{RF-8.4 Exportar recomendaciones:} la aplicación debe tener la capacidad de exportar la tabla de casos a distintos formatos.
+	\item
+	\textbf{RF-8.5 Ordenar recomendaciones:} la aplicación debe tener la capacidad de ordenar la tabla de casos según un campo seleccionado.
+	\end{itemize}
+
+\end{itemize}
+
+\subsection{Requisitos no funcionales}
+
+\begin{itemize}
+\tightlist
+
+\item
+\textbf{RNF-1 Seguridad:} el sistema debe administrar los datos confidenciales de manera apropiada. Además no debe permitir el acceso a la página de administración sin la autenticación requerida, redireccionando al usuario a la página de login.
+
+\item
+\textbf{RNF-2 Fiabilidad:} la aplicación debe tener propiedades que la confieran tolerancia frente a fallos y que reduzcan los tiempos de recuperación.
+
+\item
+\textbf{RNF-3 Facilidad de uso:} la aplicación debe poseer cualidades que hagan que su uso no presente dificultades tanto en la interfaz del asistente como en la interfaz de administración. Para ello cabe considerar las siguientes obligaciones:
+	\begin{itemize}
+	\tightlist
+	\item
+	La aplicación debe tener una interfaz adaptable a diferentes tamaños de pantalla y dispositivos móviles.
+	\item
+	La interfaz del asistente virtual debe iniciarse fácilmente con un icono amigable, que pregunte si es necesario ayuda, sobre una página web.
+	\end{itemize}
+
+\item
+\textbf{RNF-4 Eficiencia:} el sistema debe tener unos tiempos de carga óptimos y una utilización de recursos conveniente.
+
+\item
+\textbf{RNF-5 Facilidad de mantenimiento:} la aplicación debe tener estabilidad y propiedades que le confieran facilidad de análisis, facilidad ante cambios y facilidades de pruebas.
+
+\item
+\textbf{RNF-6 Portabilidad:} la aplicación debe ser adaptable y poseer características que la confieran facilidad de instalación y facilidad de sustitución.
+
+\end{itemize}
+
+\newpage
+\section{Especificación de requisitos}
+
+\subsection{Diagrama de casos de uso}
+
+\imagenLarga{DiagramaCasosdeUso.png}{Diagrama de casos de uso.}
+
+\subsection{Actores}
+
+El sistema diferenciará dos tipos de actores.
+
+\begin{itemize}
+\tightlist
+\item
+	\textbf{Usuario:} el usuario no está autenticado en el sistema y es capaz de acceder a la interfaz del asistente virtual.
+\item
+	\textbf{Administrador:} el administrador sí está autenticado en el sistema y es capaz de acceder a la interfaz de gestión de la aplicación.
+\end{itemize}
+
+\newpage
+\subsection{Casos de uso}
+
+\tablaSinColores{CU-01 Preguntar.}
+{L{3.5cm} L{10cm}}
+{2}
+{Tabla CU-01}
+{\textbf{CU-01} & \textbf{Preguntar} \\}
+{\textbf{Versión} 				& 1.0\\ 
+ \textbf{Autor} 				& Daniel Santidrián Alonso\\
+ \textbf{Requisitos asociados} 	& RF-1\\
+ \textbf{Descripción} 			& 
+ Permite al usuario introducir texto en la interfaz del asistente para realizar una pregunta.\\
+ \textbf{Precondiciones} 		& 
+    \begin{itemize}
+ 	\item Se encuentra disponible la base de datos.
+ 	\end{itemize}
+ \\
+ \textbf{Acciones} 				& 
+ 	\begin{enumerate}
+    \item El usuario accede a la página web.
+    \item El usuario abre la interfaz del asistente virtual.
+    \item Se muestra un formulario para introducir el texto de la pregunta.
+    \end{enumerate}
+ \\
+ 
+ \textbf{Postcondiciones} 		& 
+    \begin{itemize}
+ 	\item Se recoge la pregunta introducida.
+ 	\end{itemize}
+ \\
+ \textbf{Excepciones} 			& 
+ 	\begin{itemize}
+ 	\item La base de datos no está disponible.
+ 	\end{itemize}
+    
+ \\
+ \textbf{Importancia} 			& Alta\\}
+ 
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ 
+ \tablaSinColores{CU-02 Obtener respuesta.}
+{L{3.5cm} L{10cm}}
+{2}
+{Tabla CU-02}
+{\textbf{CU-02} & \textbf{Obtener respuesta} \\}
+{\textbf{Versión} 				& 1.0\\ 
+ \textbf{Autor} 				& Daniel Santidrián Alonso\\
+ \textbf{Requisitos asociados} 	& RF-2\\
+ \textbf{Descripción} 			& 
+ Permite al usuario obtener una respuesta a una pregunta realizada.\\
+ \textbf{Precondiciones} 		& 
+    \begin{itemize}
+ 	\item Se encuentra disponible la base de datos.
+ 	\item Se ha realizado una pregunta para la que existe un caso en la base de datos.
+ 	\end{itemize}
+ \\
+ \textbf{Acciones} 				& 
+ 	\begin{enumerate}
+    \item El usuario accede a la página web.
+    \item El usuario abre la interfaz del asistente virtual.
+    \item Se muestra un formulario para introducir el texto de la pregunta.
+    \item El usuario realiza una pregunta.
+    \item Se muestra la respuesta encontrada.
+    \end{enumerate}
+ \\
+ 
+ \textbf{Postcondiciones} 		& 
+    \begin{itemize}
+ 	\item Se muestra el mecanismo de valoración.
+ 	\item Se almacena el log de la búsqueda en la base de datos.
+ 	\end{itemize}
+ \\
+ \textbf{Excepciones} 			& 
+ 	\begin{itemize}
+ 	\item La base de datos no está disponible.
+ 	\end{itemize}
+    
+ \\
+ \textbf{Importancia} 			& Alta\\}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ 
+\tablaSinColores{CU-03 Obtener recomendación.}
+{L{3.5cm} L{10cm}}
+{2}
+{Tabla CU-03}
+{\textbf{CU-03} & \textbf{Obtener recomendación} \\}
+{\textbf{Versión} 				& 1.0\\ 
+ \textbf{Autor} 				& Daniel Santidrián Alonso\\
+ \textbf{Requisitos asociados} 	& RF-3, RF-4\\
+ \textbf{Descripción} 			& 
+ Permite al usuario obtener recomendaciones ante una pregunta sin respuesta o con múltiples respuestas.\\
+ \textbf{Precondiciones} 		& 
+    \begin{itemize}
+ 	\item Se encuentra disponible la base de datos.
+ 	\item Se ha realizado una pregunta para la que no existe un caso en la base de datos o existen varios casos.
+ 	\end{itemize}
+ \\
+ \textbf{Acciones} 				& 
+ 	\begin{enumerate}
+    \item El usuario accede a la página web.
+    \item El usuario abre la interfaz del asistente virtual.
+    \item Se muestra un formulario para introducir el texto de la pregunta.
+    \item El usuario realiza una pregunta.
+    \item No se encuentran respuestas o se encuentran varias respuestas.
+    \item Se muestran las recomendaciones oportunas.
+    \end{enumerate}
+ \\
+ 
+ \textbf{Postcondiciones} 		& 
+    \begin{itemize}
+ 	\item Se muestra el mecanismo de valoración.
+ 	\item Se almacena el log de la búsqueda en la base de datos.
+ 	\item Se almacenan los casos de aprendizaje en la base de datos en caso de que no haya respuesta y se acepte una sugerencia.
+ 	\end{itemize}
+ \\
+ \textbf{Excepciones} 			& 
+ 	\begin{itemize}
+ 	\item La base de datos no está disponible.
+ 	\end{itemize}
+    
+ \\
+ \textbf{Importancia} 			& Alta\\}
+ 
+ 
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ 
+\tablaSinColores{CU-04 Valorar respuesta.}
+{L{3.5cm} L{10cm}}
+{2}
+{Tabla CU-04}
+{\textbf{CU-04} & \textbf{Valorar respuesta} \\}
+{\textbf{Versión} 				& 1.0\\ 
+ \textbf{Autor} 				& Daniel Santidrián Alonso\\
+ \textbf{Requisitos asociados} 	& RF-5\\
+ \textbf{Descripción} 			& 
+ Permite al usuario realizar una valoración de una respuesta otorgada.\\
+ \textbf{Precondiciones} 		& 
+    \begin{itemize}
+ 	\item Se encuentra disponible la base de datos.
+ 	\item Se ha realizado una pregunta para la que existe respuesta, o se ha aceptado alguna recomendación en el caso de que no haya respuestas o existan múltiples.
+ 	\end{itemize}
+ \\
+ \textbf{Acciones} 				& 
+ 	\begin{enumerate}
+    \item El usuario accede a la página web.
+    \item El usuario abre la interfaz del asistente virtual.
+    \item Se muestra un formulario para introducir el texto de la pregunta.
+    \item El usuario realiza una pregunta.
+    \item Se encuentra una respuesta o se acepta una recomendación.
+    \item Se muestran el mecanismo de valoración de respuestas.
+    \end{enumerate}
+ \\
+ 
+ \textbf{Postcondiciones} 		& 
+    \begin{itemize}
+ 	\item Se almacena el log de la búsqueda en la base de datos.
+ 	\item Se almacenan las valoraciones en la base de datos.
+ 	\end{itemize}
+ \\
+ \textbf{Excepciones} 			& 
+ 	\begin{itemize}
+ 	\item La base de datos no está disponible.
+ 	\end{itemize}
+    
+ \\
+ \textbf{Importancia} 			& Alta\\}
+ 
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ 
+\tablaSinColores{CU-05 Gestión del log de uso.}
+{L{3.5cm} L{10cm}}
+{2}
+{Tabla CU-05}
+{\textbf{CU-05} & \textbf{Gestión del log de uso} \\}
+{\textbf{Versión} 				& 1.0\\ 
+ \textbf{Autor} 				& Daniel Santidrián Alonso\\
+ \textbf{Requisitos asociados} 	& RF-6, RF-6.1, RF-6.2, RF-6.3, RF-6.4\\
+ \textbf{Descripción} 			& 
+ Permite al administrador gestionar el log de uso del asistente virtual.\\
+ \textbf{Precondiciones} 		& 
+    \begin{itemize}
+ 	\item Se encuentra disponible la base de datos.
+ 	\item Se accede como administrador (autenticado).
+ 	\end{itemize}
+ \\
+ \textbf{Acciones} 				& 
+ 	\begin{enumerate}
+    \item El usuario accede a la página web.
+    \item El usuario abre la interfaz de administración.
+    \item El usuario se convierte en administrador autenticándose.
+    \item El administrador accede a la página de gestión del log.
+    \item Se listan las entradas del log.
+    \item Se permite ordenar el listado del log.
+    \item Se muestra un botón para exportar el conjunto de logs.
+    \item Se muestra un botón para limpiar el conjunto de logs.
+    \end{enumerate}
+ \\
+ 
+ \textbf{Postcondiciones} 		& 
+    \begin{itemize}
+ 	\item El número de logs listados es igual que el número de log almacenados en la base de datos.
+ 	\end{itemize}
+ \\
+ \textbf{Excepciones} 			& 
+ 	\begin{itemize}
+ 	\item La base de datos no está disponible.
+ 	\end{itemize}
+    
+ \\
+ \textbf{Importancia} 			& Alta\\}
+ 
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ 
+\tablaSinColores{CU-06 Listar log de uso.}
+{L{3.5cm} L{10cm}}
+{2}
+{Tabla CU-06}
+{\textbf{CU-06} & \textbf{Listar log de uso} \\}
+{\textbf{Versión} 				& 1.0\\ 
+ \textbf{Autor} 				& Daniel Santidrián Alonso\\
+ \textbf{Requisitos asociados} 	& RF-6.1\\
+ \textbf{Descripción} 			& 
+ Permite al administrador visualizar en forma de tabla todas las entradas del log recogidas del uso del asistente virtual por cada usuario.\\
+ \textbf{Precondiciones} 		& 
+    \begin{itemize}
+ 	\item Se encuentra disponible la base de datos.
+ 	\item Se accede como administrador (autenticado).
+ 	\end{itemize}
+ \\
+ \textbf{Acciones} 				& 
+ 	\begin{enumerate}
+    \item El usuario accede a la página web.
+    \item El usuario abre la interfaz de administración.
+    \item El usuario se convierte en administrador autenticándose.
+    \item El administrador accede a la página de gestión del log.
+    \item Se listan las entradas del log.
+    \end{enumerate}
+ \\
+ 
+ \textbf{Postcondiciones} 		& 
+    \begin{itemize}
+ 	\item El número de logs listados es igual que el número de log almacenados en la base de datos.
+ 	\end{itemize}
+ \\
+ \textbf{Excepciones} 			& 
+ 	\begin{itemize}
+ 	\item La base de datos no está disponible.
+ 	\end{itemize}
+    
+ \\
+ \textbf{Importancia} 			& Alta\\}
+ 
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ 
+\tablaSinColores{CU-07 Limpiar log de uso.}
+{L{3.5cm} L{10cm}}
+{2}
+{Tabla CU-07}
+{\textbf{CU-07} & \textbf{Limpiar log de uso} \\}
+{\textbf{Versión} 				& 1.0\\ 
+ \textbf{Autor} 				& Daniel Santidrián Alonso\\
+ \textbf{Requisitos asociados} 	& RF-6.2\\
+ \textbf{Descripción} 			& 
+ Permite al administrador limpiar todas las entradas del log de uso.\\
+ \textbf{Precondiciones} 		& 
+    \begin{itemize}
+ 	\item Se encuentra disponible la base de datos.
+ 	\item Se accede como administrador (autenticado).
+ 	\end{itemize}
+ \\
+ \textbf{Acciones} 				& 
+ 	\begin{enumerate}
+    \item El usuario accede a la página web.
+    \item El usuario abre la interfaz de administración.
+    \item El usuario se convierte en administrador autenticándose.
+    \item El administrador accede a la página de gestión del log.
+    \item Se listan las entradas del log.
+    \item El administrador pincha en el botón de limpiar log.
+    \item El administrador confirma el borrado de la tabla de log.
+    \end{enumerate}
+ \\
+ 
+ \textbf{Postcondiciones} 		& 
+    \begin{itemize}
+ 	\item El número de logs listados es igual que el número de log almacenados en la base de datos.
+ 	\end{itemize}
+ \\
+ \textbf{Excepciones} 			& 
+ 	\begin{itemize}
+ 	\item La base de datos no está disponible.
+ 	\end{itemize}
+    
+ \\
+ \textbf{Importancia} 			& Alta\\}
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ 
+\tablaSinColores{CU-08 Exportar log de uso.}
+{L{3.5cm} L{10cm}}
+{2}
+{Tabla CU-08}
+{\textbf{CU-08} & \textbf{Exportar log de uso} \\}
+{\textbf{Versión} 				& 1.0\\ 
+ \textbf{Autor} 				& Daniel Santidrián Alonso\\
+ \textbf{Requisitos asociados} 	& RF-6.3\\
+ \textbf{Descripción} 			& 
+ Permite al administrador exportar la tabla de log.\\
+ \textbf{Precondiciones} 		& 
+    \begin{itemize}
+ 	\item Se encuentra disponible la base de datos.
+ 	\item Se accede como administrador (autenticado).
+ 	\end{itemize}
+ \\
+ \textbf{Acciones} 				& 
+ 	\begin{enumerate}
+    \item El usuario accede a la página web.
+    \item El usuario abre la interfaz de administración.
+    \item El usuario se convierte en administrador autenticándose.
+    \item El administrador accede a la página de gestión del log.
+    \item Se listan las entradas del log.
+    \item El administrador pincha en el botón de exportar.
+    \item El administrador selecciona el formato deseado a exportar.
+    \item Se realiza la descarga en el formato indicado.
+    \end{enumerate}
+ \\
+ 
+ \textbf{Postcondiciones} 		& 
+    \begin{itemize}
+ 	\item Se realiza la descarga correctamente.
+ 	\end{itemize}
+ \\
+ \textbf{Excepciones} 			& 
+ 	\begin{itemize}
+ 	\item La base de datos no está disponible.
+ 	\end{itemize}
+    
+ \\
+ \textbf{Importancia} 			& Alta\\}
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ 
+\tablaSinColores{CU-09 Ordenar log de uso.}
+{L{3.5cm} L{10cm}}
+{2}
+{Tabla CU-09}
+{\textbf{CU-09} & \textbf{Ordenar log de uso} \\}
+{\textbf{Versión} 				& 1.0\\ 
+ \textbf{Autor} 				& Daniel Santidrián Alonso\\
+ \textbf{Requisitos asociados} 	& RF-6.4\\
+ \textbf{Descripción} 			& 
+ Permite al administrador ordenar la tabla de log.\\
+ \textbf{Precondiciones} 		& 
+    \begin{itemize}
+ 	\item Se encuentra disponible la base de datos.
+ 	\item Se accede como administrador (autenticado).
+ 	\item Existe alguna entrada en la tabla de log.
+ 	\end{itemize}
+ \\
+ \textbf{Acciones} 				& 
+ 	\begin{enumerate}
+    \item El usuario accede a la página web.
+    \item El usuario abre la interfaz de administración.
+    \item El usuario se convierte en administrador autenticándose.
+    \item El administrador accede a la página de gestión del log.
+    \item Se listan las entradas del log.
+    \item El administrador pincha en el encabezado de una columna para ordenarla de manera ascendente o descendente.
+    \end{enumerate}
+ \\
+ 
+ \textbf{Postcondiciones} 		& 
+    \begin{itemize}
+    \item Las entradas se ordenan según el campo seleccionado.
+ 	\item El número de logs listados es igual que el número de log almacenados en la base de datos.
+ 	\end{itemize}
+ \\
+ \textbf{Excepciones} 			& 
+ 	\begin{itemize}
+ 	\item La base de datos no está disponible.
+ 	\end{itemize}
+    
+ \\
+ \textbf{Importancia} 			& Media\\}
+ 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ 
+\tablaSinColores{CU-10 Gestión de casos.}
+{L{3.5cm} L{10cm}}
+{2}
+{Tabla CU-10}
+{\textbf{CU-10} & \textbf{Gestión de casos} \\}
+{\textbf{Versión} 				& 1.0\\ 
+ \textbf{Autor} 				& Daniel Santidrián Alonso\\
+ \textbf{Requisitos asociados} 	& RF-7, RF-7.1, RF-7.2, RF-7.3, RF-7.4, RF-7.5, RF-7.6\\
+ \textbf{Descripción} 			& 
+ Permite al administrador gestionar los casos de la base de datos.\\
+ \textbf{Precondiciones} 		& 
+    \begin{itemize}
+ 	\item Se encuentra disponible la base de datos.
+ 	\item Se accede como administrador (autenticado).
+ 	\end{itemize}
+ \\
+ \textbf{Acciones} 				& 
+ 	\begin{enumerate}
+    \item El usuario accede a la página web.
+    \item El usuario abre la interfaz de administración.
+    \item El usuario se convierte en administrador autenticándose.
+    \item El administrador accede a la página de añadir caso o modificar casos.
+    \item Si accede a la pagina de añadir se muestra un formulario para añadir un caso a la base de datos.
+    \item Si accede a la pagina de modificar se listan los casos existentes en forma de tabla ordenable.
+    \item Se muestran menús para editar o eliminar cada uno de los casos.
+    \item Se muestra una opción para exportar la tabla de casos.
+    \end{enumerate}
+ \\
+ 
+ \textbf{Postcondiciones} 		& 
+    \begin{itemize}
+ 	\item El número de casos listados es igual que el número de casos almacenados en la base de datos.
+ 	\end{itemize}
+ \\
+ \textbf{Excepciones} 			& 
+ 	\begin{itemize}
+ 	\item La base de datos no está disponible.
+ 	\end{itemize}
+    
+ \\
+ \textbf{Importancia} 			& Alta\\}
+ 
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ 
+\tablaSinColores{CU-11 Listar casos.}
+{L{3.5cm} L{10cm}}
+{2}
+{Tabla CU-11}
+{\textbf{CU-11} & \textbf{Listar casos} \\}
+{\textbf{Versión} 				& 1.0\\ 
+ \textbf{Autor} 				& Daniel Santidrián Alonso\\
+ \textbf{Requisitos asociados} 	& RF-7.1\\
+ \textbf{Descripción} 			& 
+ Permite al administrador visualizar en forma de tabla todos los casos de la base de datos.\\
+ \textbf{Precondiciones} 		& 
+    \begin{itemize}
+ 	\item Se encuentra disponible la base de datos.
+ 	\item Se accede como administrador (autenticado).
+ 	\end{itemize}
+ \\
+ \textbf{Acciones} 				& 
+ 	\begin{enumerate}
+    \item El usuario accede a la página web.
+    \item El usuario abre la interfaz de administración.
+    \item El usuario se convierte en administrador autenticándose.
+    \item El administrador accede a la página de modificar casos.
+    \item Se listan los casos existentes en forma de tabla ordenable.
+    \end{enumerate}
+ \\
+ 
+ \textbf{Postcondiciones} 		& 
+    \begin{itemize}
+ 	\item El número de logs listados es igual que el número de casos almacenados en la base de datos.
+ 	\end{itemize}
+ \\
+ \textbf{Excepciones} 			& 
+ 	\begin{itemize}
+ 	\item La base de datos no está disponible.
+ 	\end{itemize}
+ \\
+ \textbf{Importancia} 			& Alta\\}
+ 
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ 
+\tablaSinColores{CU-12 Añadir caso.}
+{L{3.5cm} L{10cm}}
+{2}
+{Tabla CU-12}
+{\textbf{CU-12} & \textbf{Añadir caso} \\}
+{\textbf{Versión} 				& 1.0\\ 
+ \textbf{Autor} 				& Daniel Santidrián Alonso\\
+ \textbf{Requisitos asociados} 	& RF-7.2\\
+ \textbf{Descripción} 			& 
+ Permite al administrador añadir un nuevo caso.\\
+ \textbf{Precondiciones} 		& 
+    \begin{itemize}
+ 	\item Se encuentra disponible la base de datos.
+ 	\item Se accede como administrador (autenticado).
+ 	\end{itemize}
+ \\
+ \textbf{Acciones} 				& 
+ 	\begin{enumerate}
+    \item El usuario accede a la página web.
+    \item El usuario abre la interfaz de administración.
+    \item El usuario se convierte en administrador autenticándose.
+    \item El administrador accede a la página de añadir caso.
+    \item Se muestra el formulario para añadir caso.
+    \item Si rellena los campos obligatorios y pulsa aceptar se almacena correctamente el caso.
+    \end{enumerate}
+ \\
+ 
+ \textbf{Postcondiciones} 		& 
+    \begin{itemize}
+ 	\item Se encuentra el caso añadido en la base de datos.
+ 	\end{itemize}
+ \\
+ \textbf{Excepciones} 			& 
+ 	\begin{itemize}
+ 	\item La base de datos no está disponible.
+ 	\item No se han rellenado los campos obligatorios. Se muestra un mensaje.
+ 	\end{itemize}
+ \\
+ \textbf{Importancia} 			& Alta\\}
+ 
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ 
+\tablaSinColores{CU-13 Editar caso.}
+{L{3.5cm} L{10cm}}
+{2}
+{Tabla CU-13}
+{\textbf{CU-13} & \textbf{Editar caso} \\}
+{\textbf{Versión} 				& 1.0\\ 
+ \textbf{Autor} 				& Daniel Santidrián Alonso\\
+ \textbf{Requisitos asociados} 	& RF-7.3\\
+ \textbf{Descripción} 			& 
+ Permite al administrador editar un caso existente.\\
+ \textbf{Precondiciones} 		& 
+    \begin{itemize}
+ 	\item Se encuentra disponible la base de datos.
+ 	\item Se accede como administrador (autenticado).
+ 	\item Existe el caso a editar.
+ 	\end{itemize}
+ \\
+ \textbf{Acciones} 				& 
+ 	\begin{enumerate}
+    \item El usuario accede a la página web.
+    \item El usuario abre la interfaz de administración.
+    \item El usuario se convierte en administrador autenticándose.
+    \item El administrador accede a la página de modificar casos.
+    \item Se listan todos los casos.
+    \item El administrador selecciona editar sobre el campo deseado.
+    \item Se muestra un formulario para editar los campos de caso.
+    \item Si rellena los campos obligatorios y pulsa aceptar se almacena correctamente el caso.
+    \end{enumerate}
+ \\
+ 
+ \textbf{Postcondiciones} 		& 
+    \begin{itemize}
+ 	\item Se encuentra el caso editado en la base de datos.
+ 	\end{itemize}
+ \\
+ \textbf{Excepciones} 			& 
+ 	\begin{itemize}
+ 	\item La base de datos no está disponible.
+ 	\item No se han rellenado los campos obligatorios. Se muestra un mensaje.
+ 	\end{itemize}
+ \\
+ \textbf{Importancia} 			& Alta\\}
+ 
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ 
+\tablaSinColores{CU-14 Eliminar caso.}
+{L{3.5cm} L{10cm}}
+{2}
+{Tabla CU-14}
+{\textbf{CU-14} & \textbf{Eliminar caso} \\}
+{\textbf{Versión} 				& 1.0\\ 
+ \textbf{Autor} 				& Daniel Santidrián Alonso\\
+ \textbf{Requisitos asociados} 	& RF-7.4\\
+ \textbf{Descripción} 			& 
+ Permite al administrador eliminar un caso existente.\\
+ \textbf{Precondiciones} 		& 
+    \begin{itemize}
+ 	\item Se encuentra disponible la base de datos.
+ 	\item Se accede como administrador (autenticado).
+ 	\item Existe el caso a eliminar.
+ 	\end{itemize}
+ \\
+ \textbf{Acciones} 				& 
+ 	\begin{enumerate}
+    \item El usuario accede a la página web.
+    \item El usuario abre la interfaz de administración.
+    \item El usuario se convierte en administrador autenticándose.
+    \item El administrador accede a la página de modificar casos.
+    \item Se listan todos los casos.
+    \item El administrador selecciona eliminar sobre el campo deseado.
+    \item Se muestra una confirmación de borrado.
+    \item Si el administrador confirma el borrado el caso es eliminado de forma permanente.
+    \end{enumerate}
+ \\
+ 
+ \textbf{Postcondiciones} 		& 
+    \begin{itemize}
+ 	\item No se encuentra el caso eliminado en la base de datos.
+ 	\end{itemize}
+ \\
+ \textbf{Excepciones} 			& 
+ 	\begin{itemize}
+ 	\item La base de datos no está disponible.
+ 	\end{itemize}
+ \\
+ \textbf{Importancia} 			& Alta\\}
+ 
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ 
+\tablaSinColores{CU-15 Exportar casos.}
+{L{3.5cm} L{10cm}}
+{2}
+{Tabla CU-15}
+{\textbf{CU-15} & \textbf{Exportar casos} \\}
+{\textbf{Versión} 				& 1.0\\ 
+ \textbf{Autor} 				& Daniel Santidrián Alonso\\
+ \textbf{Requisitos asociados} 	& RF-7.5\\
+ \textbf{Descripción} 			& 
+ Permite al administrador exportar la tabla de casos.\\
+ \textbf{Precondiciones} 		& 
+    \begin{itemize}
+ 	\item Se encuentra disponible la base de datos.
+ 	\item Se accede como administrador (autenticado).
+ 	\end{itemize}
+ \\
+ \textbf{Acciones} 				& 
+ 	\begin{enumerate}
+    \item El usuario accede a la página web.
+    \item El usuario abre la interfaz de administración.
+    \item El usuario se convierte en administrador autenticándose.
+    \item El administrador accede a la página de modificar casos.
+    \item Se listan todos los casos.
+    \item El administrador pincha en el botón de exportar.
+    \item El administrador selecciona el formato deseado a exportar.
+    \end{enumerate}
+ \\
+ 
+ \textbf{Postcondiciones} 		& 
+    \begin{itemize}
+ 	\item Se realiza la descarga correctamente.
+ 	\end{itemize}
+ \\
+ \textbf{Excepciones} 			& 
+ 	\begin{itemize}
+ 	\item La base de datos no está disponible.
+ 	\end{itemize}
+ \\
+ \textbf{Importancia} 			& Media\\}
+ 
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ 
+\tablaSinColores{CU-16 Ordenar casos.}
+{L{3.5cm} L{10cm}}
+{2}
+{Tabla CU-16}
+{\textbf{CU-16} & \textbf{Ordenar casos} \\}
+{\textbf{Versión} 				& 1.0\\ 
+ \textbf{Autor} 				& Daniel Santidrián Alonso\\
+ \textbf{Requisitos asociados} 	& RF-7.6\\
+ \textbf{Descripción} 			& 
+ Permite al administrador ordenar la tabla de casos.\\
+ \textbf{Precondiciones} 		& 
+    \begin{itemize}
+ 	\item Se encuentra disponible la base de datos.
+ 	\item Se accede como administrador (autenticado).
+ 	\item Existe algún caso en la tabla.
+ 	\end{itemize}
+ \\
+ \textbf{Acciones} 				& 
+ 	\begin{enumerate}
+    \item El usuario accede a la página web.
+    \item El usuario abre la interfaz de administración.
+    \item El usuario se convierte en administrador autenticándose.
+    \item El administrador accede a la página de modificar casos.
+    \item Se listan los casos.
+    \item El administrador pincha en el encabezado de una columna para ordenarla de manera ascendente o descendente.
+    \end{enumerate}
+ \\
+ 
+ \textbf{Postcondiciones} 		& 
+    \begin{itemize}
+    \item Los casos se ordenan según el campo seleccionado.
+ 	\item El número de casos listados es igual que el número de casos almacenados en la base de datos.
+ 	\end{itemize}
+ \\
+ \textbf{Excepciones} 			& 
+ 	\begin{itemize}
+ 	\item La base de datos no está disponible.
+ 	\end{itemize}
+    
+ \\
+ \textbf{Importancia} 			& Media\\}
+ 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ 
+\tablaSinColores{CU-17 Gestión de aprendizaje.}
+{L{3.5cm} L{10cm}}
+{2}
+{Tabla CU-17}
+{\textbf{CU-17} & \textbf{Gestión de aprendizaje} \\}
+{\textbf{Versión} 				& 1.0\\ 
+ \textbf{Autor} 				& Daniel Santidrián Alonso\\
+ \textbf{Requisitos asociados} 	& RF-8, RF-8.1, RF-8.2, RF-8.3, RF-8.4, RF-8.5\\
+ \textbf{Descripción} 			& 
+ Permite al administrador gestionar las recomendaciones de aprendizaje.\\
+ \textbf{Precondiciones} 		& 
+    \begin{itemize}
+ 	\item Se encuentra disponible la base de datos.
+ 	\item Se accede como administrador (autenticado).
+ 	\end{itemize}
+ \\
+ \textbf{Acciones} 				& 
+ 	\begin{enumerate}
+    \item El usuario accede a la página web.
+    \item El usuario abre la interfaz de administración.
+    \item El usuario se convierte en administrador autenticándose.
+    \item El administrador accede a la página de aprendizaje.
+    \item Se listan las recomendaciones recogidas desde el asistente virtual en forma de tabla ordenable.
+    \item Se muestran menús para aprender o descartar cada una de las recomendaciones.
+    \item Se muestra una opción para exportar la tabla de recomendaciones.
+    \end{enumerate}
+ \\
+ 
+ \textbf{Postcondiciones} 		& 
+    \begin{itemize}
+ 	\item El número de recomendaciones listadas es igual que el número de recomendaciones almacenadas en la base de datos.
+ 	\end{itemize}
+ \\
+ \textbf{Excepciones} 			& 
+ 	\begin{itemize}
+ 	\item La base de datos no está disponible.
+ 	\end{itemize}
+    
+ \\
+ \textbf{Importancia} 			& Alta\\}
+ 
+ 
+ 
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ 
+\tablaSinColores{CU-18 Listar recomendaciones.}
+{L{3.5cm} L{10cm}}
+{2}
+{Tabla CU-18}
+{\textbf{CU-18} & \textbf{Listar recomendaciones} \\}
+{\textbf{Versión} 				& 1.0\\ 
+ \textbf{Autor} 				& Daniel Santidrián Alonso\\
+ \textbf{Requisitos asociados} 	& RF-8.1\\
+ \textbf{Descripción} 			& 
+ Permite al administrador visualizar en forma de tabla todos las recomendaciones de aprendizaje.\\
+ \textbf{Precondiciones} 		& 
+    \begin{itemize}
+ 	\item Se encuentra disponible la base de datos.
+ 	\item Se accede como administrador (autenticado).
+ 	\end{itemize}
+ \\
+ \textbf{Acciones} 				& 
+ 	\begin{enumerate}
+    \item El usuario accede a la página web.
+    \item El usuario abre la interfaz de administración.
+    \item El usuario se convierte en administrador autenticándose.
+    \item El administrador accede a la página de aprendizaje.
+    \item Se listan las recomendaciones de aprendizaje existentes en forma de tabla ordenable.
+    \end{enumerate}
+ \\
+ 
+ \textbf{Postcondiciones} 		& 
+    \begin{itemize}
+ 	\item El número de recomendaciones listadas es igual que el número de recomendaciones almacenadas en la base de datos.
+ 	\end{itemize}
+ \\
+ \textbf{Excepciones} 			& 
+ 	\begin{itemize}
+ 	\item La base de datos no está disponible.
+ 	\end{itemize}
+ \\
+ \textbf{Importancia} 			& Alta\\}
+ 
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ 
+\tablaSinColores{CU-19 Aprender recomendación.}
+{L{3.5cm} L{10cm}}
+{2}
+{Tabla CU-19}
+{\textbf{CU-19} & \textbf{Aprender recomendación} \\}
+{\textbf{Versión} 				& 1.0\\ 
+ \textbf{Autor} 				& Daniel Santidrián Alonso\\
+ \textbf{Requisitos asociados} 	& RF-8.2\\
+ \textbf{Descripción} 			& 
+ Permite al administrador completar el proceso de aprendizaje añadiendo un caso de forma automática con la recomendación.\\
+ \textbf{Precondiciones} 		& 
+    \begin{itemize}
+ 	\item Se encuentra disponible la base de datos.
+ 	\item Se accede como administrador (autenticado).
+ 	\item Existe alguna recomendación de aprendizaje.
+ 	\end{itemize}
+ \\
+ \textbf{Acciones} 				& 
+ 	\begin{enumerate}
+    \item El usuario accede a la página web.
+    \item El usuario abre la interfaz de administración.
+    \item El usuario se convierte en administrador autenticándose.
+    \item El administrador accede a la página de aprendizaje.
+    \item Se listan las recomendaciones de aprendizaje existentes en forma de tabla ordenable.
+    \item El administrador pincha el botón aprender sobre la recomendación deseada.
+    \end{enumerate}
+ \\
+ 
+ \textbf{Postcondiciones} 		& 
+    \begin{itemize}
+ 	\item El número de recomendaciones listadas es igual que el número de recomendaciones almacenadas en la base de datos.
+ 	\item Se encuentra el nuevo caso en la base de datos.
+ 	\item No se encuentra la recomendación aprendida.
+ 	\end{itemize}
+ \\
+ \textbf{Excepciones} 			& 
+ 	\begin{itemize}
+ 	\item La base de datos no está disponible.
+ 	\end{itemize}
+ \\
+ \textbf{Importancia} 			& Alta\\}
+ 
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ 
+\tablaSinColores{CU-20 Descartar recomendación.}
+{L{3.5cm} L{10cm}}
+{2}
+{Tabla CU-20}
+{\textbf{CU-20} & \textbf{Descartar recomendación} \\}
+{\textbf{Versión} 				& 1.0\\ 
+ \textbf{Autor} 				& Daniel Santidrián Alonso\\
+ \textbf{Requisitos asociados} 	& RF-8.3\\
+ \textbf{Descripción} 			& 
+ Permite al administrador descartar una recomendación que no quiere que el sistema aprenda.\\
+ \textbf{Precondiciones} 		& 
+    \begin{itemize}
+ 	\item Se encuentra disponible la base de datos.
+ 	\item Se accede como administrador (autenticado).
+ 	\item Existe alguna recomendación de aprendizaje.
+ 	\end{itemize}
+ \\
+ \textbf{Acciones} 				& 
+ 	\begin{enumerate}
+    \item El usuario accede a la página web.
+    \item El usuario abre la interfaz de administración.
+    \item El usuario se convierte en administrador autenticándose.
+    \item El administrador accede a la página de aprendizaje.
+    \item Se listan las recomendaciones de aprendizaje existentes en forma de tabla ordenable.
+    \item El administrador pincha el botón descartar sobre la recomendación deseada.
+    \end{enumerate}
+ \\
+ 
+ \textbf{Postcondiciones} 		& 
+    \begin{itemize}
+ 	\item El número de recomendaciones listadas es igual que el número de recomendaciones almacenadas en la base de datos.
+ 	\item No se encuentra el caso en la base de datos.
+ 	\item No se encuentra la recomendación descartada.
+ 	\end{itemize}
+ \\
+ \textbf{Excepciones} 			& 
+ 	\begin{itemize}
+ 	\item La base de datos no está disponible.
+ 	\end{itemize}
+ \\
+ \textbf{Importancia} 			& Alta\\}
+ 
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ 
+\tablaSinColores{CU-21 Exportar recomendaciones.}
+{L{3.5cm} L{10cm}}
+{2}
+{Tabla CU-21}
+{\textbf{CU-21} & \textbf{Exportar recomendaciones} \\}
+{\textbf{Versión} 				& 1.0\\ 
+ \textbf{Autor} 				& Daniel Santidrián Alonso\\
+ \textbf{Requisitos asociados} 	& RF-8.4\\
+ \textbf{Descripción} 			& 
+ Permite al administrador exportar la tabla de recomendaciones de aprendizaje.\\
+ \textbf{Precondiciones} 		& 
+    \begin{itemize}
+ 	\item Se encuentra disponible la base de datos.
+ 	\item Se accede como administrador (autenticado).
+ 	\end{itemize}
+ \\
+ \textbf{Acciones} 				& 
+ 	\begin{enumerate}
+    \item El usuario accede a la página web.
+    \item El usuario abre la interfaz de administración.
+    \item El usuario se convierte en administrador autenticándose.
+    \item El administrador accede a la página de aprendizaje.
+    \item Se listan todas las recomendaciones de aprendizaje.
+    \item El administrador pincha en el botón de exportar.
+    \item El administrador selecciona el formato deseado a exportar.
+    \end{enumerate}
+ \\
+ 
+ \textbf{Postcondiciones} 		& 
+    \begin{itemize}
+ 	\item Se realiza la descarga correctamente.
+ 	\end{itemize}
+ \\
+ \textbf{Excepciones} 			& 
+ 	\begin{itemize}
+ 	\item La base de datos no está disponible.
+ 	\end{itemize}
+ \\
+ \textbf{Importancia} 			& Media\\}
+ 
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ 
+\tablaSinColores{CU-22 Ordenar recomendaciones.}
+{L{3.5cm} L{10cm}}
+{2}
+{Tabla CU-22}
+{\textbf{CU-22} & \textbf{Ordenar recomendaciones} \\}
+{\textbf{Versión} 				& 1.0\\ 
+ \textbf{Autor} 				& Daniel Santidrián Alonso\\
+ \textbf{Requisitos asociados} 	& RF-8.5\\
+ \textbf{Descripción} 			& 
+ Permite al administrador ordenar la tabla de recomendaciones de aprendizaje.\\
+ \textbf{Precondiciones} 		& 
+    \begin{itemize}
+ 	\item Se encuentra disponible la base de datos.
+ 	\item Se accede como administrador (autenticado).
+ 	\item Existe alguna recomendación en la tabla.
+ 	\end{itemize}
+ \\
+ \textbf{Acciones} 				& 
+ 	\begin{enumerate}
+    \item El usuario accede a la página web.
+    \item El usuario abre la interfaz de administración.
+    \item El usuario se convierte en administrador autenticándose.
+    \item El administrador accede a la página de aprendizaje.
+    \item Se listan las recomendaciones de aprendizaje.
+    \item El administrador pincha en el encabezado de una columna para ordenarla de manera ascendente o descendente.
+    \end{enumerate}
+ \\
+ 
+ \textbf{Postcondiciones} 		& 
+    \begin{itemize}
+    \item Las recomendaciones se ordenan según el campo seleccionado.
+ 	\item El número de recomendaciones listadas es igual que el número de recomendaciones almacenadas en la base de datos.
+ 	\end{itemize}
+ \\
+ \textbf{Excepciones} 			& 
+ 	\begin{itemize}
+ 	\item La base de datos no está disponible.
+ 	\end{itemize}
+    
+ \\
+ \textbf{Importancia} 			& Media\\}
