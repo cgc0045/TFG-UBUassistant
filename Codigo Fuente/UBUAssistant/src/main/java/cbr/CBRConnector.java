@@ -1,4 +1,4 @@
-package cbr;
+package main.java.cbr;
 
 
 import org.apache.log4j.Logger;

@@ -1,4 +1,4 @@
-package handler;
+package main.java.handler;
 
 
 import java.util.ArrayList;
@@ -12,15 +12,15 @@ import java.util.stream.Collectors;
 
 import org.apache.log4j.Logger;
 
-import cbr.CBR;
-import database.DatabaseConnection;
 import jcolibri.cbrcore.CBRCase;
 import jcolibri.exception.ExecutionException;
 import jcolibri.method.retrieve.RetrievalResult;
-import representation.CaseDescription;
-import representation.CaseSolution;
-import storage.Storage;
-import util.ResultsComparator;
+import main.java.cbr.CBR;
+import main.java.database.DatabaseConnection;
+import main.java.representation.CaseDescription;
+import main.java.representation.CaseSolution;
+import main.java.storage.Storage;
+import main.java.util.ResultsComparator;
 
 /**
  * 

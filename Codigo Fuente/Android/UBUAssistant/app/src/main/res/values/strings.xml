@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">UBUAssistant</string>
+    <string name="send">Send</string>
+    <string name="say_something">Say something!</string>
+
+    <string name="title_activity_welcome">WelcomeActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+</resources>

@@ -11,6 +11,7 @@ import java.util.Map;
 import javax.annotation.Generated;
 
 import org.apache.log4j.Logger;
+
 import jcolibri.cbraplications.StandardCBRApplication;
 import jcolibri.cbrcore.Attribute;
 import jcolibri.cbrcore.CBRCase;
@@ -22,8 +23,8 @@ import jcolibri.exception.InitializingException;
 import jcolibri.method.retrieve.RetrievalResult;
 import jcolibri.method.retrieve.NNretrieval.NNConfig;
 import jcolibri.method.retrieve.NNretrieval.NNScoringMethod;
-import representation.CaseDescription;
-import representation.CaseSolution;
+import main.java.representation.CaseDescription;
+import main.java.representation.CaseSolution;
 
 
 /**
