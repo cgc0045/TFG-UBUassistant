@@ -27,6 +27,41 @@ public class SplashScreen extends Activity{
     }
 
     public void StartAnimations(){
+        //Create the animation and start it
+        Animation anim = AnimationUtils.loadAnimation(this, R.anim.alpha);
+        anim.reset();
+        LinearLayout l = (LinearLayout) findViewById(R.id.lin_lay);
+        l.clearAnimation();
+        l.startAnimation(anim);
 
+        anim = AnimationUtils.loadAnimation(this, R.anim.translate);
+        anim.reset();
+        ImageView iv = (ImageView) findViewById(R.id.logo);
+        iv.clearAnimation();
+        iv.startAnimation(anim);
+
+        splashThread = new Thread() {
+            @Override
+            public void run(){
+                try{
+                    int waited = 0;
+
+                    while (waited < 3500){
+                        sleep(100);
+                        waited += 100;
+                    }
+
+                    Intent it = new Intent(SplashScreen.this, MainActivity.class);
+                    it.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                    startActivity(it);
+                    SplashScreen.this.finish();
+                } catch (InterruptedException e){
+
+                } finally {
+                    SplashScreen.this.finish();
+                }
+            }
+        };
+        splashThread.start();
     }
 }

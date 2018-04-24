@@ -9,9 +9,9 @@
     android:orientation="vertical">
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/logo"
-        android:background="@drawable/ubu"/>
+        android:layout_width="100dp"
+        android:layout_height="178dp"
+        android:background="@drawable/ubu" />
 
 </LinearLayout>
