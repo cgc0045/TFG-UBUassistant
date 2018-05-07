@@ -15,5 +15,5 @@
         android:layout_height="wrap_content"
         android:adjustViewBounds="false"
         android:background="@drawable/intro"
-        android:scaleType="fitCenter" />
+        android:cropToPadding="false" />
 </LinearLayout>
