@@ -13,20 +13,29 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.apache.commons.io.IOUtils;
+
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.InetAddress;
+import java.net.MalformedURLException;
 import java.net.Socket;
+import java.net.URL;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Locale;
+
+import javax.net.ssl.HttpsURLConnection;
 
 public class MainActivity extends AppCompatActivity{
 
     private TextView resultText;
     private Socket socket;
+    private String respuesta;
 
 
     @Override
@@ -40,10 +49,15 @@ public class MainActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 new connectServer().execute();
+                Context context = getApplicationContext();
+                int duration = Toast.LENGTH_LONG;
+
+                Toast toast = Toast.makeText(context, respuesta, duration);
+                toast.show();
             }
         });
 
-        new Thread(new ClientThread()).start();
+        //new Thread(new ClientThread()).start();
     }
 
     public void onButtonClick(View v){
@@ -74,6 +88,7 @@ public class MainActivity extends AppCompatActivity{
                 if(result_code == RESULT_OK && i != null){
                     ArrayList<String> result = i.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                     resultText.setText(result.get(0));
+                    Log.e("Voice", resultText.toString());
                 }
                 break;
         }
@@ -100,8 +115,8 @@ public class MainActivity extends AppCompatActivity{
 
     private class connectServer extends AsyncTask<String, Void, String>{
         @Override
-        protected  String doInBackground(String... params){
-
+        protected  String doInBackground(String... params) {
+            /*
             String respuesta;
             String mod;
 
@@ -131,14 +146,31 @@ public class MainActivity extends AppCompatActivity{
 
             }catch (IOException e){
 
-            }
+            }*/
 
+            try {
+
+                URL pruebaURL = new URL("http://192.168.1.17:8080/PruebaREST/POP");
+                HttpURLConnection conexion = (HttpURLConnection) pruebaURL.openConnection();
+
+                if(conexion.getResponseCode() == 200){
+                    InputStream res = conexion.getInputStream();
+                    respuesta = IOUtils.toString(res);
+                }else{
+                    respuesta = "No se ha conectado al servidor";
+                }
+
+                Log.w("Respuesta", respuesta);
+
+                conexion.disconnect();
+
+            } catch (MalformedURLException e) {
+                Log.e("Error url", e.toString());
+            } catch (IOException e){
+                Log.e("Error url", e.toString());
+            }
             return "Executed";
         }
-    }
-
-    public void connectServer(){
-
     }
 
 }
