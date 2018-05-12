@@ -28,6 +28,7 @@ import java.net.URL;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.concurrent.ExecutionException;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -48,9 +49,19 @@ public class MainActivity extends AppCompatActivity{
         enviar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new connectServer().execute();
+
                 Context context = getApplicationContext();
                 int duration = Toast.LENGTH_LONG;
+
+                try {
+                    respuesta = new connectServer().execute().get();
+                }catch (InterruptedException e){
+                    Log.e("Interrupted exception", e.getMessage());
+                }catch (ExecutionException e){
+                    Log.e("Execution exception", e.getMessage());
+                }
+
+                Log.w("Post", respuesta);
 
                 Toast toast = Toast.makeText(context, respuesta, duration);
                 toast.show();
@@ -114,6 +125,9 @@ public class MainActivity extends AppCompatActivity{
     }
 
     private class connectServer extends AsyncTask<String, Void, String>{
+
+        String retorno;
+
         @Override
         protected  String doInBackground(String... params) {
             /*
@@ -150,17 +164,17 @@ public class MainActivity extends AppCompatActivity{
 
             try {
 
-                URL pruebaURL = new URL("http://192.168.1.17:8080/PruebaREST/POP");
+                URL pruebaURL = new URL("http://192.168.1.17:8080/PruebaREST/" + resultText.getText());
                 HttpURLConnection conexion = (HttpURLConnection) pruebaURL.openConnection();
 
                 if(conexion.getResponseCode() == 200){
                     InputStream res = conexion.getInputStream();
-                    respuesta = IOUtils.toString(res);
+                    retorno = IOUtils.toString(res);
                 }else{
-                    respuesta = "No se ha conectado al servidor";
+                    retorno = "No se ha conectado al servidor";
                 }
 
-                Log.w("Respuesta", respuesta);
+                Log.w("Respuesta", retorno);
 
                 conexion.disconnect();
 
@@ -169,7 +183,11 @@ public class MainActivity extends AppCompatActivity{
             } catch (IOException e){
                 Log.e("Error url", e.toString());
             }
-            return "Executed";
+            return retorno;
+        }
+
+        public String getRetorno() {
+            return retorno;
         }
     }
 
