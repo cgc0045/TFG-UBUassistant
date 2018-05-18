@@ -1,0 +1,294 @@
+\capitulo{5}{Aspectos relevantes del desarrollo del proyecto}
+
+Está sección tratará sobre los aspectos más interesantes del desarrollo del proyecto. Se incluyen las explicaciones de las distintas etapas del mismo, así como la exposición de las cuestiones más relevantes del diseño e implementación.
+
+\section{Inicio y fase de análisis}
+
+La idea del proyecto surge de un antiguo propósito de integrar un asistente virtual en la página web de la Universidad de Burgos que al final no pudo llevarse a cabo.
+
+Tras comentar con el tutor una serie de propuestas, me transmitió la idea de implementar un asistente virtual con el que los usuarios de la Universidad de Burgos puedan interactuar. La propuesta me pareció interesante desde el punto de vista de un usuario de la web, ya que no siempre es fácil encontrar la información deseada.
+
+\section{Metodologías aplicadas}
+
+La metodología principal que se ha intentado aplicar en el desarrollo del proyecto ha sido Scrum.
+
+No se siguieron las indicaciones de la metodología Scrum de manera estricta al tratarse de un proyecto pequeño, sin equipo de codificación grande, y sin poder realizar todas las reuniones necesarias. Sin embargo sí que se siguieron las siguientes pautas:
+
+\begin{itemize}
+\tightlist
+\item
+Desarrollo iterativo e incremental del producto mediante sprints.
+\item
+Duración en la mayoría de los sprints de una semana, exceptuando alguna más extensa por la coincidencia de días festivos.
+\item
+Reuniones al final de cada sprint para evaluar el producto obtenido y planificar la siguiente iteración.
+\item
+Entrega del producto totalmente funcional al final de cada sprint.
+\end{itemize}
+
+Se considera también la aplicabilidad de la metodología \emph{eXtreme Programming} al cambiar los requisitos en mitad de su desarrollo, característica principal de la programación extrema.
+
+El desarrollo del algoritmo \emph{CBR} fue realizado con técnicas de prueba y error para determinar los parámetros idóneos de la función que evalúa la similitud de los casos.
+
+\section{Formación}
+
+Durante el proceso de análisis y desarrollo del proyecto, se necesitaban conocimientos que todavía no habían sido adquiridos, en su mayor parte por estar cursando las asignaturas relacionadas de forma paralela. Por ello fueron necesarios algunos contenidos didácticos que ayudaron a realizar el producto.
+
+Se necesitó la compresión de los sistemas expertos que utilizan razonamiento basado en casos. Para ello se leyeron los siguientes artículos:
+
+\begin{itemize}
+\tightlist
+\item
+Razonamiento Basado en Casos: "Una visión general" (Laura Lozano y Javier Fernández) \cite{cbr:art}.
+\item
+Tutorial jCOLIBRI (J. Recio García, B. Díaz Agudo y P. González Calero) \cite{colibri:tut}
+\end{itemize}
+
+En la primera versión del proyecto se necesitó ampliar conocimientos sobre interfaces gráficas en Java Swing. Para ello se accedió a los siguientes recursos online:
+
+\begin{itemize}
+\tightlist
+\item
+\emph{Trail: Creating a GUI With JFC/Swing} (Oracle) \cite{swing:tut}.
+\end{itemize}
+
+Con el cambio de requisitos, la aplicación pasó a funcionar como un sistema distribuido cliente servidor gracias a JSP. Para poner en práctica este nuevo concepto se necesitaron conocimientos todavía no adquiridos. Esto se solventó consultando las siguientes referencias:
+
+\begin{itemize}
+\tightlist
+\item
+\emph{JSP Tutorial} (tutorialspoint) \cite{jsp:tut}.
+\item
+Aplicaciones web/sistemas web (Juan Pavón Mestras) \cite{jsp:tut2}
+\end{itemize}
+
+Además, durante todo el desarrollo se consultó con asiduidad la comunidad de \emph{StackOverflow} y los tutoriales de \emph{w3schools}.
+
+\section{Desarrollo del algoritmo}
+
+El algoritmo de búsqueda de respuesta al texto introducido por el usuario fue uno de los aspectos importantes en el desarrollo de la aplicación. Se debían tener en cuenta una serie de requisitos.
+
+\begin{itemize}
+\tightlist
+\item
+La forma de representar los casos.
+\item
+El estilo de texto que se quiere reconocer.
+\item
+Proceso de aprendizaje supervisado por un administrador.
+\item
+Proceso de revisión supervisado por un administrador.
+\end{itemize}
+
+En un principio había que determinar el sistema de persistencia elegido, se optó por una base de datos MySQL dado que el framework ofrecía acceso a base de datos mediante Hibernate.
+
+Acto seguido, se determinó la forma de representar los casos descriptivos en la base de datos, se empezó por una frase compacta, pero pronto nos dimos cuenta que la función de similitud no iba a trabajar de manera correcta sobre una frase. De este modo, se procedió a cambiar la representación de los casos por tres palabras clave, para posteriormente aumentarla a cinco palabras clave.
+
+También había que especificar la representación de los casos solución. En este caso la elección fue más sencilla, una cadena de texto.
+
+En este punto, una vez definidos todos los aspectos de los casos, nos encontramos el primer problema con el IDE seleccionado (ColibriStudio). No era posible conectar la base de datos mediante el asistente. Por lo tanto, fue necesario una tarea de comprensión más profunda de Hibernate para conectar la base de datos generando los ficheros necesarios de forma manual.
+
+Solventado el problema, se necesitaron varios incrementos de la aplicación para conseguir el algoritmo exacto deseado. Con los casos cargados desde la base de datos el algoritmo consiste en un ciclo formado por cuatro partes:
+
+\begin{itemize}
+\tightlist
+\item
+\textbf{Recordar:} en este punto del algoritmo se utiliza la función de similitud sobre cada palabra introducida por el usuario, generando una colección con el valor final obtenido.
+\item
+\textbf{Reutilizar:} fase que permite utilizar la colección anterior para extraer la respuesta. Este fue uno de los puntos más conflictivos, ya que el usuario puede escribir tantas palabras como quiera sin relación alguna entre ellas, pertenecientes a distintos casos y en orden distintos al guardado en la base de datos.
+
+Por ello en el paso de recordar se analiza cada palabra del usuario de manera independiente y se fusionan los mejores resultados obtenidos que comparten caso, obteniendo así las respuestas deseadas.
+\item
+\textbf{Revisar:} consiste en realizar una valoración de la respuesta. Esta tarea es desempeñada por el usuario, que será el que decida si valora una respuesta o no. Por lo tanto esta fase puede no ser ejecutada siempre y es independiente del ciclo.
+
+Se le otorga al usuario una barra de estrellas que cuando es pulsada guarda en base de datos mediante JDBC una entrada en la tabla de log de uso con la puntuación otorgada asociada a las palabras del caso que han generado la respuesta. 
+
+De esta manera, desde la página de administración, un encargado puede visualizar aquellos casos que necesitan ser revisados.
+\item
+\textbf{Retener:} consiste en realizar una asociación de una palabra buscada por el usuario a una respuesta de un caso ya almacenada.
+
+En este caso, este proceso es transparente pero también dependiente del usuario. Su funcionamiento se basa en las recomendaciones otorgadas por el sistema experto. Si una búsqueda no tiene resultados se generan sugerencias con los tres casos más próximos. Si se acepta una sugerencia se asocia la entrada del usuario con la respuesta del caso aceptado.
+\end{itemize}
+
+\section{Arquitectura web}
+
+Como se ha comentado anteriormente, el proyecto cambió de requisitos durante el desarrollo del mismo. Esto fue debido a su intención inicial y los problemas que surgirían de continuar la anterior idea. Para conocer más detalles ver la sección \ref{problemas}.
+
+La arquitectura elegida para el desarrollo de la aplicación web fue JSP. Su elección se basó principalmente en poder reutilizar el algoritmo de la aplicación realizado bajo los anteriores requisitos.
+
+La arquitectura JSP (\emph{JavaServer Pages}) finalmente seleccionada permite la creación de páginas web dinámicas con llamadas al servidor, donde se alojan las clases Java \cite{jsp:wiki}.
+
+\imagen{jsp-arch}{Arquitectura JSP \cite{jsp:arq}}
+
+Su aplicación en el proyecto ha consistido en realizar una página de inicio donde encontramos un icono en la parte inferior derecha. Este icono, al ser pulsado, abrirá una ventana flotante donde correrá nuestro asistente virtual.
+
+La ventana flotante carga una página JSP, dentro de esta página se encontrará el mensaje de bienvenida, junto con lo elementos necesarios para que el usuario escriba un texto.
+
+Cada vez que el usuario envía un texto, se realiza una llamada al servidor. Con esta llamada ejecutamos el algoritmo, concretamente la fase de reutilización y obtenemos las repuestas más acordes con las palabras introducidas por el usuario.
+
+\imagen{jsp-processing}{Pasos realizados por JSP en las llamadas al servidor}
+
+En este punto pueden producirse tres escenarios, existencia de una respuesta única, de una respuesta múltiple o la no existencia de una respuesta.
+
+Si existe solamente una respuesta, ésta es mostrada y, acto seguido, el usuario es redirigido a una siguiente página JSP para mostrar el mecanismo de valoración de respuesta.
+
+Si existen varias respuestas, el usuario es redirigido a otra página donde se le mostrarán las distintas respuestas, pudiendo elegir y valorar tantas como existan.
+
+En el caso de que no exista una respuesta, se redirige al usuario a una página mostrando las sugerencias de búsqueda. En el caso de que el usuario acepte una sugerencia se realizará el proceso de aprendizaje.
+
+Todas estas funcionalidades han sido desarrolladas tanto dentro de las propias páginas JSP, como con llamadas a las clases mediante código Java embebido en HTML.
+
+El procesamiento de la entrada del usuario, así como el paso de elementos entre las distintas páginas se ha realizado mayoritariamente con formularios debido a su simplicidad, concretamente con el método \emph{post} ocultando al usuario los parámetros pasados. En ciertos casos se han utilizado variables de sesión para poder utilizarlas en cualquier punto de la aplicación sin que sufran cambios, como es el caso del identificador único de usuario, que es creado al pulsar sobre el icono que abre la aplicación \cite{jsp:form}.
+
+\section{Base de datos}
+
+El gestor de base de datos elegido fue MySQL. Su elección se basó en su simplicidad y en su compatibilidad con las herramientas de las que se iba a hacer uso.
+
+La base de datos está compuesta por siete tablas. Dos de ellas referentes a la representación de los casos.
+
+La tabla \emph{casedescription} contiene la descripción de los casos, cinco palabras clave junto con la categoría a la que pertenecen para almacenar el log de uso.
+
+La tabla \emph{casesolution} contiene la solución para cada caso, que está formada por una cadena de texto.
+
+La tabla \emph{saludos} incluye las palabras comunes que pueden ser introducidas por el usuario así como las contestación oportuna.
+
+La tabla \emph{frases} es la que posee tanto las frases de saludo como las frases de respuesta que otorgan a la aplicación un aspecto más humano y sociable.
+
+La tabla \emph{aprendizaje} recoge la palabra a aprender junto con la respuesta asociada.
+
+En la tabla \emph{logger} se almacena el log de uso de cada usuario. Se guardan por cada conjunto de palabras buscadas el identificador de usuario, la fecha, las palabras buscadas, la respuesta otorgada, la categoría de la búsqueda, el número de búsquedas, el número de votos y la votación total.
+
+Por último la tabla \emph{administradores} es la encargada de almacenar las credenciales para que los administradores puedan acceder a la página de mantenimiento.
+
+Se han utilizado dos formas de acceder a las tablas almacenadas en la base de datos, \emph{Hibernate} y \emph{JDBC}.
+
+El uso de Hibernate se ha debido al uso del propio framework jCOLIBRI, ya que es el método que utiliza para mapear las clases con las tablas de los casos almacenadas en la base de datos.
+
+El asistente proporcionado por ColibriStudio permite configurar el método de persistencia con base de datos a través de un asistente, sin embargo, este asistente llegaba a un punto donde se producía algún tipo de error interno que no le dejaba avanzar. Por ello se tuvo que indagar en la forma de crear correctamente los archivos para que el framework funcionase de forma apropiada.
+
+Los ficheros que forman la configuración de Hibernate son:
+
+\begin{itemize}
+\tightlist
+\item
+\textbf{databaseconfig.xml:} contiene las referencias a los archivos de configuración de la base de datos (hibernate.cfg.xml) además de los nombres de las clases junto con los archivos que los mapean.
+\item
+\textbf{hibernate.cfg.xml:} archivo que posee la configuración de la base de datos (\emph{username, password, driver, URL...})
+\item
+\textbf{caseDescription.hbm.xml:} contiene la configuración para realizar el mapeo de cada atributo de la clase Java con la tabla almacenada referente a los casos descriptivos.
+\item
+\textbf{caseSolution.hbm.xml:} incluye la configuración necesaria para realizar el mapeo de cada atributo de la clase Java con la tabla almacenada referente a los casos solución.
+\end{itemize}
+
+El driver \emph{JDBC} es utilizado por la clases Java \emph{DatabaseConnection} y \emph{DatabaseAdminstration}. Estas clases engloban todo el acceso a la base de datos, y se encargan de la lectura y escritura en la base de datos de las tablas que no pertenecen a los casos.
+
+Concretamente, \emph{DatabaseConnection} realiza la lectura de las tablas que contienen las frases de saludo y las palabras comunes, y se encarga de la escritura del log y del aprendizaje. \emph{DatabaseAdminstration} se encarga de realizar la operaciones de administración como añadir, editar o eliminar un caso, aceptar o ignorar una recomendación de aprendizaje o borrar la tabla de log.
+
+
+\section{Problemas}\label{problemas}
+
+\subsection{Tecnología de desarrollo}
+
+El propósito inicial del proyecto fue realizar una aplicación Java, con una interfaz gráfica que permitiera su ejecución embebida en una página web HTML.
+
+A medida que avanzaba el desarrollo del proyecto nos dimos cuenta de la complicación de embeber una aplicación Java en una página web HTML. Principalmente, el detonante principal del cambio de concepto fue el poco soporte que los navegadores web ofrecen hoy en día a Java, siendo en algún caso inexistente como ocurre con Google Chrome.
+
+Como problema añadido está la alta seguridad que necesita Java para ejecutar un archivo \emph{.jar}. Es necesario que la aplicación esté firmada, y aún así, sigue habiendo ciertos problemas para su ejecución por parte de un usuario inexperto.
+
+Todo ello derivó en el cambio de requisito, de una aplicación Java a una aplicación web.
+
+JSP fue la arquitectura elegida por el hecho de poder reutilizar el algoritmo CBR escrito en Java.
+
+En un primer momento, traducir la aplicación desde la primera versión hacia JSP no parecía una tarea complicada, sin embargo, a la hora de proceder fue una tarea más larga y tediosa de lo esperado.
+
+Fue necesaria una ampliación muy grande de los pocos conocimientos que se tenían sobre la programación web. La forma de interactuar con la interfaz HTML es radicalmente distinta a la experiencia con \emph{Java Swing} por lo que se tuvieron que realizar grandes esfuerzos para obtener el mismo resultado que en la primera versión del proyecto.
+
+La aplicación de los conceptos de redirección para realizar llamadas al servidor y su mezcla con la programación en el cliente mediante \emph{JavaScript} fue una de las tareas más complicadas.
+
+\subsection{Selenium}
+
+En cuanto al desarrollo de pruebas con Selenium, se encontraron varios problemas.
+
+Uno de los problemas encontrados fue con la dependencia Guava. El framework jCOLIBRI utiliza una más versión antigua de la que necesitaba el WebDriver de Selenium para funcionar correctamente. Debido a esto Selenium no funcionaba correctamente devolviendo errores poco descriptivos que hicieron que detectar el causante del problema fuera muy complicado. Se solucionó utilizando la versión más reciente de la dependencia Guava.
+
+Otro de los problemas encontrados fue el uso de las variables de sesión en la aplicación. El WebDriver de Selenium al ejecutar las pruebas inicia una versión del navegador elegido que no es completa, esto ocasionaba que la sesión cambiase al realizar cualquier acción sobre la web, dejando al usuario sin identificar. Además de con la herramienta de Selenium, este problema afectaba también al navegador Microsoft Edge que, aún teniendo las \emph{cookies} activadas, no almacenaba la sesión correctamente. Este problema fue solucionado añadiendo la identificación de sesión a la URL mediante el método de \emph{encodeURL} + \emph{HTTPSession} en lugar de únicamente con \emph{HTTPSession}. De esta forma el identificador de usuario es pasado en la URL impidiendo su variación.
+
+\subsection{Hibernate}
+
+Durante la configuración del conector con la base de datos mediante Hibernate se encontró un problema con la cantidad de conexiones permitidas.
+
+La configuración del conector es realizada por métodos ofrecidos por el framework de inteligencia artificial jCOLIBRI. Esta configuración pretendía, en un primer momento, realizarse por cada conexión a la aplicación. Sin embargo, al llegar a un número determinado de conexiones no se permitía realizar más, obligando a volver a lanzar el servidor con la aplicación.
+
+\emph{Data source rejected establishment of connection, message from server: “Too many connections”.}
+
+La solución a este problema consistió en la abstracción de la conexión de Hibernate con la base de datos en una clase independiente aplicando el patrón \emph{singleton} para realizar solamente una vez la configuración del conector de la base de datos. De esta forma cada usuario que se conecte a la aplicación obtendrá su propio conector sin necesidad de configurarlo cada vez.
+
+
+\section{Testing}
+
+La aplicación se ha testeado mediante test unitarios así como con test de interfaz.
+
+Los test unitarios han sido los encargados de probar cada módulo de la aplicación por separado. Dentro de los test unitarios se han probado los métodos de las clases Java exceptuando el algoritmo de búsqueda de respuesta para lo que es necesario arrancar el servidor.
+
+Por otra parte, se han realizado test de interfaz con Selenium. Se ha llevado a cabo un test de interfaz por cada requisito planteado, además de comprobar la funcionalidad básica de la web. Los test de interfaz se ejecutan sobre la página web y simulan el comportamiento de un usuario comprobando si el resultado obtenido de realizar una acción es la correcta. En este punto se comprueba también la integración de cada módulo del sistema, así como el correcto funcionamiento del algoritmo de búsqueda de respuesta. No es posible testear el algoritmo sin el servidor arrancado porque son necesarias dependencias que son cargadas dinámicamente desde el fichero \emph{pom.xml} mediante Maven para su correcto funcionamiento.
+
+La realización de pruebas con la herramienta Selenium ha ocasionado varios problemas, ralentizando el desarrollo de los test de interfaz y por ente de la aplicación. Los problemas detallados pueden encontrase en la sección \ref{problemas}.
+
+
+\section{Estadísticas}
+
+A continuación se detallan algunas de las características más interesantes del proyecto. Para recoger las estadísticas no se han tenido en consideración los ficheros JSP en cuanto a estadísticas de código Java.
+
+Las denominadas clases deseadas son aquellas que no forman parte del algoritmo de búsqueda de respuesta ya que, como se ha comentado, se necesitan dependencias dinámicas descargadas mediante Maven.
+
+Los datos han sido obtenidos de las mediciones realizadas por RefactorIt y Eclipse.
+
+\tablaSmallSinColores{Estadísticas del proyecto.}
+{l l}{Estadisticas del proyecto}
+{\textbf{Entidad} & \textbf{Valor}\\}
+{Número de clases Java              & 10                  \\
+Número de archivos XML             & 8                 \\
+Número de archivos JSP             & 16                 \\
+Número de archivos HTML            & 6                  \\
+Número de archivos CSS             & 10                  \\
+Número de archivos JS              & 9                \\
+\midrule
+Total de líneas Java               & 1940              	\\
+Líneas de código                   & 54.7\%            	\\
+Comentarios                        & 25.5\%             \\
+Líneas en blanco                   & 19.8\%    		    \\
+\midrule
+Número de test unitarios           & 21					\\
+Cobertura total test unitarios     & 36,6\%             \\
+Cobertura test unitarios clases deseadas & 92.4\%       \\
+Número de test de interfaz         & 10					\\ 
+}
+
+
+\section{Documentación}
+
+Desde un primer momento se tuvo claro que a la hora de realizar la documentación la herramienta seleccionada sería LaTeX. Su elección se basó en la características que posee, como la alta calidad de texto formateado además de tener una plantilla disponible con todos los comandos especificados.
+
+El editor de LaTeX seleccionado fue TexMaker, las razones fueron su extendido uso y su facilidad, pudiendo trabajar con varios formatos como por ejemplo BibTex, extensión para definir la bibliografía.
+
+\section{Publicación}
+
+La aplicación web desarrollada aún no ha sido publicada.
+
+Actualmente la aplicación se está ejecutando sobre un servidor Tomcat local junto a una instancia de MySQL también ejecutada en modo local.
+
+El sistema desarrollado puede ser alojado en cualquier servidor que cuente con unos requisitos mínimos.
+
+\begin{itemize}
+\tightlist
+\item \textbf{Tomcat:} tanto el asistente virtual como la parte de administración utilizan tecnología JSP con lo que es necesaria una máquina virtual de Java para funcionar correctamente. Tomcat en su versión 7 o posteriores nos ofrece esta funcionalidad y compatibilidad con la aplicación desarrollada.
+\item \textbf{MySQL:} la aplicación se comunica con una base de datos MySQL, con que es necesaria su presencia.
+\end{itemize}
+
+El asistente virtual puede ser integrado en cualquier página web de manera sencilla haciendo referencia a la lógica de la aplicación siempre que se encuentre en un servidor bajo los requisitos anteriormente mencionados.
+
+Durante el desarrollo del proyecto se mantuvieron conversaciones con el Servicio de Informática de la Universidad de Burgos para poder alojar la aplicación en un servidor de su propiedad, adquiriendo el compromiso de orientar la aplicación a dar asistencia a los usuarios del CAU funcionando en modo de pre-producción.
+
+Finalmente, y por falta de tiempo, no se llevó a cabo quedando como una posible implementación en un futuro a corto plazo.
+
+De efectuar la anterior propuesta y, concluido el tiempo de pre-producción, cabría la posibilidad de ofrecer la aplicación como herramienta de información al estudiante en el "Servicio de Información y Orientación en Salud Joven Universitaria".

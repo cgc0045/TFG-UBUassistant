@@ -1,0 +1,240 @@
+\apendice{Documentación de usuario}
+
+\section{Introducción}
+
+La documentación de usuario recoge y detalla los requisitos de usuario para ejecutar la aplicación, las instrucciones para su instalación, y las directrices para su utilización.
+
+\section{Requisitos de usuarios}
+
+Para poder utilizar la aplicación el usuario debe disponer de:
+
+\begin{itemize}
+\tightlist
+\item Dispositivo con navegador web.
+\item Navegador web con JavaScript habilitado.
+\item Acceso a Internet.
+\end{itemize}
+
+\section{Instalación}
+
+La aplicación no requiere instalación. Actualmente se ejecuta en un servidor local, pudiendo acceder a la página web mediante la dirección local de la máquina junto con el puerto que utiliza.
+
+En un futuro el asistente virtual puede ser integrado en cualquier página web por lo que tampoco es necesaria una instalación para poder utilizarla, basta únicamente con acceder a la dirección web donde esté alojada.
+
+
+\section{Manual del usuario}
+
+EL siguiente manual tratará de orientar y enseñar a un posible usuario del asistente virtual así como a un administrador de la aplicación.
+
+\subsection{Asistente virtual}
+
+\subsubsection{Preguntar}
+
+\begin{enumerate}
+\item Acceder a la página donde se encuentra el asistente.
+\item Abrir el asistente pulsando sobre el icono.
+\imagenPeque{Icon.png}{Icono que abre el asistente.}
+\item Realizar la pregunta sobre el apartado "Pregunta a UBUassistant" de la interfaz cargada.
+\imagen{Interfaz1.png}{Interfaz asistente virtual.}
+\end{enumerate}
+
+\subsubsection{Obtener respuesta}
+
+\begin{enumerate}
+\item Acceder a la página donde se encuentra el asistente.
+\item Abrir el asistente pulsando sobre el icono.
+\item Realizar la pregunta sobre el apartado "Pregunta a UBUassistant" de la interfaz cargada.
+\item Si existe una única respuesta se muestra sobre la interfaz.
+\imagen{Interfaz2.png}{Interfaz asistente virtual con respuesta única.}
+\end{enumerate}
+
+\subsubsection{Obtener recomendaciones}
+
+\begin{enumerate}
+\item Acceder a la página donde se encuentra el asistente.
+\item Abrir el asistente pulsando sobre el icono.
+\item Realizar la pregunta sobre el apartado "Pregunta a UBUassistant" de la interfaz cargada.
+\item Si existen múltiples respuestas se muestran botones sobre la interfaz.
+\imagen{Interfaz3.png}{Interfaz asistente virtual con respuesta múltiple.}
+Al pulsar los botones nos otorga la respuesta y seleccionando la opción de no valorar la respuesta volvemos al los botones restantes por si se desea alguna otra respuesta relacionada.
+\imagen{Interfaz4.png}{Interfaz asistente virtual sin respuesta.}
+
+\item Si no existe respuesta se muestran tres recomendaciones en forma de botones en la interfaz.
+\imagen{Interfaz5.png}{Interfaz asistente virtual sin respuesta.}
+Al pulsarlos se muestra la respuesta oportuna.
+\imagen{Interfaz6.png}{Interfaz asistente virtual sin respuesta.}
+
+\end{enumerate}
+
+\subsubsection{Valorar respuestas}
+
+\begin{enumerate}
+\item Acceder a la página donde se encuentra el asistente.
+\item Abrir el asistente pulsando sobre el icono.
+\item Realizar la pregunta sobre el apartado "Pregunta a UBUassistant" de la interfaz cargada.
+\item Si existe una única respuesta se muestra el mecanismo de valoración sobre la interfaz pudiendo seleccionar de una a cinco estrellas.
+\imagen{Interfaz2.png}{Mecanismo de valoración con respuesta única.}
+\item Si existen múltiples respuestas se muestran botones sobre la interfaz.
+
+Al pulsar los botones nos otorga la respuesta y nos pregunta si deseamos valorar la respuesta. 
+
+\imagen{Interfaz7.png}{Pregunta de valoración}
+
+Al responder de forma afirmativa nos muestra la barra de estrellas.
+
+\imagen{Interfaz8.png}{Mecanismo de valoración con respuesta múltiple.}
+
+Al terminar de valorar nos muestra de nuevo el panel con las recomendaciones restantes.
+
+\imagen{Interfaz4.png}{Interfaz asistente virtual con respuesta múltiple.}
+
+\item Si no existe respuesta se muestran tres recomendaciones en forma de botones en la interfaz.
+
+Al pulsarlos se muestra la respuesta oportuna y el mecanismo de valoración.
+
+\imagen{Interfaz6.png}{Mecanismo de valoración sin respuesta.}
+
+\end{enumerate}
+
+\subsection{Administración}
+
+\begin{enumerate}
+\item Acceder a la página principal.
+\item Pulsar el botón para acceder a la página de administración.
+\imagenMuyPeque{Admin1.png}{Icono de acceso a la página de administración.}
+\item Autenticarse con las credenciales.
+\imagen{Admin2.png}{Login página de administración.}
+\end{enumerate}
+
+\subsubsection{Listar log}
+
+\begin{enumerate}
+\item Estando autenticado como administrador.
+\item Ir a la página de log.
+\imagen{AdminLog.png}{Interfaz log de uso.}
+\end{enumerate}
+
+\subsubsection{Limpiar log}
+
+\begin{enumerate}
+\item Estando autenticado como administrador.
+\item Ir a la página de log.
+\item Pulsar sobre el botón de limpiar tabla.
+\imagenMuyPeque{AdminLog1.png}{Botón limpiar tabla de log.}
+\item Confirmar el borrado.
+\end{enumerate}
+
+\subsubsection{Exportar log}
+
+\begin{enumerate}
+\item Estando autenticado como administrador.
+\item Ir a la página de log.
+\item Pulsar sobre el botón de guardar como.
+\imagenMuyPeque{AdminLog2.png}{Botón guardar como.}
+\item Seleccionar el formato deseado.
+\imagen{AdminLog3.png}{Formatos guardar como.}
+\end{enumerate}
+
+\subsubsection{Ordenar log}
+
+\begin{enumerate}
+\item Estando autenticado como administrador.
+\item Ir a la página de log.
+\item Pulsar sobre el encabezado de una columna para ordenar. Pulsar varias veces para cambiar el orden ascendente o descendente.
+\end{enumerate}
+
+\subsubsection{Listar casos}
+
+\begin{enumerate}
+\item Estando autenticado como administrador.
+\item Ir a la página de modificar casos.
+\imagen{AdminCases1.png}{Interfaz modificar casos.}
+\end{enumerate}
+
+\subsubsection{Añadir caso}
+
+\begin{enumerate}
+\item Estando autenticado como administrador.
+\item Ir a la página de añadir caso.
+\imagen{AdminCases2.png}{Interfaz añadir caso.}
+\item Rellenar al menos la palabra clave 1, la categoría y la respuesta.
+\item Pulsar aceptar.
+\end{enumerate}
+
+\subsubsection{Editar caso}
+
+\begin{enumerate}
+\item Estando autenticado como administrador.
+\item Ir a la página de modificar casos.
+\item Pulsar editar sobre el caso deseado.
+\imagen{AdminCases3.png}{Interfaz editar casos.}
+\item Rellenar los campos, siendo la palabra clave 1, la categoría y la respuesta obligatorios.
+\item Pulsar aceptar.
+\end{enumerate}
+
+\subsubsection{Eliminar caso}
+
+\begin{enumerate}
+\item Estando autenticado como administrador.
+\item Ir a la página de modificar casos.
+\item Pulsar eliminar sobre el caso deseado.
+\item Confirmar el borrado del caso.
+\end{enumerate}
+
+\subsubsection{Exportar casos}
+
+\begin{enumerate}
+\item Estando autenticado como administrador.
+\item Ir a la página de modificar casos.
+\item Pulsar sobre el botón de guardar como.
+\item Seleccionar el formato deseado.
+\end{enumerate}
+
+\subsubsection{Ordenar casos}
+
+\begin{enumerate}
+\item Estando autenticado como administrador.
+\item Ir a la página de modificar casos.
+\item Pulsar sobre el encabezado de una columna para ordenar. Pulsar varias veces para cambiar el orden ascendente o descendente.
+\end{enumerate}
+
+\subsubsection{Listar recomendaciones}
+
+\begin{enumerate}
+\item Estando autenticado como administrador.
+\item Ir a la página de aprendizaje.
+\imagen{AdminLearn1.png}{Interfaz aprendizaje.}
+\end{enumerate}
+
+\subsubsection{Aprender recomendación}
+
+\begin{enumerate}
+\item Estando autenticado como administrador.
+\item Ir a la página de aprendizaje.
+\item Pulsar el botón aprender sobre la recomendación deseada.
+\end{enumerate}
+
+\subsubsection{Descartar recomendación}
+
+\begin{enumerate}
+\item Estando autenticado como administrador.
+\item Ir a la página de aprendizaje.
+\item Pulsar el botón descartar sobre la recomendación deseada.
+\end{enumerate}
+
+\subsubsection{Exportar recomendaciones}
+
+\begin{enumerate}
+\item Estando autenticado como administrador.
+\item Ir a la página de aprendizaje.
+\item Pulsar sobre el botón de guardar como.
+\item Seleccionar el formato deseado.
+\end{enumerate}
+
+\subsubsection{Ordenar recomendaciones}
+
+\begin{enumerate}
+\item Estando autenticado como administrador.
+\item Ir a la página de aprendizaje.
+\item Pulsar sobre el encabezado de una columna para ordenar. Pulsar varias veces para cambiar el orden ascendente o descendente.
+\end{enumerate}
