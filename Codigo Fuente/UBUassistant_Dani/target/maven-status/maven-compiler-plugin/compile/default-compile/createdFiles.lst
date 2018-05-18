@@ -1,9 +1,0 @@
-cbr\CBRConnector.class
-representation\CaseSolution.class
-storage\Storage.class
-database\DatabaseAdministration.class
-util\ResultsComparator.class
-cbr\CBR.class
-database\DatabaseConnection.class
-handler\UBUassistantHandler.class
-representation\CaseDescription.class
