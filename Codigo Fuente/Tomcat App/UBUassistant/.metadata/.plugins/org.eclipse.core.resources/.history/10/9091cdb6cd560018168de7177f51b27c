@@ -1,0 +1,16 @@
+package UBUassistant.service;
+
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.core.Response;
+
+@Path("/service")
+public class Response {
+
+	@GET
+	@Path("/{question}")
+	public Response sayHello() {
+		
+		return null;
+	}
+}

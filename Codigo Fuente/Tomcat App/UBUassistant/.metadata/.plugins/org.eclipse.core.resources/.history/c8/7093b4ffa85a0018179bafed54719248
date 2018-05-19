@@ -1,0 +1,55 @@
+package UBUassistant.service;
+
+import java.util.LinkedHashSet;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.Response;
+
+import handler.UBUassistantHandler;
+import storage.Storage;
+
+@Path("/service")
+public class ResponseUser {
+	
+	private HttpSession session;
+
+	@GET
+	@Path("/{question}")
+	public Response getResponse(@PathParam("question") String userText, @Context HttpServletRequest request) {
+		
+		session = request.getSession();
+		
+		UBUassistantHandler ubuassistant= (UBUassistantHandler) session.getAttribute("ubuassistantHandler");
+		
+		String answer = null;
+		String printText=null;
+		if(userText.length()>0){
+			printText=userText.substring(0, 1).toUpperCase() + userText.substring(1).toLowerCase();
+			ubuassistant.setUsertText(userText);
+			answer = ubuassistant.getResponse();
+		}
+		
+		Storage storage = ubuassistant.getStorage();
+		
+		String suggestButtons=ubuassistant.getSuggestButtons();
+		
+		if(suggestButtons!=null){
+		
+			LinkedHashSet<String> temp = new LinkedHashSet<String>();
+		  	temp.add(userText);
+		  	ubuassistant.getDb().aumentarNumBusquedas(temp, null);
+		}
+		
+		String multipleButtons=ubuassistant.getMultipleButtons();
+		if(multipleButtons!=null){
+			
+		}
+		
+		return Response.status(200).entity(suggestButtons).build();
+	}
+}

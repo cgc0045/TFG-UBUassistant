@@ -1,0 +1,26 @@
+package UBUassistant.service;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.Response;
+
+import handler.UBUassistantHandler;
+
+@Path("/service")
+public class ResponseUser {
+
+	@GET
+	@Path("/{question}")
+	public Response sayHello(@PathParam("question") String msg, @Context HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+		
+		UBUassistantHandler ubuassistant= (UBUassistantHandler) session.getAttribute("ubuassistantHandler");
+		
+		return null;
+	}
+}

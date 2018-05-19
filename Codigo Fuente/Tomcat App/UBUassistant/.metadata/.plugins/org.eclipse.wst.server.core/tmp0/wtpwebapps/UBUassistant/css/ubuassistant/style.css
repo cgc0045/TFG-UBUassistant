@@ -1,0 +1,354 @@
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700);
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: rgba(171, 34, 60, 1);
+}
+
+body, html {
+  height: 100%;
+}
+
+body {
+  font-family: 'Source Sans Pro', sans-serif;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 5px;
+}
+
+.chat-output {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  padding: 5px;
+  margin-top:5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  background: white;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  border-radius:15px;
+  overflow: auto;
+  overflow-x: hidden;
+  font-size: 10px;
+}
+
+::-webkit-scrollbar {
+    width: 0px; 
+    background: transparent; 
+}
+
+
+.chat-output > div {
+  margin: 0 0 20px 0;
+  margin-bottom: 10px;
+}
+
+
+a {
+    color: white;
+}
+
+.chat-output .user-message .message {
+  background: #0FB0DF;
+  color: white;
+}
+.chat-output .bot-message {
+  text-align: right;
+}
+.chat-output .bot-message .message {
+  background: #eee;
+}
+.chat-output .message {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 10px;
+}
+
+.chat-input {
+  padding-top: 8px;
+  padding-bottom: 5px;
+  background: rgba(171, 34, 60, 1);
+  border: 1px;
+  border-bottom: 0;
+}
+
+#user-input-form{
+	margin-bottom: 0px;
+}
+
+.chat-input .user-input {
+  width: 70%;
+  font-size: 0.8rem;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  padding: 8px;
+}
+
+
+.chat-input .enviar {
+  width: 22%;
+  font-size: 0.8rem;
+  text-align: center;
+  border: 1px;
+  border-radius: 15px;
+  padding: 8px;
+  display: inline-block;
+  margin-left: 8px;
+  background: #0FB0DF;
+  color: white;
+  cursor: pointer;
+
+}
+
+.buttonPanelContent{
+	text-align: center;
+}
+
+
+
+.buttonPanel{
+	
+	
+	display: inline-block;
+	vertical-align: middle;
+	padding-top: 5px;
+	color: white;
+	font-size:12px;
+	text-align: center;
+	}
+
+.buttonPanel .sugBut {
+  margin: 0 auto;
+  width: auto;
+  font-size: 0.7rem;
+  text-align: center;
+  border: 1px;
+  border-radius: 15px;
+  padding: 6px;
+  display: inline-block;
+  background: #0FB0DF;
+  color: white;
+  cursor: pointer;
+  float:left;
+  margin-left: 4px;
+  margin-right: 4px;
+}
+
+
+.buttonPanel .multBut {
+  margin: 0 auto;
+  width: auto;
+  font-size: 0.7rem;
+  text-align: center;
+  border: 1px;
+  border-radius: 15px;
+  padding: 6px;
+  display: inline-block;
+  background: #0FB0DF;
+  color: white;
+  cursor: pointer;
+  float:left;
+  margin-left: 4px;
+  margin-right: 4px;
+}
+
+.multipleForm{
+  float:left;
+  margin-bottom: 4px;
+}
+
+
+/************************************************************/
+
+.rate-text{
+	font-size: 12px;
+	display: inline;
+}
+
+.rate-text-q{
+	font-size: 12px;
+	display: ruby-text;
+	margin-bottom: 5px;
+}
+
+
+
+
+.rate {
+    border: 1px;
+    float: left;
+    padding: 0 10px;
+    text-align: center;
+    color: white;
+}
+.rate:not(:checked) > input {
+    position:absolute;
+    top:-9999px;
+}
+.rate:not(:checked) > label {
+    float:right;
+    width:1em;
+    overflow:hidden;
+    white-space:nowrap;
+    cursor:pointer;
+    font-size:15px;
+    color:#ccc;
+}
+.rate:not(:checked) > label:before {
+    content: "\2605";
+}
+.rate > input:checked ~ label {
+    color: #ffc700;    
+}
+.rate:not(:checked) > label:hover,
+.rate:not(:checked) > label:hover ~ label {
+    color: #deb217;  
+}
+.rate > input:checked + label:hover,
+.rate > input:checked + label:hover ~ label,
+.rate > input:checked ~ label:hover,
+.rate > input:checked ~ label:hover ~ label,
+.rate > label:hover ~ input:checked ~ label {
+    color: #c59b08;
+}
+
+
+/******************************************************************************************/
+
+@media (min-width: 359px),(min-heigh: 449px) {
+
+		
+
+		.chat-output {
+		  	font-size: 90%;
+		   	padding: 10px;
+		}
+		
+		.chat-output .message {
+		    padding: 6px 16px;
+		}
+		
+		.chat-input .user-input {
+		  	width: 75%;
+			font-size: 0.9rem;
+		}
+
+		.chat-input .enviar {
+			width: 17%;
+		  	font-size: 0.9rem;
+		}
+		
+		.buttonPanel{
+			font-size: 14px;
+		}
+		
+		.buttonPanel .sugBut {
+			padding: 8px;
+		 	font-size: 0.7rem;
+		}
+		
+		
+		.buttonPanel .multBut {
+			padding: 8px;
+		  	font-size: 0.7rem;
+		}
+		
+		.rate-text{
+			font-size: 14px;
+		}
+		
+		.rate-text-q{
+			font-size: 14px;
+			display: ruby-text;
+			margin-bottom: 5px;
+		}
+		
+		
+		
+		
+		.rate:not(:checked) > label {
+		    font-size:20px;
+		}
+
+}
+
+
+
+/******************************************************************************************/
+
+@media (min-width: 409px),(min-heigh: 499px) {
+
+		.chat-output {
+		  	font-size: 100%;
+		    padding: 10px;
+		}
+		
+		.chat-output .message {
+		    padding: 10px 18px;
+		}  
+
+		.chat-input .user-input {
+		  width: 80%;
+		  font-size: 1rem;
+		}
+		
+		.chat-input .enviar {
+		  	width: 17%;
+  			font-size: 1rem;
+		}
+
+		.buttonPanel{
+			font-size:16px;
+		}
+		
+		.buttonPanel .sugBut {
+			padding: 8px;
+		  	font-size: 0.8rem;
+		}
+		
+		
+		.buttonPanel .multBut {
+			padding: 8px;
+		  	font-size: 0.8rem;
+		}
+		
+		.rate{
+			height: 46px;
+		}
+
+		.rate-text{
+			font-size:16px;
+			display: block;
+		}
+		
+		.rate-text-q{
+			font-size:16px;
+			display: block;
+		}
+		
+		
+		
+		
+		.rate:not(:checked) > label {
+		    font-size:30px;
+		}
+
+
+
+}
+
+
+

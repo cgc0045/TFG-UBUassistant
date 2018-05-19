@@ -9,17 +9,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import org.apache.commons.io.IOUtils;
-
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.InetAddress;
 import java.net.MalformedURLException;
@@ -30,29 +28,27 @@ import java.util.ArrayList;
 import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 
-import javax.net.ssl.HttpsURLConnection;
-
 public class MainActivity extends AppCompatActivity{
 
     private TextView resultText;
     private Socket socket;
     private String respuesta;
-
+    private ArrayList<String> respuestas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        resultText = (TextView) findViewById(R.id.editText);
-        Button enviar = (Button) findViewById(R.id.enviar);
+        resultText = findViewById(R.id.editText);
+        Button enviar = findViewById(R.id.enviar);
         enviar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 Context context = getApplicationContext();
                 int duration = Toast.LENGTH_LONG;
-
+                /*
                 try {
                     respuesta = new connectServer().execute().get();
                 }catch (InterruptedException e){
@@ -64,9 +60,20 @@ public class MainActivity extends AppCompatActivity{
                 Log.w("Post", respuesta);
 
                 Toast toast = Toast.makeText(context, respuesta, duration);
-                toast.show();
+                toast.show();*/
             }
         });
+        respuestas = new ArrayList<>();
+        try {
+            respuestas.add(new connectServer().execute().get());
+        }catch (InterruptedException e){
+            Log.e("Interrupted exception", e.getMessage());
+        }catch (ExecutionException e){
+            Log.e("Execution exception", e.getMessage());
+        }
+        ListView messages = findViewById(R.id.messages);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.messages, respuestas);
+        messages.setAdapter(adapter);
 
         //new Thread(new ClientThread()).start();
     }
@@ -130,41 +137,9 @@ public class MainActivity extends AppCompatActivity{
 
         @Override
         protected  String doInBackground(String... params) {
-            /*
-            String respuesta;
-            String mod;
-
-            Log.w("Async", "Funcionando");
-
             try {
 
-                Log.w("Async", "Funcionando");
-
-                DataOutputStream outToServer = new DataOutputStream(socket.getOutputStream());
-                BufferedReader inFromServer = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-
-                Log.w("Async", "Funcionando");
-
-                respuesta = resultText.getText().toString();
-                outToServer.writeBytes(respuesta);
-                mod = inFromServer.readLine();
-                Log.w("Respuesta", "Pues va a ser que si");
-
-                Context context = getApplicationContext();
-                int duration = Toast.LENGTH_LONG;
-
-                Toast toast = Toast.makeText(context, mod, duration);
-                toast.show();
-
-                socket.close();
-
-            }catch (IOException e){
-
-            }*/
-
-            try {
-
-                URL pruebaURL = new URL("http://192.168.1.17:8080/PruebaREST/" + resultText.getText());
+                URL pruebaURL = new URL("http://192.168.1.17:8080/UBUassistant/service/");
                 HttpURLConnection conexion = (HttpURLConnection) pruebaURL.openConnection();
 
                 if(conexion.getResponseCode() == 200){

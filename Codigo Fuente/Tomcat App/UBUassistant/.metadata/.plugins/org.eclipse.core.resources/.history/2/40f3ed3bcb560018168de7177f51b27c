@@ -1,0 +1,10 @@
+package UBUassistant.app;
+
+import org.glassfish.jersey.server.ResourceConfig;
+
+public class HellouserApp extends ResourceConfig {
+
+	public HellouserApp() {
+		packages("UBUassistant.service");
+	}
+}
