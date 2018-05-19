@@ -16,24 +16,34 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
+
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.InetAddress;
 import java.net.MalformedURLException;
 import java.net.Socket;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 
+import static android.text.Html.escapeHtml;
+
 public class MainActivity extends AppCompatActivity{
 
     private TextView resultText;
     private Socket socket;
-    private String respuesta;
     private ArrayList<String> respuestas;
+    private ListView messages;
+    private ArrayAdapter<String> adapter;
+    private Button enviar;
+    private HttpURLConnection conexion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,14 +51,14 @@ public class MainActivity extends AppCompatActivity{
         setContentView(R.layout.activity_main);
 
         resultText = findViewById(R.id.editText);
-        Button enviar = findViewById(R.id.enviar);
+        enviar = findViewById(R.id.enviar);
         enviar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                /*
                 Context context = getApplicationContext();
                 int duration = Toast.LENGTH_LONG;
-                /*
+
                 try {
                     respuesta = new connectServer().execute().get();
                 }catch (InterruptedException e){
@@ -61,6 +71,21 @@ public class MainActivity extends AppCompatActivity{
 
                 Toast toast = Toast.makeText(context, respuesta, duration);
                 toast.show();*/
+                respuestas.add(resultText.getText().toString());
+                adapter.notifyDataSetChanged();
+                messages.setSelection(adapter.getCount() - 1);
+
+                try {
+                    String solution = new getResponse().execute(respuestas.get(respuestas.size()-1)).get();
+                    respuestas.add(solution);
+                    adapter.notifyDataSetChanged();
+                    messages.setSelection(adapter.getCount() - 1);
+                } catch (InterruptedException e) {
+                    Log.e("InterruptedException", e.getMessage());
+                } catch (ExecutionException e) {
+                    Log.e("ExecutionException", e.getMessage());
+                }
+
             }
         });
         respuestas = new ArrayList<>();
@@ -71,8 +96,8 @@ public class MainActivity extends AppCompatActivity{
         }catch (ExecutionException e){
             Log.e("Execution exception", e.getMessage());
         }
-        ListView messages = findViewById(R.id.messages);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.messages, respuestas);
+        messages = findViewById(R.id.messages);
+        adapter = new ArrayAdapter<>(this, R.layout.messages, respuestas);
         messages.setAdapter(adapter);
 
         //new Thread(new ClientThread()).start();
@@ -98,6 +123,23 @@ public class MainActivity extends AppCompatActivity{
         }
     }
 
+    private String castToHTML(String mes){
+
+        //String res = escapeHtml(mes);
+
+        String response ="";
+
+        for (char c: mes.toCharArray()){
+            if (c == ' '){
+                response += "%20";
+            }else{
+                response += c;
+            }
+        }
+
+        return StringUtils.stripAccents(response);
+    }
+
     public void onActivityResult(int request_code, int result_code, Intent i){
         super.onActivityResult(request_code, result_code, i);
 
@@ -112,22 +154,37 @@ public class MainActivity extends AppCompatActivity{
         }
     }
 
-    class ClientThread implements Runnable{
+    class getResponse extends AsyncTask<String, Void, String>{
+        String retorno;
 
         @Override
-        public void run(){
-
-            Log.w("Thread", "Funciona!!!");
+        protected String doInBackground(String... strings) {
 
             try{
-                InetAddress serverAddr = InetAddress.getByName("192.168.1.19");
+                String send = castToHTML(strings[0]);
 
-                socket = new Socket("192.168.1.19", 6789);
-            }catch (UnknownHostException e1){
-                e1.printStackTrace();
-            }catch (IOException e2){
-                e2.printStackTrace();
+                URL serverURL = new URL("http://192.168.1.17:8080/UBUassistant/service/" + send);
+                Log.w("URL conexión: ", "http://192.168.1.17:8080/UBUassistant/service/" + send);
+
+                conexion = (HttpURLConnection) serverURL.openConnection();
+
+                Log.w("Res", String.valueOf(conexion.getResponseCode()));
+
+                if(conexion.getResponseCode() == 200){
+                    InputStream res = conexion.getInputStream();
+                    retorno = IOUtils.toString(res);
+                    Log.w("Respuesta", retorno);
+                }else{
+                    retorno = "No se ha conectado al servidor";
+                }
+            } catch (MalformedURLException e) {
+                Log.e("Error url", e.toString());
+            } catch (IOException e){
+                Log.e("Error url", e.toString());
             }
+
+            conexion.disconnect();
+            return retorno;
         }
     }
 
@@ -140,7 +197,7 @@ public class MainActivity extends AppCompatActivity{
             try {
 
                 URL pruebaURL = new URL("http://192.168.1.17:8080/UBUassistant/service/");
-                HttpURLConnection conexion = (HttpURLConnection) pruebaURL.openConnection();
+                conexion = (HttpURLConnection) pruebaURL.openConnection();
 
                 if(conexion.getResponseCode() == 200){
                     InputStream res = conexion.getInputStream();
@@ -151,17 +208,13 @@ public class MainActivity extends AppCompatActivity{
 
                 Log.w("Respuesta", retorno);
 
-                conexion.disconnect();
-
             } catch (MalformedURLException e) {
                 Log.e("Error url", e.toString());
             } catch (IOException e){
                 Log.e("Error url", e.toString());
             }
-            return retorno;
-        }
 
-        public String getRetorno() {
+            conexion.disconnect();
             return retorno;
         }
     }
