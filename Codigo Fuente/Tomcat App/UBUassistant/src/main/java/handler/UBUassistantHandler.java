@@ -42,8 +42,8 @@ public class UBUassistantHandler {
     private String starBar;
     private String starBarButton;
     
-    private List<String> suggestButtons;
-    private List<String> multipleButtons;
+    private List<List<String>> suggestButtons;
+    private List<List<String>> multipleButtons;
     
     private DatabaseConnection db;
     private List<String> sentenceList;
@@ -112,7 +112,7 @@ public class UBUassistantHandler {
      * @param userTextLower text input by the user.
      * @return true or false if the text input by the user is a reserved word.
      */
-    private boolean answerReservedWord(String userTextLower) {
+    public boolean answerReservedWord(String userTextLower) {
 		
     	String userTextOneUp=userTextLower.substring(0, 1).toUpperCase() + userTextLower.substring(1);
 
@@ -234,10 +234,11 @@ public class UBUassistantHandler {
         .sorted(Map.Entry.<CBRCase, Double>comparingByValue().reversed())
         .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (v1, v2) -> v2, LinkedHashMap::new));
 		
-		String tempList;
+		ArrayList<String> tempList;
 		
 		for(CBRCase c : casesToReatin.keySet()){
 			
+			tempList = new ArrayList<>();
 			
 			if(i<max){
 				
@@ -245,7 +246,8 @@ public class UBUassistantHandler {
 				String word=temp.substring(0, 1).toUpperCase() + temp.substring(1);
 				String answer=((CaseSolution)c.getSolution()).getAnswer();
 				
-				tempList = i + "\t" + word + "\t" + answer;
+				tempList.add(word);
+				tempList.add(answer);
 				
 				/*multipleButtons+="<form method=\"post\" id=\"multipleForm\" class=\"multipleForm\" action=\"multipleAnswer.jsp;jsessionid="+getSessionId()+"\">"+
 										"<input type=\"hidden\" id=\"keyWord\" name=\"usertText\" value=\""+word+"\">"+
@@ -288,16 +290,18 @@ public class UBUassistantHandler {
 			//If there are at least one neighbor for the input text
 			if(!badResuts.isEmpty()){
 	
-				response += "/nEcha un vistazo a las sugerencias de búsqueda";
+				response += "\nEcha un vistazo a las sugerencias de búsqueda";
 				suggestButtons = new ArrayList<>();
 				
-				String temp;
+				ArrayList<String> temp;
 				for(int i=0;i<3;i++){
+					temp = new ArrayList<>();
 					
 					String word=((CaseDescription)listOfValues.get(i).get_case().getDescription()).getKeyWord1();
 					String answer=((CaseSolution)listOfValues.get(i).get_case().getSolution()).getAnswer();
-
-					temp = i + "/t" + word + "/t" + answer;
+					
+					temp.add(word);
+					temp.add(answer);
 					
 					/*suggestButtons+="<form method=\"post\" action=\"noAnswer.jsp;jsessionid="+getSessionId()+"\" style=\"display: inline-block;\">"+
 						"<input type=\"hidden\" id=\"num\" name=\"num\" value=\""+i+"\">"+
@@ -305,7 +309,9 @@ public class UBUassistantHandler {
 					    "<input type=\"hidden\" id=\"answer\" name=\"answer\" value=\""+answer+"\">"+
 					    "<input type=\"submit\" class=\"sugBut\" value=\""+word+"\">"+
 					    "</form>";*/
+					
 					suggestButtons.add(temp);
+					
 					
 				}
 				
@@ -418,7 +424,7 @@ public class UBUassistantHandler {
    	 * Method that returns the suggestButtons.
    	 * @return suggestButtons string with the buttons generated when there is not answer.
    	 */
-	public List<String> getSuggestButtons() {
+	public List<List<String>> getSuggestButtons() {
 		return suggestButtons;
 	}
 
@@ -426,7 +432,7 @@ public class UBUassistantHandler {
    	 * Method that returns the multipleButtons.
    	 * @return multipleButtons string with the buttons generated when there are multiple answers.
    	 */
-	public List<String> getMultipleButtons() {
+	public List<List<String>> getMultipleButtons() {
 		return multipleButtons;
 	}
 
