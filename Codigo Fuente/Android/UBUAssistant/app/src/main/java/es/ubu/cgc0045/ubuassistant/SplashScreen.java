@@ -51,7 +51,7 @@ public class SplashScreen extends Activity{
                         waited += 100;
                     }
 
-                    Intent it = new Intent(SplashScreen.this, MainActivity.class);
+                    Intent it = new Intent(SplashScreen.this, Main2Activity.class);
                     it.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(it);
                     SplashScreen.this.finish();

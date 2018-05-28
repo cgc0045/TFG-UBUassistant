@@ -3,6 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:linksClickable="true"
-    android:autoLink="all" >
+    android:background="@drawable/rounded_rectangle_blue"
+    android:autoLink="all"
+    android:windowSoftInputMode="adjustResize">
 
 </TextView>

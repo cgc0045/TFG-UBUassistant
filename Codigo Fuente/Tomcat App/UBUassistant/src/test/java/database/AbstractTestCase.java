@@ -1,6 +1,7 @@
 package database;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
@@ -28,7 +29,6 @@ public abstract class AbstractTestCase {
 		ds.setPassword("1234");
 		ds.setDatabaseName("ubuassistant");
 		ds.setURL("jdbc:mysql://localhost/ubuassistant");
-
 		try {
 			con = ds.getConnection();
 		} catch (SQLException e) {

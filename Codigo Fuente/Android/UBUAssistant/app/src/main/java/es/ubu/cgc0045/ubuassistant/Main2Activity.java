@@ -1,17 +1,19 @@
 package es.ubu.cgc0045.ubuassistant;
 
+import android.annotation.SuppressLint;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.speech.RecognizerIntent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import org.apache.commons.io.IOUtils;
@@ -27,38 +29,48 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 
-public class MainActivity extends AppCompatActivity{
+public class Main2Activity extends AppCompatActivity {
 
-    private TextView resultText;
-    private ArrayList<String> respuestas;
-    private ListView messages;
-    private ArrayAdapter<String> adapter;
+    private RecyclerView recyclerView;
+    private MessageListAdapter adapter;
+    private List<Message> messages;
+    private ImageButton mic;
     private Button enviar;
-    private HttpURLConnection conexion;
+    private EditText resultText;
     private JSONObject json;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        resultText = findViewById(R.id.editText);
-        enviar = findViewById(R.id.enviar);
+        setContentView(R.layout.activity_main2);
+        messages = new ArrayList<>();
+        resultText = findViewById(R.id.edittext_chatbox);
+
+        enviar = findViewById(R.id.button_chatbox_send);
         enviar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                respuestas.add(resultText.getText().toString());
-                adapter.notifyDataSetChanged();
-                messages.setSelection(adapter.getCount() - 1);
+                messages.add(new Message(messages.size(),resultText.getText().toString()));
+
+                adapter.notifyItemInserted(messages.size()-1);
+                //adapter.notifyDataSetChanged();
+                recyclerView.scrollToPosition(messages.size());
+                Log.e("Enviado", resultText.getText().toString());
+                //recyclerView.setSelection(adapter.getCount() - 1);
+
 
                 try {
-                    String solution = new getResponse().execute(respuestas.get(respuestas.size()-1)).get();
-                    respuestas.add(solution);
+                    String solution = new Main2Activity.getResponse().execute(messages.get(messages.size()-1).getMessage()).get();
+                    messages.add(new Message(messages.size(),solution));
                     adapter.notifyDataSetChanged();
-                    messages.setSelection(adapter.getCount() - 1);
+                    recyclerView.scrollToPosition(messages.size());
+                    //messages.setSelection(adapter.getCount() - 1);
                 } catch (InterruptedException e) {
                     Log.e("InterruptedException", e.getMessage());
                 } catch (ExecutionException e) {
@@ -67,21 +79,31 @@ public class MainActivity extends AppCompatActivity{
 
             }
         });
-        respuestas = new ArrayList<>();
+
+        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setHasFixedSize(true);
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
         try {
-            respuestas.add(new connectServer().execute().get());
-        }catch (InterruptedException e){
-            Log.e("Interrupted exception", e.getMessage());
-        }catch (ExecutionException e){
-            Log.e("Execution exception", e.getMessage());
+            String respuesta = new connectServer().execute().get();
+            messages.add(new Message(1, respuesta));
+        }catch (InterruptedException e) {
+            Log.e("InterruptedException", e.getMessage());
+        } catch (ExecutionException e) {
+            Log.e("ExecutionException", e.getMessage());
         }
-        messages = findViewById(R.id.messages);
-        adapter = new ArrayAdapter<>(this, R.layout.messages, respuestas);
-        messages.setAdapter(adapter);
+
+        adapter = new MessageListAdapter(this, messages);
+        recyclerView.setAdapter(adapter);
+        //LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        //recyclerView.setLayoutManager(layoutManager);
+
+
     }
 
     public void onButtonClick(View v){
-        if(v.getId() == R.id.imageButton){
+        if(v.getId() == R.id.imageButton2){
 
             promptSpeechInput();
         }
@@ -100,13 +122,31 @@ public class MainActivity extends AppCompatActivity{
         }
     }
 
+    public void onActivityResult(int request_code, int result_code, Intent i){
+        super.onActivityResult(request_code, result_code, i);
+
+        switch (request_code){
+            case 100:
+                if(result_code == RESULT_OK && i != null){
+                    ArrayList<String> result = i.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                    resultText.setText(result.get(0));
+                    Log.e("Voice", resultText.toString());
+                }
+                break;
+        }
+    }
+
     private String castToHTML(String mes){
 
-        //String res = escapeHtml(mes);
+        char[] chars = mes.toCharArray();
+
+        if (Character.isWhitespace(chars[chars.length-1])){
+            chars = Arrays.copyOf(chars, chars.length-1);
+        }
 
         StringBuilder response = new StringBuilder();
 
-        for (char c: mes.toCharArray()){
+        for (char c: chars){
             if (c == ' '){
                 response.append("%20");
             }else{
@@ -129,7 +169,11 @@ public class MainActivity extends AppCompatActivity{
 
             for (int i=0; i < responses.length(); i++){
                 //respuesta += "\n\n" + responses.getString(i);
-                respuesta += "\n\n" + responses.getJSONArray(i).getString(0) + "\n" + responses.getJSONArray(i).getString(1);
+                if (responses.getJSONArray(i).length() > 1) {
+                    respuesta += "\n\n" + responses.getJSONArray(i).getString(0) + "\n" + responses.getJSONArray(i).getString(1);
+                }else{
+                    respuesta += "\n\n" + responses.getJSONArray(i).getString(0);
+                }
             }
 
         } catch (JSONException e) {
@@ -140,23 +184,10 @@ public class MainActivity extends AppCompatActivity{
         return respuesta;
     }
 
-    public void onActivityResult(int request_code, int result_code, Intent i){
-        super.onActivityResult(request_code, result_code, i);
-
-        switch (request_code){
-            case 100:
-                if(result_code == RESULT_OK && i != null){
-                    ArrayList<String> result = i.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-                    resultText.setText(result.get(0));
-                    Log.e("Voice", resultText.toString());
-                }
-                break;
-        }
-    }
-
     private class getResponse extends AsyncTask<String, Void, String>{
         String retorno;
         ArrayList<Integer> responseCodes;
+        HttpURLConnection conexion;
 
         @Override
         protected void onPreExecute(){
@@ -169,8 +200,8 @@ public class MainActivity extends AppCompatActivity{
             try{
                 String send = castToHTML(strings[0]);
 
-                URL serverURL = new URL("http://10.190.39.88:8080/UBUassistant/service/" + send);
-                Log.w("URL conexión: ", "http://10.190.39.88:8080/UBUassistant/service/" + send);
+                URL serverURL = new URL("http://localhost:8080/UBUassistant/service/" + send);
+                Log.w("URL conexión: ", "http://localhost:8080/UBUassistant/service/" + send);
 
                 conexion = (HttpURLConnection) serverURL.openConnection();
 
@@ -197,15 +228,18 @@ public class MainActivity extends AppCompatActivity{
         }
     }
 
-    private class connectServer extends AsyncTask<String, Void, String>{
+
+    @SuppressLint("StaticFieldLeak")
+    private class connectServer extends AsyncTask<String, Void, String> {
 
         String retorno;
+        HttpURLConnection conexion;
 
         @Override
         protected  String doInBackground(String... params) {
             try {
 
-                URL pruebaURL = new URL("http://10.190.39.88:8080/UBUassistant/service/");
+                URL pruebaURL = new URL("http://localhost:8080/UBUassistant/service/");
                 conexion = (HttpURLConnection) pruebaURL.openConnection();
 
                 if(conexion.getResponseCode() == 200){
@@ -217,8 +251,6 @@ public class MainActivity extends AppCompatActivity{
 
                 Log.w("Respuesta", retorno);
 
-            } catch (MalformedURLException e) {
-                Log.e("Error url", e.toString());
             } catch (IOException e){
                 Log.e("Error url", e.toString());
             }
