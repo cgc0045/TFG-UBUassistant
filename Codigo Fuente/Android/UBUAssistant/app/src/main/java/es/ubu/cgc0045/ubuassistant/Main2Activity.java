@@ -69,7 +69,7 @@ public class Main2Activity extends AppCompatActivity {
                     String solution = new Main2Activity.getResponse().execute(messages.get(messages.size()-1).getMessage()).get();
                     messages.add(new Message(messages.size(),solution));
                     adapter.notifyDataSetChanged();
-                    recyclerView.scrollToPosition(messages.size());
+                    recyclerView.scrollToPosition(messages.size()-1);
                     //messages.setSelection(adapter.getCount() - 1);
                 } catch (InterruptedException e) {
                     Log.e("InterruptedException", e.getMessage());
@@ -200,8 +200,8 @@ public class Main2Activity extends AppCompatActivity {
             try{
                 String send = castToHTML(strings[0]);
 
-                URL serverURL = new URL("http://localhost:8080/UBUassistant/service/" + send);
-                Log.w("URL conexión: ", "http://localhost:8080/UBUassistant/service/" + send);
+                URL serverURL = new URL("http://ubuvm.westeurope.cloudapp.azure.com:8080/UBUassistant/service/" + send);
+                Log.w("URL conexión: ", "http://ubuvm.westeurope.cloudapp.azure.com:8080/UBUassistant/service/" + send);
 
                 conexion = (HttpURLConnection) serverURL.openConnection();
 
@@ -239,7 +239,7 @@ public class Main2Activity extends AppCompatActivity {
         protected  String doInBackground(String... params) {
             try {
 
-                URL pruebaURL = new URL("http://localhost:8080/UBUassistant/service/");
+                URL pruebaURL = new URL("http://ubuvm.westeurope.cloudapp.azure.com:8080/UBUassistant/service/");
                 conexion = (HttpURLConnection) pruebaURL.openConnection();
 
                 if(conexion.getResponseCode() == 200){
