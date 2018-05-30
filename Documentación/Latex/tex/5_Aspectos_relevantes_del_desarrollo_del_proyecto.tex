@@ -1,7 +1,40 @@
 \capitulo{5}{Aspectos relevantes del desarrollo del proyecto}
 
-Este apartado pretende recoger los aspectos más interesantes del desarrollo del proyecto, comentados por los autores del mismo.
-Debe incluir desde la exposición del ciclo de vida utilizado, hasta los detalles de mayor relevancia de las fases de análisis, diseño e implementación.
-Se busca que no sea una mera operación de copiar y pegar diagramas y extractos del código fuente, sino que realmente se justifiquen los caminos de solución que se han tomado, especialmente aquellos que no sean triviales.
-Puede ser el lugar más adecuado para documentar los aspectos más interesantes del diseño y de la implementación, con un mayor hincapié en aspectos tales como el tipo de arquitectura elegido, los índices de las tablas de la base de datos, normalización y desnormalización, distribución en ficheros3, reglas de negocio dentro de las bases de datos (EDVHV GH GDWRV DFWLYDV), aspectos de desarrollo relacionados con el WWW...
-Este apartado, debe convertirse en el resumen de la experiencia práctica del proyecto, y por sí mismo justifica que la memoria se convierta en un documento útil, fuente de referencia para los autores, los tutores y futuros alumnos.
+Este apartado pretende recoger los aspectos más interesantes del desarrollo del proyecto, comentados por los autores del mismo. Aquí se incluyen las diferentes explicaciones tanto del diseño como de la implementación.
+
+\section{Inicio y fase de análisis}
+Este proyecto es la consecución del TFG UBUassistant de Daniel Santidrián Alonso en el cual durante la defensa del mismo, surgieron diferentes mejoras para el mismo \cite{tfg:art}.
+
+Tras valorar las diferentes mejoras con el tutor del proyecto, se decidió continuar con él, debido a que me pareció un proyecto muy interesante tanto a nivel de usuario como a nivel de programación.
+
+\section{Metodologías aplicadas}
+En el desarrollo de este proyecto se ha intentado emplear en la medida de los posible la metodología ágil de Scrum.
+
+Debido a que el tamaño del proyecto es pequeño, no se ha podido seguir de forma estricta todas las pautas de la metodología, como las reuniones diarias con todo el equipo. Las pautas que se han seguido durante el proyecto han sido:
+\begin{itemize}
+	\tightlist
+	\item
+	Desarrollo incremental del proyecto mediante sprints.
+	\item
+	Spints de duración semanal en vez de diaria por el tamaño del proyecto.
+	\item
+	Al finalizar el sprint, reuniones para evaluar el proyecto y plantear los pasos a seguir en el siguiente sprint.
+\end{itemize}
+
+Para el desarrollo del servidor del asistente, se realizaron diferentes pruebas de ensayo error hasta que se obtuvieron los datos a través del estandar JSON de la forma deseada.
+
+Al final de cada sesión de trabajo se ha intentado realizar un \textit{commit} en el repositorio del proyecto para mantener así un control sobre los diferentes pasos que se han ido dando.
+
+\section{Formación}
+
+Durante las primeras fases del proyecto, fue necesario aprender el funcionamiento del TFG de Daniel Santidrián Arce. Para esto, se consultó la documentación de dicho proyecto, así como el código fuente del mismo \cite{tfg:art}.
+
+A parte de esto, se realizó una investigación sobre el funcionamiento genérico de un Sistema de Razonamiento Basado en Casos (\textit{CBR}) como de la utilidad empleada en la versión anterior del TFG, \textit{jCOLIBRI}. Para ello se consultaron los mismos artículos empleados para este propósito por el autor del anterior TFG.
+
+\begin{itemize}
+	\tightlist
+	\item
+	Razonamiento Basado en Casos: Una visión general (Laura Lozano y Javier Fernández) \cite{cbr:art}.
+	\item 
+	Tutorial jCOLIBRI (J. Recio García, B. Díaz Aguado y P. González Calero) \cite{colibri:tut}.
+\end{itemize}
