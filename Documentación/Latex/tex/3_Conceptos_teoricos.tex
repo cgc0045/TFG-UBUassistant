@@ -1,83 +1,27 @@
 \capitulo{3}{Conceptos teóricos}
 
-En aquellos proyectos que necesiten para su comprensión y desarrollo de unos conceptos teóricos de una determinada materia o de un determinado dominio de conocimiento, debe existir un apartado que sintetice dichos conceptos.
+Para entender mejor el funcionamiento de este TFG, es necesario conocer el funcionamiento del algoritmo de Razonamiento Basado en Casos (\textit{CBR}).
 
-Algunos conceptos teóricos de \LaTeX \footnote{Créditos a los proyectos de Álvaro López Cantero: Configurador de Presupuestos y Roberto Izquierdo Amo: PLQuiz}.
+Un sistema CBR es aquel que trata de simular el mismo comportamiento que realizaría un ser humano cuando tiene ante si una serie de problemas para resolver.
 
-\section{Secciones}
+Estos sistemas, al igual que haría una persona, basan sus decisiones en experiencias previas para intentar obtener la mejor respuesta al problema que se ha planteado \cite{cbr:wiki}. En el caso de UBUassistant, no se emplea un algoritmo que empieza a aprender desde cero, sino que se incluye un conocimiento base desde el punto de vista del programador.
 
-Las secciones se incluyen con el comando section.
+Estos conocimientos base, a nivel de algoritmo son conocidos como casos. Los casos empleados para este algoritmo, están formados por un máximo de siete palabras que definen cada uno de los posibles casos que se pueden llegar a dar. El algoritmo, por cada uno de estos casos, tiene asociado una solución, la cual nos devuelve la dirección URL de un apartado dentro de la página de la Universidad de Burgos.
 
-\subsection{Subsecciones}
-
-Además de secciones tenemos subsecciones.
-
-\subsubsection{Subsubsecciones}
-
-Y subsecciones. 
-
-
-\section{Referencias}
-
-Las referencias se incluyen en el texto usando cite \cite{wiki:latex}. Para citar webs, artículos o libros \cite{koza92}.
-
-
-\section{Imágenes}
-
-Se pueden incluir imágenes con los comandos standard de \LaTeX, pero esta plantilla dispone de comandos propios como por ejemplo el siguiente:
-
-\imagen{escudoInfor}{Autómata para una expresión vacía}
-
-
-
-\section{Listas de items}
-
-Existen tres posibilidades:
+Lo que realiza el algoritmo para poder así encontrar la mejor o las mejores soluciones, es que por cada palabra que ha introducido el usuario, genera una colección con los posibles resultados. En el caso de que haya palabras que coincidan dentro de un mismo caso, estas se unen formando una respuesta única para ambos vocablos. Finalmente, todas las respuestas se combinan, pudiendo así tener tres posibles soluciones:
 
 \begin{itemize}
-	\item primer item.
-	\item segundo item.
+	\tightlist
+	\item
+	\textbf{Una única solución:} esto sucede cuando las diferentes palabras del usuario están dentro de un mismo caso, por lo que se obtiene un único resultado, el cual será mostrado al usuario.
+	\item 
+	\textbf{Multiples soluciones:} esto ocurre cuando los vocablos que se han introducido pertenecen a diferentes casos, por los que todas las posibles soluciones son mostradas al usuario, para que este elija aquella que mejor se adapta a sus necesidades.
+	\item 
+	\textbf{Sin solución:} puede ocurrir que el usuario introduzca una serie de palabras que no coincida con ninguno de los casos que posee el algoritmo. En este caso, al usuario se le va a mostrar un mensaje advirtiéndole que no se han encontrado una respuesta que coincida con su solicitud. A parte de esto, se le va a mostrar tres recomendaciones para intentar ayudarle en todo lo posible con la búsqueda.
 \end{itemize}
 
-\begin{enumerate}
-	\item primer item.
-	\item segundo item.
-\end{enumerate}
+Finalmente, con el propósito de que el algoritmo vaya creciendo y obteniendo más conocimientos, en el caso de que no haya podido encontrar respuestas, se le muestra tres sugerencias como se ha comentado con anterioridad y en el caso de que se haya seleccionado una de las respuestas correctas, esta se añade con los vocablos introducidos por el usuario dentro de una tabla de la base de datos. Para evitar que se produzca un aprendizaje erróneo por parte del algoritmo, estos resultado que se van añadiendo a la tabla, tienen que ser antes verificados por un administrador de la aplicación.
 
-\begin{description}
-	\item[Primer item] más información sobre el primer item.
-	\item[Segundo item] más información sobre el segundo item.
-\end{description}
-	
-\begin{itemize}
-\item 
-\end{itemize}
+Para el desarrollo de este algoritmo, se ha empleado \textit{jCOLIBRI 2} \cite{jcolibri:info}.
 
-\section{Tablas}
-
-Igualmente se pueden usar los comandos específicos de \LaTeX o bien usar alguno de los comandos de la plantilla.
-
-\tablaSmall{Herramientas y tecnologías utilizadas en cada parte del proyecto}{l c c c c}{herramientasportipodeuso}
-{ \multicolumn{1}{l}{Herramientas} & App AngularJS & API REST & BD & Memoria \\}{ 
-HTML5 & X & & &\\
-CSS3 & X & & &\\
-BOOTSTRAP & X & & &\\
-JavaScript & X & & &\\
-AngularJS & X & & &\\
-Bower & X & & &\\
-PHP & & X & &\\
-Karma + Jasmine & X & & &\\
-Slim framework & & X & &\\
-Idiorm & & X & &\\
-Composer & & X & &\\
-JSON & X & X & &\\
-PhpStorm & X & X & &\\
-MySQL & & & X &\\
-PhpMyAdmin & & & X &\\
-Git + BitBucket & X & X & X & X\\
-Mik\TeX{} & & & & X\\
-\TeX{}Maker & & & & X\\
-Astah & & & & X\\
-Balsamiq Mockups & X & & &\\
-VersionOne & X & X & X & X\\
-} 
+\imagen{jcolibri}{Logo de \textit{jCOLIBRI2}}

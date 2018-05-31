@@ -38,3 +38,130 @@ A parte de esto, se realizó una investigación sobre el funcionamiento genéric
 	\item 
 	Tutorial jCOLIBRI (J. Recio García, B. Díaz Aguado y P. González Calero) \cite{colibri:tut}.
 \end{itemize}
+
+Una vez entendido el funcionamiento de los algoritmos anteriores, se tuvo que adquirir conocimientos sobre el funcionamiento de API REST, ya que es la técnica utilizada para realizar las peticiones al servidor y obtener las respuestas en forma de fichero JSON. Para ello, se consultó un artículo sobre API REST y un tutorial base sobre JAVA REST, ya que es la librería empleada en el servidor JAVA.
+
+\begin{itemize}
+	\tightlist
+	\item
+	API REST: qué es y cuáles son sus ventajas en el desarrollo de proyectos \cite{rest:info}.
+	\item 
+	Ejemplo de API REST en Java con JAX-RS y Spring Boot \cite{javarest:tut}.
+\end{itemize}
+
+En el momento en el que se empezaron a dar los primeros pasos sobre la aplicación Android, se tuvo que empezar a adquirir conocimientos sobre este tema. Para ello, se decidió consultar las diferentes guías, tutoriales y documentación que ofrece la propia página de Android Studio, ya que viene en diferentes idiomas y está muy completa \cite{androidstudio:info}.
+
+Una vez que las primeras versiones de la aplicación fueron funcionando, se decidió exportar el servidor de JAVA a una máquina virtual en la nube, de esa forma se puede utilizar la aplicación desde cualquier lugar. Para ello, se decidió emplear una Máquina Virtual de Azure. Para aprender el funcionamiento de estas máquinas virtuales, como las diferentes configuraciones, se siguieron las diferentes guías que se pueden encontrar en la página de Microsoft \cite{azure:foro}.
+
+Además de todo lo mencionado anteriormente, se fueron consultando diferentes foros de \textit{Stack Overflow} \cite{stack:info} para consultar las diferentes dudas que iban surgiendo a lo largo del proyecto a nivel de programación.
+
+\section{Adaptación del servidor}
+
+Para que el asistente fuera funcional y fácilmente adaptable a otras plataformas, había que modificar la aplicación heredada del TFG anterior, por lo que para ello se realizaron una serie de modificaciones del código.
+
+\begin{itemize}
+	\tightlist
+	\item
+	Separar la capa de usuario de la de aplicación en los ficheros JSP.
+	\item 
+	Obtener las respuestas siguiendo un patrón.
+\end{itemize}
+
+En un primer momento se planteó usar un servidor creado desde cero con JAVA, el cuál iba a estar junto con el resto de ficheros del asistente. Una vez empezado con esta tarea, se empezaron a ver diferentes complicaciones que podrían ir surgiendo, siendo principalmente la conexión con la aplicación Android. Tras ver estos problemas, se optó por buscar más información de como poder hacer conexiones cliente-servidor de forma efectiva. Finalmente se optó por usar API REST para realizar la conexión, ya que nos permitía hacer conexiones tipo \textit{HTTP/HTTPS} de forma sencilla contra un servidor JAVA Tomcat.
+
+A continuación, lo que se realizó fue crear nuestros propios ficheros JSP para el servidor Tomcat. Para ello se utilizó como base los ficheros ya existentes, debido a que cierta parte de ellos se pudo reutilizar para hacer nuestros propios ficheros y obtener así una comunicación correcta con el algoritmo CBR. Este código que se pudo reutilizar, más las diferentes funciones y clases creadas con API REST, nos permitió obtener respuestas por parte del servidor.
+
+Una vez que teníamos el servidor con las respuestas, hubo que cambiar la forma en las que la daba este. Esto se debió a que el servidor obtenía la respuesta en cadenas de texto en formato HTML, para que así se mostrara de forma correcta en una web. Como lo que se iba buscando es que las respuestas fueran fácilmente utilizables por diferentes lenguajes de programación, se decidió que las respuestas tendrían que darse en forma de fichero JSON. La decisión de emplear este tipo de ficheros, es que la gran mayoría de lenguajes orientados a objetos tienen diferentes librerías para poder leer y utilizar este tipo de ficheros.
+
+Para poder hacer esto, se tuvo que modificar a parte de los ficheros JSP, diferentes funciones de JAVA, para poder generar así un fichero JSON que tuviera como mínimo de forma clara el mensaje que da de respuesta. A parte, en los diferentes casos en los que va acompañado de una respuesta con los diferentes enlaces a la página web de la Universidad de Burgos, se cambió para que también esté de forma clara tanto el nombre del apartado que da como respuesta como la dirección URL. Hasta que puedo obtener la respuesta de forma deseada, se realizaron varios intentos de prueba error, utilizando como visor de las respuestas, el navegador web \textit{Mozilla Firefox}, ya que nos muestra de una forma muy intuitiva los datos de un fichero JSON.
+
+\section{Aplicación Android}
+
+Una vez que el servidor JAVA estaba creado, se empezó por la construcción de la aplicación Android. Para ello se decidió seguir el esquema API-REST.
+
+\imagen{android-rest}{Esquema API-REST}
+
+Para ello, lo primero que se hizo fue conectar la aplicación al servidor a través de una conexión \textit{HTTP}, obteniendo como respuesta el fichero JSON desde el servidor. Esta parte pertenece a la sección Controlador del Modelo Vista Controlador.
+
+Una vez que ya se tenía la respuesta en nuestra aplicación Android, se empezó a diseñar la forma en la que los datos iban a ser mostrados por la aplicación. En una primera versión se decidió utilizar los \textit{ListView} de Android. Finalmente esto fue descartado, debido a que la apariencia que da no se consideró muy adecuada para una aplicación de este estilo.
+
+\imagen{list}{Ejemplo de \textit{ListView}}
+
+Al final se optó por utilizar los \textit{RecyclerView}, ya que da un aspecto más apropiado a la aplicación. Este tipo de vista es utilizado por diferentes aplicaciones de chat, tales como \textit{Whatsapp} o \textit{Telegram}. Para diferenciar las mensajes enviados por el usuario, de las respuestas del asistente, se optó por seguir el mismo esquema utilizado por el TFG anterior. Los mensajes del usuario van dentro de un recuadro de color blanco con el texto en negro, mientas que las respuestas del asistente van en un recuadro azul, con el texto en blanco. De esta forma, se intenta en mantener todo lo posible la misma imagen que en el TFG anterior.
+
+\section{Base de datos}
+
+Se decidió seguir utilizando la misma base de datos que en el proyecto heredado. Esto se debe a que a pesar de haber modificado el servidor para obtener respuestas de forma más clara, la conexión con la base de datos no se tuvo que modificar, por lo que se sigue empleando \textit{Hibernate} y \textit{JDBC} para conectarse a la base de datos MySQL.
+
+Esta base de datos está formada por un total de siete tablas.
+
+\begin{itemize}
+	\tightlist
+	\item
+	\textbf{casedescription}: esta tabla es la que contiene las diferentes descripciones de los casos. Está compuesta por siete palabras clave junto a la categoría a las que pertenecen.
+	\item 
+	\textbf{casesolution}: dentro de esta tabla se encuentran las diferentes soluciones para cada uno de los casos.
+	\item
+	\textbf{saludos}: tabla en la cual se incluyen los saludos más comunes que pueden ser introducidos por el usuario junto a su respuesta.
+	\item 
+	\textbf{frases}: en esta tabla nos encontramos con las diferentes frases de respuesta que da el asistente cuando le preguntamos algo.
+	\item 
+	\textbf{aprendizaje}: esta tabla contiene las palabras que tiene pendiente por aprender el algoritmo junto con la respuesta que tiene que dar.
+	\item
+	\textbf{logger}: tabla la cual contiene el log de cada usuario, junto a las palabras que se han buscado, la fecha, la respuesta, la categoría de la búsqueda, el número de búsquedas realizadas, el número de votos y la votación total.
+	\item 
+	\textbf{administradores}: el contenido de esta tabla son los diferentes nombres de usuarios que tienen derecho de administración, así como la correspondiente contraseña.
+\end{itemize}
+
+\section{Problemas}\label{problemas}
+\subsection{Servidor Tomcat}
+
+En el momento en el que se intentó montar nuestro propio servidor local de Tomcat nos encontramos con un problema a la hora de importar nuestro proyecto en formato \textit{WAR}. Con otros ejemplos de proyectos descargados en el mismo formato, este mensaje de error no aparecía.
+
+Finalmente y tras consultar diferentes foros, se descubrió que el problema radica en que Tomcat, por defecto trae que el tamaño máximo de las aplicaciones sean de 50MB. Esto se puede solucionar modificando el fichero \textit{web.xml} dentro de la ruta \textit{[CARPETA TOMCAT]/webapps/manager/WEB-INF}. Dentro de este fichero, hay que modificar las siguientes líneas:
+
+
+\begin{lstlisting}
+	<max-file-size>52428800</max-file-size>
+	<max-request-size>52428800</max-request-size>
+\end{lstlisting}
+
+El valor que se modifica va dado en \textit{bytes}, por lo que el valor que introduzcamos, también tiene que serlo.
+
+\subsection{Hibernate}
+
+Tras hacer las primeras modificaciones del código para que la respuesta del servidor se diera a través de API REST, se realizaron diferentes pruebas. Al inicio de estas pruebas, se obtenía un error, el cual no nos dejaba conectar contra la base de datos. Tras realizar diferentes investigaciones durante unos días en diferentes foros, dimos con la solución.
+
+La solución consistía en añadirle un parámetro al fichero de configuración de \textit{Hibernate}, \textit{hibernate.cfg.xml}. El parámetro que se añadió al fichero fue:
+
+\begin{lstlisting}
+<property name="javax.persistence.validation.mode">none</property>
+\end{lstlisting}
+
+\subsection{Máquina virtual de Microsoft Azure}\label{azure}
+
+Una vez que la aplicación tuvo bastante funcionalidades de las deseadas y en una de las reuniones semanales con el tutor, nos percatamos en la dificultad de hacer funcionar la aplicación conectada al servidor local creado dentro de la red de la propia Universidad de Burgos. Raíz de esto, se optó por montar una máquina virtual de Microsoft Azure.
+
+El primer problema que se tuvo, es que una vez creada la máquina virtual con Windows 10, no se podía acceder a ella a través de Escritorio Remoto. Tras recorrer diferentes foros, finalmente se descubrió que para poder acceder a la máquina virtual hay que generar primero el \textit{DNS} para poder acceder a ella.
+
+Después de solucionar este problema, y poder acceder a la máquina virtual, se procedió a la instalación de las herramientas necesarias para hacer que el servidor funcionara correctamente. Una vez instalado todo, se intentó conectar nuestra aplicación a dicho servidor, para así poder utilizarla desde cualquier localización y conexión a Internet. El problema surge en este apartado, ya que no conseguíamos conectarnos al servidor.
+
+Tras realizar varias pruebas con los firewall de Microsoft Azure y Windows 10, decidimos hacer una prueba montando una máquina virtual con Ubuntu. Al igual que con anterioridad, nos conectamos a la máquina virtual, esta vez a través de \textit{SSH}, instalamos todo lo necesario y configuramos el firewall correctamente. Después de todo esto, conectamos la aplicación y esta funciona correctamente, por lo que finalmente se quedó con Ubuntu como sistema operativo del servidor.
+
+\section{Publicación}
+
+El servidor de la aplicación se encuentra montado en una máquina virtual de Microsoft Azure como ya se ha comentado en la subsección \ref{azure}.
+
+Dicha máquina virtual monta como sistema operativo Ubuntu Server. Como aplicaciones para hacer funcionar el servidor de la aplicación, lleva las siguientes aplicaciones:
+
+\begin{itemize}
+	\tightlist
+	\item 
+	\textbf{Tomcat 9}: es la aplicación encargada de hacer correr nuestro servidor web JAVA.
+	\item 
+	\textbf{JRE 8}: es el conjunto de herramientas que proporciona Oracle y es necesario para que nuestro servidor JAVA funcione correctamente.
+	\item 
+	\textbf{MySQL}: base de datos que contiene los datos a los que necesita acceder nuestro servidor JAVA.
+\end{itemize}
+
+Una forma de abaratar costes de dicha aplicación, sería alojar el servidor en una máquina propiedad de la Universidad de Burgos, ahorrándose así el costo del alquiler de la máquina virtual de Microsoft Azure.
