@@ -75,6 +75,28 @@ Una vez que teníamos el servidor con las respuestas, hubo que cambiar la forma 
 
 Para poder hacer esto, se tuvo que modificar a parte de los ficheros JSP, diferentes funciones de JAVA, para poder generar así un fichero JSON que tuviera como mínimo de forma clara el mensaje que da de respuesta. A parte, en los diferentes casos en los que va acompañado de una respuesta con los diferentes enlaces a la página web de la Universidad de Burgos, se cambió para que también esté de forma clara tanto el nombre del apartado que da como respuesta como la dirección URL. Hasta que puedo obtener la respuesta de forma deseada, se realizaron varios intentos de prueba error, utilizando como visor de las respuestas, el navegador web \textit{Mozilla Firefox}, ya que nos muestra de una forma muy intuitiva los datos de un fichero JSON.
 
+\section{Cambio de framework de razonamiento basado en casos}
+
+Una de las propuestas en la defensa del TFG del año pasado fue la búsqueda de un framework de razonamiento basado en casos que fuera más moderno. Debido a este comentario, en las primeras fases del proyecto, se estudiaron los diferentes frameworks de razonamiento basado en casos que son de uso gratuito \cite{cbrcomp:art}.
+
+Los frameworks estudiados fueron myCBR, jCOLIBRI, CASPIAN, CAT-CBR y CBR Tools. La principal diferencia entre estos frameworks es el año de la última versión de lanzamiento. jCOLIBRI fue el primer framework que se consultó. La última versión que posee es la v2.1, que fue publicada en Septiembre de 2008 \cite{jcolibri:info}. El siguiente framework que se consultó fue CASPIAN, siendo la última versión de dicho framework de 1995 \cite{caspian:info}. Después se consultó CBR Tools. Este framework tiene diferentes versiones, siendo la última la v2.4, publicada en Febrero del 2004 \cite{cbrtools:info}. Luego se consultó CAT-CBR. De este framework se pudo saber que su última versión data del año 2002 \cite{catcbr:info}. Finalmente, se consultó myCBR. Este framework es el más moderno de todos los consultado, además con bastante diferencia, ya que su última versión esta fechada en Mayo de 2015 \cite{mycbr:info}.
+
+Con esta información, automáticamente se descartaron los frameworks que son más antiguos que el empleado en la versión anterior del proyecto. Esta decisión, nos dejo solamente una opción a investigar, que es el framework myCBR.
+
+Antes de empezar a estudiar el funcionamiento de dicho framework, se dedicó el tiempo necesario para la comprensión del funcionamiento del framework jCOLIBRI. Este proceso lo consideramos importante, ya que es un paso muy importante para poder hacer una valoración final del posible cambio.
+
+Después de haber entendido tanto el funcionamiento de jColibri, como la forma de implementación en la versión anterior del proyecto, se comenzó con la lectura y comprensión de la documentación de myCBR. Durante este proceso, se pudo encontrar diferencias tanto de implementación como de funcionamiento con jCOLIBRI. La principal diferencia que se encontró fue que jCOLIBRI almacena el caso base en una base de datos, siendo la más usual MySQL; mientras que myCBR utiliza un fichero en extensión XML para almacenarlo. Otra de las diferencias, es que la gestión del caso base en jCOLIBRI se puede realizar con los diferentes conectores y aplicaciones para base de datos que existen, mientras que en myCBR hay que utilizar su propia aplicación. Otra de las diferencias, y la que me parece más considerable, es que jCOLIBRI incluye un sistema que te permite la valoración de los diferentes resultados obtenidos, permitiendo que el sistema vaya mejorando con el tiempo, con múltiples usos realizados por los usuarios. En cambio myCBR no permite esto, haciendo que el buen funcionamiento de nuestro sistema dependa al 100\% de como hemos organizado los datos.
+
+Con todo esto, se realizó una valoración de si realizar o no el cambio de framework dentro de este proyecto. Tras una valoración de todo lo comentado con anterioridad junto con el tutor se llegó a la determinación de no realizar el cambio del framework. Esta decisión está basada principalmente en dos motivos:
+
+\begin{itemize}
+	\tightlist
+	\item
+	\textbf{Gestión del aprendizaje:} con myCBR no tenemos una forma de permitir que nuestro algoritmo vaya aprendiendo y por lo tanto que cada vez vaya dando mejores resultados, mientras que lo que se busca es todo lo contrario, que con el uso nuestro algoritmo se vaya refinando.
+	\item 
+	\textbf{Almacenamiento de los casos:} en myCBR el almacenaje de los diferentes casos se realiza a través de un fichero XML, mientras que en jCOLIBRI se realiza a través de una base de datos SQL. Se consideró que una base de datos SQL es mucho más fácil de manejar con un lenguaje de programación a parte de las mejoras de rendimiento que tiene frente a un fichero XML.
+\end{itemize}
+
 \section{Aplicación Android}
 
 Una vez que el servidor JAVA estaba creado, se empezó por la construcción de la aplicación Android. Para ello se decidió seguir el esquema API-REST.
