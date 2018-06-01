@@ -29,7 +29,6 @@
         android:layout_marginTop="4dp"
         app:layout_constraintLeft_toRightOf="@+id/image_message_profile"
         android:layout_marginLeft="8dp"
-        android:linksClickable="true"
-        android:autoLink="web"/>
+        android:textColorLink="#ffe100"/>
 
 </android.support.constraint.ConstraintLayout>

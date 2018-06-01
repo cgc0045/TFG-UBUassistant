@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,7 +34,10 @@ public class MessageListAdapter extends RecyclerView.Adapter<MessageListAdapter.
     @Override
     public void onBindViewHolder(@NonNull MessageListHolder holder, int position) {
         Message mes = messages.get(position);
-        holder.mes.setText(mes.getMessage());
+
+        holder.mes.setMovementMethod(LinkMovementMethod.getInstance());
+        holder.mes.setClickable(true);
+        holder.mes.setText(Html.fromHtml(mes.getMessage()));
     }
 
     @Override
@@ -56,7 +60,6 @@ public class MessageListAdapter extends RecyclerView.Adapter<MessageListAdapter.
             super(itemView);
 
             mes = itemView.findViewById(R.id.text_message_body);
-            mes.setMovementMethod(LinkMovementMethod.getInstance());
         }
     }
 

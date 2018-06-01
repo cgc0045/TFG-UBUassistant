@@ -170,9 +170,9 @@ public class Main2Activity extends AppCompatActivity {
             for (int i=0; i < responses.length(); i++){
                 //respuesta += "\n\n" + responses.getString(i);
                 if (responses.getJSONArray(i).length() > 1) {
-                    respuesta += "\n\n" + responses.getJSONArray(i).getString(0) + "\n" + responses.getJSONArray(i).getString(1);
+                    respuesta += "<br><br><a href='ubuassistant://" + responses.getJSONArray(i).getString(1) + "'> " + responses.getJSONArray(i).getString(0) + "</a>";
                 }else{
-                    respuesta += "\n\n" + responses.getJSONArray(i).getString(0);
+                    respuesta += "<br>" + responses.getJSONArray(i).getString(0);
                 }
             }
 
