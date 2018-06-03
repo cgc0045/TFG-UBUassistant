@@ -67,24 +67,53 @@ Al comienzo de la reunión se terminó de valorar las herramientas sugeridas por
 Debido a que este sprint duró dos semanas a raíz de que la Universidad de Burgos cerraba por vacaciones de Semana Santa se establecieron más objetivos para cubrir trabajo en las dos semanas. El primer objetivo que se estableció fue el de investigar la viabilidad de realizar el cambio de framework de razonamiento basado en casos, ya que es uno de los objetivos del proyecto. A parte de esto, también se estableció como objetivo que fuera 
 creando el repositorio en GitHub y que se fuera importando el anterior TFG para poder empezar a realizar cambios en el código.
 
+\subsection{Sprint 5 (11/04/2018 - 17/04/2018)}
 
+Lo primero que se realizó en esta reunión fue valorar junto al tutor la viabilidad sobre un posible cambio en el framework de persistencia. A parte de esto, también se comentó el trabajo realizado en el repositorio de GitHub.
 
+Como objetivos para este sprint se estableció terminar de organizar correctamente el repositorio en GitHub, ya que se consideró que una buena organización desde el primer momento, evitaría problemas mayores durante el desarrollo del código de la aplicación.
 
+\subsection{Sprint 6 (18/04/2018 - 24/04/2018)}
 
+En esta reunión se comentó la forma en la que finalmente quedó organizado el repositorio de GitHub.
 
+Tras valorar positivamente la forma en la que se había organizado por parte del tutor, se estableció como objetivo empezar con la aplicación Android, teniendo que dar los primeros pasos con ella.
 
+\subsection{Sprint 7 (25/04/2018 - 01/05/2018)}
 
+En la reunión de este sprint se mostró los progresos que se habían realizado en la aplicación Android al tutor, teniendo en este momento un prototipo de la pantalla de inicio de nuestra aplicación.
 
+Como objetivo se estableció que la pantalla de inicio de la aplicación tuviera una animación, haciéndola así que fuera más dinámica. A parte de esto, también se marcó como objetivo comenzar con las pruebas cliente-servidor de nuestra aplicación.
 
+\subsection{Sprint 8 (02/05/2018 - 08/05/2018)}
 
+Al comienzo de la reunión se mostró la forma en la que aparecía la pantalla de inicio y tras la valoración del tutor. Además se comentaron todos los problemas que fueron surgiendo al intentar realizar las pruebas de conexión cliente-servidor.
 
+El objetivo que se estableció para este sprint fue utilizar otra tipo de conexiones cliente-servidor recomendada por el tutor.
 
+\subsection{Sprint 9 (09/05/2018 - 15/05/2018)}
 
+En esta reunión se comentaron los resultados positivos que se obtuvieron al utilizar las recomendaciones dadas por el tutor.
 
+Como objetivo de este sprint fue terminar de realizar la conexión cliente-servidor de nuestra aplicación Android, sin tener que entrar en el tratamiento de datos.
 
+\subsection{Sprint 10 (16/05/2018 - 22/05/2018)}
 
+Durante esta reunión, lo primero que se hizo fue mostrar los resultados de la conexión cliente-servidor con la aplicación Android.
 
+Como objetivo de esta reunión se estableció en realizar la conexión de tal forma en que la aplicación recibiera los datos en forma de un ficheros JSON, para facilitar así el tratamiento de los datos.
 
+\subsection{Sprint 11 (23/05/2018 - 29/05/2018)}
+
+En esta reunión se mostró como la aplicación trataba los datos y los mostraba por pantalla, pudiendo acceder ya a las respuestas dadas por el asistente.
+
+Como objetivo se estableció cambiar el diseño de la aplicación, para dar un aspecto más similar a una conversación, dándole similitudes a aplicaciones de ese estilo como pueden ser \textit{Whatsapp} o \textit{Telegram}.
+
+\subsection{Sprint 12 (30/05/2018 - 05/06/2018)}
+
+En esta reunión se mostró la nueva interfaz de la aplicación. A parte de esto se mostró una primera versión en la que los enlaces que nos da el asistente, nos los abre dentro de la propia aplicación.
+
+Como objetivos de este sprint, se estableció afinar la forma en la que se abren los enlaces y añadir la valoración de las repuestas, así como el comienzo con la documentación del proyecto.
 
 
 
@@ -92,6 +121,197 @@ creando el repositorio en GitHub y que se fuera importando el anterior TFG para 
 
 \subsection{Viabilidad económica}
 
+En este apartado se van a realizar los diferentes estudios de costes y beneficios del proyecto que se ha realizado.
+
+Este estudio lo vamos a hacer de forma en la que suponemos que lo va a realizar una empresa, por lo que vamos a tener en cuenta tanto los costes humanos, como de los diferentes recursos que se han empleado para realizarlo.
+
+\subsubsection{Costes humanos}
+
+Vamos a considerar que la empresa dedica a un empleado a desarrollar la aplicación UBUassistant. Para ello consideramos que el tiempo necesario para el desarrollo de la aplicación es la misma que ha necesitado el alumno para el desarrollo de la misma, es decir, cuatro meses.
+
+Vamos a establecer que el programador encargado de desarrollar nuestro software, es una persona con poca experiencia laboral y que acaba de entrar al mercado laboral. Según un estudio realizado por la página web \textit{www.michaelpage.es}, el salario mínimo para una persona de estas características es de \EUR{18000} al año, lo que supone \EUR{1500} al mes, siendo este valor lo que paga la empresa por él \cite{salario:info}. Según el régimen de la Seguridad Social para el año 2018, de ese salario, la empresa tiene que cotizar un 23,60\%, mientras que el trabajador tiene que cotizar un 4,70\% \cite{cotizacion:info}. Teniendo en cuenta estos datos podemos saber que la empresa hace una cotización a la Seguridad Social de \EUR{286.41}, mientas que el trabajador la hace de \EUR{67.34}, siendo los valores obtenidos cotizados de forma mensual. Con estos datos, sabemos que el sueldo neto del trabajador es de \EUR{1169.13}.
+
+Con todos estos datos, podemos saber lo que le cuesta a la empresa el trabajador dedicado al proyecto durante 4 meses:
+
+\tablaSmallSinColores{Costes Humanos}{l r}{costeshumanos}
+{\textbf{Concepto} & \textbf{Coste}\\}{
+	Salario mensual bruto & \EUR{1169.13} \\
+	Seguridad Social (28.3\%) & \EUR{330.87} \\
+	Total al mes & \EUR{1500} \\
+	\midrule
+	Total 4 meses & \EUR{6000} \\
+}
+
+\subsubsection{Costes hardware}
+
+En este apartado se tienen en cuenta el costo de las herramientas hardware empleadas para el desarrollo del proyecto.
+
+\tablaSmallSinColores{Costes Hardware}
+{l r}{costeshardware}
+{\textbf{Concepto} & \textbf{Coste}\\}{
+	Ordenador HP \cite{ordenador:info} & \EUR{970.42} \\
+	Pantalla \cite{pantalla:info} & \EUR{199.00} \\
+	Ratón \cite{raton:info} & \EUR{19.36} \\
+	Teclado \cite{teclado:info} & \EUR{18.58} \\
+	Smartphone Android para pruebas \cite{telefono:info} & \EUR{109.00} \\
+	\midrule
+	Total & \EUR{1316.36} \\
+}
+
+\subsubsection{Costes alojamiento servidor}
+
+Aquí se tiene en cuenta los costes mensuales del servidor Microsoft Azure donde está alojado el servidor de nuestro asistente virtual.
+
+\tablaSmallSinColores{Costes Alojamiento}
+{l r}{costesalojamiento}
+{\textbf{Concepto} & \textbf{Coste}\\}{
+	Servidor Microsoft Azure \cite{azure:info} & \EUR{33.44} \\
+	\midrule
+	Total al mes & \EUR{33.44} \\
+	\midrule
+	Total 4 meses & \EUR{133.76} \\
+}
+
+\subsubsection{Costes licencias}
+
+En este apartado se tienen en cuenta aquellos softwares que poseen licencias de pago. Los precios hacen referencia al costo mensual
+
+\tablaSmallSinColores{Costes Alojamiento}
+{l r}{costesalojamiento}
+{\textbf{Concepto} & \textbf{Coste}\\}{
+	Adobe Creative Cloud \cite{adobe:info} & \EUR{69.99} \\
+	IVA (21\%)	& \EUR{14.70} \\
+	\midrule
+	Total al mes & \EUR{84.69} \\
+	\midrule
+	Total 4 meses & \EUR{338.76} \\
+}
+
+\subsubsection{Costes redes}
+
+Aquí se tienen en cuenta los gastos relacionados con la conexión de Internet de la oficina \cite{movistar:info}.
+
+\tablaSmallSinColores{Costes Redes}
+{l r}{costesredes}
+{\textbf{Concepto} & \textbf{Coste}\\}{
+	Fibra Óptica 100Mb & \EUR{33.06} \\
+	Cuota de línea & \EUR{14.38} \\
+	\midrule
+	Total (sin IVA) & \EUR{47.44} \\
+	IVA (21\%) & \EUR{9.96} \\
+	\midrule
+	Total al mes & \EUR{57.40} \\
+	\midrule
+	Total 4 meses & \EUR{229.60} \\
+}
+
+\clearpage
+
+\subsubsection{Costes oficina}
+
+En este apartado se tiene en cuenta el alquiler de la oficina donde se realizan las actividades de la empresa.
+
+\tablaSmallSinColores{Costes Oficina}
+{l r}{costesoficina}
+{\textbf{Concepto} & \textbf{Coste}\\}{
+	Alquiler oficina & \EUR{700} \\
+	\midrule
+	Total 4 meses & \EUR{2800} \\
+}
+
+
+\subsection{Costes varios}
+
+En esta sección entran aquellos gastos que no están calificados en ninguno de los apartados anteriores.
+
+\tablaSmallSinColores{Costes Varios}
+{l r}{costesvarios}
+{\textbf{Concepto} & \textbf{Coste}\\}
+{Impresión memoria y cartel & \EUR{30} \\
+	Material oficina & \EUR{10}  \\
+	\midrule
+	Total & \EUR{40}	\\
+}
+
+\subsubsection{Coste total}
+
+Con todos los costes especificado anteriormente, podemos calcular el coste total del proyecto para la empresa:
+
+\tablaSmallSinColores{Costes totales}
+{l r}{costestotales}
+{\textbf{Concepto} & \textbf{Coste}\\}{
+	Costes humanos & \EUR{6000.00} \\
+	Costes hardware & \EUR{1316.36} \\
+	Costes alojamiento servidor & \EUR{133.76} \\
+	Costes licencias & \EUR{338.76} \\
+	Costes redes & \EUR{229.60} \\
+	Costes oficina & \EUR{2800.00} \\
+	Costes varios & \EUR{40.00} \\
+	\midrule
+	Total proyecto & \EUR{10858.48} \\
+}
+
+\subsubsection{Beneficios}
+
+Unas de las ventajas en el desarrollo de esta aplicación es que en el desarrollo del mismo, solo se ha tenido que pagar la \textit{suite} de Adobe CC para la creación de las imágenes del producto. El resto de herramientas de software que se han empleado han sido totalmente gratuitas.
+
+La búsqueda de beneficios de esta aplicación se puede orientar desde diferentes puntos de vista.
+
+\begin{itemize}
+	\tightlist
+	\item
+	\textbf{Venta a terceros: } debido a la fácil escalabilidad de esta aplicación a otros ámbitos, nos permite poder vendérsela a otras empresas, cobrando el precio que se considere oportuno. A parte se puede cobrar a esas empresas un dinero al mes por mantener la aplicación.
+	\item 
+	\textbf{Uso en la página de la UBU: } gracias a la facilidad de encontrar los resultados con el asistente, va a generar más visitas a la página de la Universidad. Este mayor número de visitas puede repercutir indirectamente en un beneficio económico en la Universidad de Burgos.
+\end{itemize}
+
+
 \subsection{Viabilidad legal}
 
+En el caso del desarrollo de una aplicación software, tal y como es este caso, hay que tener en cuenta las diferentes licencias del software que se han empleado para el desarrollo del mismo.
+
+En este proyecto, a excepción de la licencia de Adobe Creative Cloud, todas las licencias empleadas son gratuitas. A continuación se detalla una tabla con el tipo de licencia utilizada por cada software.
+
+
+\tablaSinColores{Licencias de software}
+{l l l}{3}{licenciasoftware}
+{\textbf{Software} & \textbf{Descripción} & \textbf{Licencia}\\}{
+	jCOLIBRI 2 \cite{jcolibri:info} & Framework CBR & LGPL \\
+	Eclipse IDE \cite{eclipse:license} & IDE de desarrollo para JAVA & EPL \\
+	Android Studio \cite{android:license} & IDE de desarrollo de aplicaciones Android & Apache 2.0 \\
+	Apache Tomcat \cite{tomcat:license} & Servidor JAVA & Apache 2.0 \\
+	MySQL \cite{mysql:license} & Gestor base de datos SQL & GNU GPL \\
+	JAVA JDK y JRE \cite{java:license} & Lenguaje de programación & GNU GPL \\
+	Apache Commons \cite{apachecommons:license} & Librería JAVA & Apache 2.0 \\
+	JSON \cite{json:license} & Formato de texto de intercambio de datos & The JSON License \\
+	Jersey \cite{jersey:license} & Servicios web RESTful en JAVA & GNU GPL \\
+	JUnit \cite{junit:license} & Librería de test para Java & EPL \\
+	Hibernate \cite{hibernate:license} & Herramienta de mapeo objeto-relacional & LGPL \\
+	Log4j \cite{log4j:license} & Herramienta de logging en JAVA & Apache 2.0 \\
+	Selenium \cite{selenium:license} & Framework de pruebas automáticas web & Apache 2.0 \\
+	Guava \cite{guava:license} & Conjunto de biliotecas para JAVA & Apache 2.0 \\
+	Maven \cite{maven:license} & Herramienta de gestión de proyectos JAVA & Apache 2.0 \\
+}
+
+En la tabla anterior, podemos ver diferentes tipos de licencia, las cuales tienen diferentes clausulas, las cuales vamos a explicar ahora \cite{tiposI:license} \cite{tiposII:license}:
+
+\begin{itemize}
+	\tightlist
+	\item
+	\textbf{LGPL (Lesser General Public License): } GPL sin copyleft la cuál permite enlazar con módulos no libres.
+	\item 
+	\textbf{EPL (Eclipse Public License): } Licencia libre, pero con patentes.
+	\item 
+	\textbf{Apache 2.0: } Licencia libre y abierta, pero con patentes.
+	\item 
+	\textbf{GNU GPL: } Licencia libre, abierta y con copyleft.
+	\item 
+	\textbf{The JSON License: } Licencia igual que Expat (libre, simple, permisiva y sin copyleft), pero con la clausula añadida \textit{«El software deberá ser utilizado para el Bien y no para el Mal»}.
+\end{itemize}
+
+En algunas licencias aparece el término \textit{copyleft}, este término hace referencia a que si un software es libre y se hace una modificación sobre él, este también tiene que ser libre.
+
+\subsubsection{Documentación}
+
+Debido a que este software es una modificación de uno anterior, hay que mantener el mismo tipo de licencia. La licencia elegida para este proyecto fue \textit{Creative Commons}, eligiendo de todas las variantes la \textit{Reconocimiento-NoComercial-CompartirIgual 3.0 España (CC BY-NC-SA 3.0 ES)}. Esta licencia permite la evolución del software con reconocimiento de autoría, impidiendo el uso comercial del mismo y sus derivados y obliga a que todas  las obras derivadas tienen que utilizar esta misma licencia \cite{creativecommons:info}.
 

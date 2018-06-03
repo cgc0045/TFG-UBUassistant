@@ -26,6 +26,8 @@
 % Párrafos
 \nonzeroparskip
 
+% Símbolo euro
+\usepackage{eurosym}
 
 % Imagenes
 \usepackage{graphicx}
@@ -91,7 +93,7 @@
 %
 % Nuevo comando para tablas pequeñas (menos de una página).
 \newcommand{\tablaSmall}[5]{%
- \begin{table}
+ \begin{table}[h!]
   \begin{center}
    \rowcolors {2}{gray!35}{}
    \begin{tabular}{#2}
@@ -110,7 +112,7 @@
 %
 % Nuevo comando para tablas pequeñas (menos de una página).
 \newcommand{\tablaSmallSinColores}[5]{%
- \begin{table}[H]
+ \begin{table}[h!]
   \begin{center}
    \begin{tabular}{#2}
     \toprule
@@ -179,32 +181,32 @@
 %
 % Nuevo comando para tablas grandes con cabecera.
 \newcommand{\tablaSinColores}[6]{%
-  \begin{center}
-    \tablefirsthead{
-      \toprule
-      #5
-      \otoprule
-    }
-    \tablehead{
-      \multicolumn{#3}{l}{\small\sl continúa desde la página anterior}\\
-      \toprule
-      #5
-      \otoprule
-    }
-    \tabletail{
-      \hline
-      \multicolumn{#3}{r}{\small\sl continúa en la página siguiente}\\
-    }
-    \tablelasttail{
-      \hline
-    }
-    \bottomcaption{#1}
-    \begin{xtabular}{#2}
-      #6
-      \bottomrule
-    \end{xtabular}
-    \label{tabla:#4}
-  \end{center}
+	\begin{center}
+		\tablefirsthead{
+			\toprule
+			#5
+			\otoprule
+		}
+		\tablehead{
+			\multicolumn{#3}{l}{\small continúa desde la página anterior}\\
+			\toprule
+			#5
+			\otoprule
+		}
+		\tabletail{
+			\hline
+			\multicolumn{#3}{r}{\small continúa en la página siguiente}\\
+		}
+		\tablelasttail{
+			\hline
+		}
+		\bottomcaption{#1}
+		\begin{xtabular}{#2}
+			#6
+			\bottomrule
+		\end{xtabular}
+		\label{tabla:#4}
+	\end{center}
 }
 
 %
@@ -386,7 +388,7 @@
 \include{./tex/E_Manual_usuario}
 
 
-\bibliographystyle{plain}
-\bibliography{bibliografiaAnexos}
+\bibliographystyle{IEEEtran}
+\bibliography{IEEEabrv,bibliografiaAnexos}
 
 \end{document}
