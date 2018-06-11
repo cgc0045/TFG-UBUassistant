@@ -51,6 +51,8 @@ public class ResponseUser {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getResponse(@PathParam("question") String userText, @Context HttpServletRequest request) {
 		
+		Logger log = Logger.getLogger(getClass());
+		
 		HttpSession session = request.getSession();
 		
 		DateFormat formatForId = new SimpleDateFormat("yyMMddHHmmssSSS");
@@ -108,22 +110,21 @@ public class ResponseUser {
 		}
 		
 		if(response.size() == 0 && !ubuassistant.answerReservedWord(userText)) {
-			List<List<String>> mes = new ArrayList<>();
+			/*List<List<String>> mes = new ArrayList<>();
 			List<String> cont = new ArrayList<>();
 			cont.add(message);
 			mes.add(cont);
-			response.add(cont);
+			response.add(cont);*/
 //			response = message;
+			response.add(ubuassistant.getButton());
 			message = ubuassistant.getRandomSentence();
 			status=200;
-		}else {
+		}else if (ubuassistant.answerReservedWord(userText)){
 			status=203;
 		}
 		
 		Respuesta respuesta = new Respuesta(message, response);
-		
-		Logger log = Logger.getLogger(getClass());
-		
+				
 		log.info(respuesta.getMessage());
 		
 		log.info(respuesta.getResponses());

@@ -42,6 +42,7 @@ public class UBUassistantHandler {
     private String starBar;
     private String starBarButton;
     
+    private List<String> button;
     private List<List<String>> suggestButtons;
     private List<List<String>> multipleButtons;
     
@@ -100,6 +101,7 @@ public class UBUassistantHandler {
     	
     	starBar=null;
     	starBarButton=null;
+    	button=null;
     	suggestButtons=null;
     	multipleButtons=null;
     	String userTextLower=usertText.toLowerCase();
@@ -200,6 +202,12 @@ public class UBUassistantHandler {
 			response += "<a href="+temp+" target=\"_blank\">"+temp+"</a>";
 		else*/
 		response = temp;
+		
+		CBRCase c = casesToReatin.keySet().iterator().next();
+		
+		button = new ArrayList<>();
+		button.add(((CaseDescription)c.getDescription()).getKeyWord1());
+		button.add(response);
 			
 		LinkedHashSet<String> palabras=finalResults.keySet().iterator().next();
 		currentWords=palabras;
@@ -418,6 +426,10 @@ public class UBUassistantHandler {
    	 */
 	public String getStarBar() {
 		return starBar;
+	}
+	
+	public List<String> getButton() {
+		return button;
 	}
 
 	/**

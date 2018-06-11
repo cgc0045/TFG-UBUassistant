@@ -42,6 +42,7 @@ public class Main2Activity extends AppCompatActivity {
     private Button enviar;
     private EditText resultText;
     private JSONObject json;
+    private int responseCode;
 
 
     @Override
@@ -168,12 +169,7 @@ public class Main2Activity extends AppCompatActivity {
             JSONArray responses = json.getJSONArray("responses");
 
             for (int i=0; i < responses.length(); i++){
-                //respuesta += "\n\n" + responses.getString(i);
-                if (responses.getJSONArray(i).length() > 1) {
-                    respuesta += "<br><br><a href='ubuassistant://" + responses.getJSONArray(i).getString(1) + "'> " + responses.getJSONArray(i).getString(0) + "</a>";
-                }else{
-                    respuesta += "<br>" + responses.getJSONArray(i).getString(0);
-                }
+                respuesta += "<br><br><a href='ubuassistant://" + responses.getJSONArray(i).getString(1) + "'> " + responses.getJSONArray(i).getString(0) + "</a>";
             }
 
         } catch (JSONException e) {
@@ -205,7 +201,9 @@ public class Main2Activity extends AppCompatActivity {
 
                 conexion = (HttpURLConnection) serverURL.openConnection();
 
-                Log.w("Res", String.valueOf(conexion.getResponseCode()));
+                responseCode = conexion.getResponseCode();
+
+                Log.w("Res", String.valueOf(responseCode));
 
                 if(responseCodes.contains(conexion.getResponseCode())){
                     InputStream res = conexion.getInputStream();
