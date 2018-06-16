@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE xml>
+<Case>
+    <CompoundAttribute isId="false">
+        <attribType>CaseSolution</attribType>
+        <name>Solution</name>
+        <SimpleAttribute isId="true">
+            <attribType>java.lang.Integer</attribType>
+            <name>Id</name>
+        </SimpleAttribute>
+        <SimpleAttribute isId="false">
+            <attribType>java.lang.String</attribType>
+            <name>answer</name>
+        </SimpleAttribute>
+    </CompoundAttribute>
+    <CompoundAttribute isId="false">
+        <attribType/>
+        <name>Result</name>
+    </CompoundAttribute>
+    <CompoundAttribute isId="false">
+        <attribType/>
+        <name>Justification</name>
+    </CompoundAttribute>
+    <CompoundAttribute isId="false">
+        <attribType>CaseDescription</attribType>
+        <name>Description</name>
+        <SimpleAttribute isId="false">
+            <attribType>java.lang.String</attribType>
+            <name>keyWord7</name>
+        </SimpleAttribute>
+        <SimpleAttribute isId="false">
+            <attribType>java.lang.String</attribType>
+            <name>keyWord6</name>
+        </SimpleAttribute>
+        <SimpleAttribute isId="false">
+            <attribType>java.lang.String</attribType>
+            <name>keyWord5</name>
+        </SimpleAttribute>
+        <SimpleAttribute isId="false">
+            <attribType>java.lang.String</attribType>
+            <name>keyWord4</name>
+        </SimpleAttribute>
+        <SimpleAttribute isId="false">
+            <attribType>java.lang.String</attribType>
+            <name>keyWord3</name>
+        </SimpleAttribute>
+        <SimpleAttribute isId="false">
+            <attribType>java.lang.String</attribType>
+            <name>keyWord2</name>
+        </SimpleAttribute>
+        <SimpleAttribute isId="true">
+            <attribType>java.lang.Integer</attribType>
+            <name>id</name>
+        </SimpleAttribute>
+        <SimpleAttribute isId="false">
+            <attribType>java.lang.String</attribType>
+            <name>keyWord1</name>
+        </SimpleAttribute>
+    </CompoundAttribute>
+</Case>

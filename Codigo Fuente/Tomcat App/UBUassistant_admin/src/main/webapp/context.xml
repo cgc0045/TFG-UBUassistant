@@ -1,0 +1,4 @@
+<!DOCTYPE xml>
+<Context path="/UBUassistant_admin" docBase="UBUassistant_admin"
+        debug="5" reloadable="true" crossContext="true">
+</Context>

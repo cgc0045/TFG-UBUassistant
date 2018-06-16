@@ -5,7 +5,7 @@ import jcolibri.cbrcore.CaseComponent;
 
 /**
  * 
- * @author Daniel Santidrian Alonso
+ * @author Carlos González Calatrava
  *
  */
 public class CaseDescription implements CaseComponent { 
@@ -19,6 +19,8 @@ public class CaseDescription implements CaseComponent {
 	private java.lang.String keyWord3;
 	private java.lang.String keyWord4;
 	private java.lang.String keyWord5;
+	private java.lang.String keyWord6;
+	private java.lang.String keyWord7;
 
 	
 	/**
@@ -116,6 +118,38 @@ public class CaseDescription implements CaseComponent {
 	 */
 	public void setKeyWord5(java.lang.String keyWord55){
 		this.keyWord5 = keyWord55;
+	}
+	
+	/**
+	 * Function that returns the keyWord6 of the case description.
+	 * @return keyWord6 keyWord6 of the case description
+	 */
+	public java.lang.String getKeyWord6(){
+		return keyWord6;
+	}
+	
+	/**
+	 * Function that sets the keyWord6 of the case description.
+	 * @param keyWord66 keyWord6 of the case description.
+	 */
+	public void setKeyWord6(java.lang.String keyWord66){
+		this.keyWord6 = keyWord66;
+	}
+	
+	/**
+	 * Function that returns the keyWord7 of the case description.
+	 * @return keyWord7 keyWord7 of the case description
+	 */
+	public java.lang.String getKeyWord7(){
+		return keyWord7;
+	}
+	
+	/**
+	 * Function that sets the keyWors7 of the case description.
+	 * @param keyWord77 keyWord7 of the case description.
+	 */
+	public void setKeyWord7(java.lang.String keyWord77){
+		this.keyWord7 = keyWord77;
 	}
 
 	/**

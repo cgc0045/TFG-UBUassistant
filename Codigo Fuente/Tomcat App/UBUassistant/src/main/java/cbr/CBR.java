@@ -149,6 +149,18 @@ public class CBR implements StandardCBRApplication {
 						attribute5,
 						new jcolibri.method.retrieve.NNretrieval.similarity.local.MaxString());
 		simConfig.setWeight(attribute5, 0.75);
+		Attribute attribute6 = new Attribute("keyWord6", CaseDescription.class);
+		simConfig
+				.addMapping(
+						attribute6,
+						new jcolibri.method.retrieve.NNretrieval.similarity.local.MaxString());
+		simConfig.setWeight(attribute6, 0.75);
+		Attribute attribute7 = new Attribute("keyWord7", CaseDescription.class);
+		simConfig
+				.addMapping(
+						attribute7,
+						new jcolibri.method.retrieve.NNretrieval.similarity.local.MaxString());
+		simConfig.setWeight(attribute7, 0.75);
 		return simConfig;
 	}
 
@@ -233,6 +245,8 @@ public class CBR implements StandardCBRApplication {
 				cd.setKeyWord3(word);
 				cd.setKeyWord4(word);
 				cd.setKeyWord5(word);
+				cd.setKeyWord6(word);
+				cd.setKeyWord7(word);
 				query.setDescription(cd);
 				
 				try {

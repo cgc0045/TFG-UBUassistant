@@ -57,20 +57,22 @@ public class DatabaseAdministration {
 		PreparedStatement pst = null;
 		PreparedStatement pst2 = null;
 		
+		logger.info(lista);
+		
 		try{
 			
 		
 			pst = con.prepareStatement("INSERT INTO casedescription "
-											+ "(keyWord1,keyWord2,keyWord3,keyWord4,keyWord5, categoria) "
-											+ " VALUES (?,?,?,?,?,?)");
+											+ "(keyWord1,keyWord2,keyWord3,keyWord4,keyWord5,keyWord6,keyWord7, categoria) "
+											+ " VALUES (?,?,?,?,?,?,?,?)");
 			
 			for(int i=0;i<lista.size();i++)
 				pst.setString(i+1, removeEspecialChar(lista.get(i)));
 			
-			for(int i=lista.size(); i<5;i++)
+			for(int i=lista.size(); i<7;i++)
 				pst.setNull(i+1, java.sql.Types.VARCHAR);
 			
-			pst.setString(6, removeEspecialChar(categoria));
+			pst.setString(8, removeEspecialChar(categoria));
 			
 			pst.executeUpdate();
 			
@@ -101,11 +103,13 @@ public class DatabaseAdministration {
 		PreparedStatement pst = null;
 		PreparedStatement pst2 = null;
 		
+		logger.info(keyWords.length);
+		
 		try{
 			
 			pst = con.prepareStatement("UPDATE casedescription SET keyWord1=?, keyWord2=?, keyWord3=?"
-											+ ", keyWord4=?, keyWord5=?, categoria=? WHERE id=?");
-			pst.setInt(7, Integer.parseInt(id));
+											+ ", keyWord4=?, keyWord5=?,keyWord6=?,keyWord7=?, categoria=? WHERE id=?");
+			pst.setInt(9, Integer.parseInt(id));
 			
 			for(int i=0; i<keyWords.length; i++){
 				if(keyWords[i]!=null)
@@ -115,7 +119,7 @@ public class DatabaseAdministration {
 				
 			}
 			
-			pst.setString(6, removeEspecialChar(categoria));
+			pst.setString(8, removeEspecialChar(categoria));
 			
 			pst.executeUpdate();
 			
@@ -126,7 +130,7 @@ public class DatabaseAdministration {
 			pst2.executeUpdate();
 			
 		} catch (SQLException e) {
-			logger.error(e.toString());
+			logger.error(e.toString() + "-" + this.toString());
 		} finally{
 			dbu.close(pst);
 			dbu.close(pst2);
@@ -182,13 +186,13 @@ public class DatabaseAdministration {
 			String newPalabra=removeEspecialChar(palabra);
 			
 			pst = con.prepareStatement("INSERT INTO casedescription "
-											+ "(keyWord1,keyWord2,keyWord3,keyWord4,keyWord5, categoria) "
+											+ "(keyWord1,keyWord2,keyWord3,keyWord4,keyWord5,keyWord6,keyWord7, categoria) "
 											+ " VALUES (?,?,?,?,?,?)");
 			pst.setString(1, newPalabra);
-			for(int i=2; i<=5;i++)
+			for(int i=2; i<=7;i++)
 				pst.setNull(i, java.sql.Types.VARCHAR);
 			
-			pst.setString(6, getCategoria(respuesta));
+			pst.setString(8, getCategoria(respuesta));
 			pst.executeUpdate();
 			
 			pst2 = con.prepareStatement("INSERT INTO casesolution "
