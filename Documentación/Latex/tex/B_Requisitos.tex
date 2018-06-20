@@ -43,17 +43,169 @@ Los objetivos marcados para el desarrollo de este proyecto fueron:
 
 \section{Catalogo de requisitos}
 
-De lo anteriormente mencionado, obtenemos los siguientes requisitos funcionales:
+El proyecto que se ha desarrollado posee diferentes requisitos de uso, tanto funcionales como no funcionales. Dentro de todos estos requisitos, hay uno que es fundamental en el desarrollo del proyecto. Este requisito, es que la aplicación cliente que se desarrolle, tiene que tener los mismos requisitos que poseía el asistente web realizado por Daniel Santidrián en la versión del proyecto que se ha mejorado. \newline A parte de este requisito, otro muy importante durante el desarrollo de la aplicación, se ha tenido en cuenta que ésta sea compatible con cualquier dispositivo Android con versión igual o superior a 4.4. \newline Con esta premisa, los requisitos funcionales de nuestra aplicación son:
 
 \begin{itemize}
 	\tightlist
 	\item
-	\textbf{RF-1 Reconocimiento de texto mediante voz: } La aplicación debe de ser capaz de reconocer la voz del usuario y convertirlo a texto.
+	\textbf{RF-1 Reconocimiento de texto mediante voz:} La aplicación debe de ser capaz de reconocer la voz del usuario y convertirlo a texto.
 	\item 
-	\textbf{RF-2 Conectar mediante Internet al servidor: } 
+	\textbf{RF-2 Reconocimiento de preguntas:} La aplicación tiene que ser capaz de reconocer las preguntas del usuario.
+	\item 
+	\textbf{RF-3 Obtener respuesta:} El sistema debe de ser capaz de obtener respuestas a la pregunta realizada por el usuario.
+	\item 
+	\textbf{RF-4 Realizar recomendaciones:} El sistema debe de ser capaz de sugerir respuestas recomendadas cuando el asistente obtiene varias respuesta o no obtiene respuestas.
+	\item 
+	\textbf{RF-5 Navegador web:} La aplicación cliente tiene que ser capaz de abrir los enlaces ofrecidos por el asistente sin recurrir a un navegador web externo.
+	\item 
+	\textbf{RF-6 Valoración de respuestas:} La aplicación tiene que ser capaz de mostrarle al usuario la posibilidad de valorar la respuesta dada por parte del asistente.
 \end{itemize}
 
+A parte de los anteriores requisitos funcionales, tenemos requisitos no funcionales:
+
+\begin{itemize}
+	\tightlist
+	\item 
+	\textbf{RNF-1 Seguridad:} El servidor tiene que estar protegido ante los posibles ataques de denegación de servicio.
+	\item 
+	\textbf{RNF-2 Mejorar búsqueda:} Ampliar el número de vocablos de 5 a 7, para facilitar así al usuario las búsquedas.
+	\item 
+	\textbf{RNF-3 Adaptabilidad:} La aplicación tiene que ser adaptable fácilmente a diferentes plataformas.
+	\item 
+	\textbf{RNF-4 Imagen corporativa:} Mantener la imagen corporativa de la Universidad de Burgos.
+	\item 
+	\textbf{RNF-5 Registro de actividad:} La aplicación debe de ser capaz de registrar los diferentes enlaces accedidos por un usuario.
+	\item 
+	\textbf{RNF-6 Fácil manejo:} La aplicación tiene que ser sencilla de utilizar, tanto como para poder enviar las preguntas, como de visualizar las respuestas ofrecidas por el asistente. 
+\end{itemize}
+
+\newpage
 
 \section{Especificación de requisitos}
+
+\subsection{Diagrama de casos de uso}
+
+\imagen{DiagramaCasos.png}{Diagrama de casos de uso}
+
+\newpage
+
+\subsection{Casos de uso}
+
+
+\tablaSinColores{CU-01 Preguntar}
+{p{4cm} p{10cm}}{2}{CU-01}
+{\textbf{CU-01} & \textbf{Preguntar}\\}{
+	\textbf{Versión} 				& 1.0\\
+	\textbf{Autor} 					& Carlos González Calatrava\\
+	\textbf{Requisitos asociados} 	& RF-1 \& RF-2 \\
+	\textbf{Descripción} 			& Permite al usuario introducir texto en la interfaz del asistente para realizar una pregunta. \\
+	\textbf{Precondiciones} 		& Se ha conectado con la base de datos. \\
+	\textbf{Acciones}				& El usuario abre la aplicación Android. \\
+	 								& Introduce texto o lo dicta por voz. \\
+	 								& Enviar la pregunta. \\
+	\textbf{Postcondiciones}		& Obtener resultados de la respuesta. \\
+	\textbf{Excepciones}			& Servidor web no disponible. \\
+}
+
+\tablaSinColores{CU-02 Obtener respuesta}
+{p{4cm} p{10cm}}{2}{CU-02}
+{\textbf{CU-02} & \textbf{Obtener respuesta}\\}{
+	\textbf{Versión} 				& 1.0\\
+	\textbf{Autor} 					& Carlos González Calatrava\\
+	\textbf{Requisitos asociados} 	& RF-3\\
+	\textbf{Descripción} 			& El usuario obtiene una respuesta a la pregunta realizada. \\
+	\textbf{Precondiciones} 		& Se ha conectado con la base de datos. \\
+									& Existe respuesta única para la pregunta realizada. \\
+	\textbf{Acciones}				& El usuario abre la aplicación Android. \\
+									& Introduce texto o lo dicta por voz. \\
+									& Enviar la pregunta. \\
+									& Obtener la respuesta a la pregunta. \\
+	\textbf{Postcondiciones}		& Se almacena la respuesta en el log del servidor \\
+	\textbf{Excepciones}			& Servidor web no disponible. \\
+}
+
+\newpage
+
+\tablaSinColores{CU-03 Obtener recomendación}
+{p{4cm} p{10cm}}{2}{CU-03}
+{\textbf{CU-03} & \textbf{Obtener recomendación}\\}{
+	\textbf{Versión} 				& 1.0\\
+	\textbf{Autor} 					& Carlos González Calatrava\\
+	\textbf{Requisitos asociados} 	& RF-3 \& RF-4\\
+	\textbf{Descripción} 			& El usuario obtiene múltiples posibles respuestas a la pregunta realizada o recomendaciones por que la pregunta no tiene respuesta. \\
+	\textbf{Precondiciones} 		& Se ha conectado con la base de datos. \\
+									& Existe múltiples respuestas o no existen respuestas para la pregunta realizada. \\
+	\textbf{Acciones}				& El usuario abre la aplicación Android. \\
+									& Introduce texto o lo dicta por voz. \\
+									& Enviar la pregunta. \\
+									& El servidor no obtiene respuesta o encuentra múltiples respuestas. \\
+									& Se muestran las recomendaciones a la pregunta. \\
+	\textbf{Postcondiciones}		& Se almacena la respuesta en el log del servidor \\
+	\textbf{Excepciones}			& Servidor web no disponible. \\
+}
+
+\tablaSinColores{CU-04 Visualizar respuesta}
+{p{4cm} p{10cm}}{2}{CU-04}
+{\textbf{CU-04} & \textbf{Visualizar respuesta}\\}{
+	\textbf{Versión} 				& 1.0\\
+	\textbf{Autor} 					& Carlos González Calatrava\\
+	\textbf{Requisitos asociados} 	& RF-5\\
+	\textbf{Descripción} 			& El usuario puede visualizar la página web dada como respuesta desde la propia aplicación. \\
+	\textbf{Precondiciones} 		& Se ha conectado con la base de datos. \\
+									& Existe respuesta única para la pregunta realizada. \\
+	\textbf{Acciones}				& El usuario abre la aplicación Android. \\
+									& Introduce texto o lo dicta por voz. \\
+									& Enviar la pregunta. \\
+									& Obtener la respuesta a la pregunta. \\
+									& El usuario selecciona la respuesta. \\
+									& La respuesta se abre dentro de la propia aplicación. \\
+	\textbf{Postcondiciones}		& Se valora la respuesta recibida. \\
+	\textbf{Excepciones}			& Servidor web no disponible. \\
+}
+
+\tablaSinColores{CU-05 Visualizar recomendación}
+{p{4cm} p{10cm}}{2}{CU-05}
+{\textbf{CU-05} & \textbf{Visualizar recomendación}\\}{
+	\textbf{Versión} 				& 1.0\\
+	\textbf{Autor} 					& Carlos González Calatrava\\
+	\textbf{Requisitos asociados} 	& RF-5\\
+	\textbf{Descripción} 			& El usuario puede visualizar la página web respuesta que seleccione entre las diferentes recomendaciones realizadas por el asistente. \\
+	\textbf{Precondiciones} 		& Se ha conectado con la base de datos. \\
+									& Existe múltiples respuestas o no existen respuestas para la pregunta realizada. \\
+	\textbf{Acciones}				& El usuario abre la aplicación Android. \\
+									& Introduce texto o lo dicta por voz. \\
+									& Enviar la pregunta. \\
+									& El servidor no obtiene respuesta o encuentra múltiples respuestas. \\
+									& Se muestran las recomendaciones a la pregunta. \\
+									& El usuario selecciona una de las recomendaciones realizadas. \\
+									& La recomendación seleccionada se abre dentro de la propia aplicación. \\		
+	\textbf{Postcondiciones}		& Se valora la recomendación seleccionada. \\
+	\textbf{Excepciones}			& Servidor web no disponible. \\
+}
+
+\newpage
+
+\tablaSinColores{CU-06 Valorar respuesta}
+{p{4cm} p{10cm}}{2}{CU-06}
+{\textbf{CU-06} & \textbf{Valorar respuesta}\\}{
+	\textbf{Versión} 				& 1.0\\
+	\textbf{Autor} 					& Carlos González Calatrava\\
+	\textbf{Requisitos asociados} 	& RF-6\\
+	\textbf{Descripción} 			& El usuario puede valorar la respuesta o la recomendación que ha seleccionado. \\
+	\textbf{Precondiciones} 		& Se ha conectado con la base de datos. \\
+									& Existe múltiples respuestas o no existen respuestas para la pregunta realizada. \\
+									& La página web de la respuesta se encuentra disponible. \\
+	\textbf{Acciones}				& El usuario abre la aplicación Android. \\
+									& Introduce texto o lo dicta por voz. \\
+									& Enviar la pregunta. \\
+									& El servidor no obtiene respuesta o encuentra múltiples respuestas (recomendación) o tiene respuesta única. \\
+									& Se muestran las recomendaciones o la respuesta a la pregunta. \\
+									& El usuario selecciona una de las recomendaciones realizadas o la respuesta. \\
+									& La recomendación seleccionada o respuesta se abre dentro de la propia aplicación. \\
+									& El usuario vuelve al asistente. \\
+									& Valora la respuesta que se le ha otorgado. \\		
+	\textbf{Postcondiciones}		& Se almacena la valoración en la base de datos. \\
+	\textbf{Excepciones}			& Servidor web no disponible. \\
+}
 
 
