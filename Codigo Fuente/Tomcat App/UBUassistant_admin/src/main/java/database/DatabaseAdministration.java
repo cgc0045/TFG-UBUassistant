@@ -187,7 +187,7 @@ public class DatabaseAdministration {
 			
 			pst = con.prepareStatement("INSERT INTO casedescription "
 											+ "(keyWord1,keyWord2,keyWord3,keyWord4,keyWord5,keyWord6,keyWord7, categoria) "
-											+ " VALUES (?,?,?,?,?,?)");
+											+ " VALUES (?,?,?,?,?,?,?,?)");
 			pst.setString(1, newPalabra);
 			for(int i=2; i<=7;i++)
 				pst.setNull(i, java.sql.Types.VARCHAR);

@@ -29,7 +29,6 @@ public class ResponseUser {
 	private class Respuesta{
 		private String message;
 		private List<List<String>> responses;
-//		private String responses;
 		private Respuesta() {}
 		
 		private Respuesta(String message, List<List<String>> responses) {
@@ -68,7 +67,6 @@ public class ResponseUser {
 		UBUassistantHandler ubuassistant= (UBUassistantHandler) session.getAttribute("ubuassistantHandler");
 		
 		List<List<String>> response = new ArrayList<>();
-//		String response = new String();
 		
 		session = request.getSession();
 		
@@ -76,7 +74,6 @@ public class ResponseUser {
 		
 		String answer = null;
 		if(userText.length()>0){
-			//printText=userText.substring(0, 1).toUpperCase() + userText.substring(1).toLowerCase();
 			ubuassistant.setUsertText(userText);
 			answer = ubuassistant.getResponse();
 		}
@@ -95,27 +92,15 @@ public class ResponseUser {
 		  	
 		  	response.addAll(suggestButtons);
 		  	status=201;
-//		  	for (String s: suggestButtons) {
-//		  		response+=s;
-//		  	}
 		}
 		
 		List<List<String>> multipleButtons=ubuassistant.getMultipleButtons();
 		if(multipleButtons != null && multipleButtons.size() > 0){
 			response.addAll(multipleButtons);
 			status=202;
-//			for (String s: multipleButtons) {
-//		  		response+=s;
-//		  	}
 		}
 		
 		if(response.size() == 0 && !ubuassistant.answerReservedWord(userText)) {
-			/*List<List<String>> mes = new ArrayList<>();
-			List<String> cont = new ArrayList<>();
-			cont.add(message);
-			mes.add(cont);
-			response.add(cont);*/
-//			response = message;
 			response.add(ubuassistant.getButton());
 			message = ubuassistant.getRandomSentence();
 			status=200;
@@ -128,6 +113,10 @@ public class ResponseUser {
 		log.info(respuesta.getMessage());
 		
 		log.info(respuesta.getResponses());
+		
+		log.info("Contenido de current words");
+		
+		log.info(ubuassistant.getCurrentWords() != null ? ubuassistant.getCurrentWords() : 0);
 		
 		return Response.status(status).entity(respuesta).build();
 	}

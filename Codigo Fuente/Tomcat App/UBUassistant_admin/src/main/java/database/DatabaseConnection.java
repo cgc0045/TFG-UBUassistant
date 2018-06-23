@@ -244,6 +244,8 @@ public class DatabaseConnection {
 		databaseWords.add(rs.getString("keyWord3"));
 		databaseWords.add(rs.getString("keyWord4"));
 		databaseWords.add(rs.getString("keyWord5"));
+		databaseWords.add(rs.getString("keyWord6"));
+		databaseWords.add(rs.getString("keyWord7"));
 		
 		databaseWords.removeAll(Collections.singleton(null));
 		Collections.sort(databaseWords);
