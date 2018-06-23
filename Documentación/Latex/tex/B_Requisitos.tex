@@ -59,6 +59,30 @@ El proyecto que se ha desarrollado posee diferentes requisitos de uso, tanto fun
 	\textbf{RF-5 Navegador web:} La aplicación cliente tiene que ser capaz de abrir los enlaces ofrecidos por el asistente sin recurrir a un navegador web externo.
 	\item 
 	\textbf{RF-6 Valoración de respuestas:} La aplicación tiene que ser capaz de mostrarle al usuario la posibilidad de valorar la respuesta dada por parte del asistente.
+	\item 
+	\textbf{RF-7 Reiniciar palabras de búsqueda:} La aplicación debe de permitir al usuario que reinicie las palabras con las que se efectúan la búsqueda, permitiendo así, empezar una nueva búsqueda desde cero.
+	\item 
+	\textbf{RF-8 Gestión del log:} El administrador de la aplicación debe de ser capaz de gestionar el registro de las búsquedas realizadas por el usuario.
+	\begin{itemize}
+		\item 
+		\textbf{RF-8.1 Listar log:} La aplicación debe ser capaz de listar el registro de las búsquedas realizadas.
+	\end{itemize}
+	\item 
+	\textbf{RF-9 Gestión de casos:} La aplicación tiene que permitir gestionar a través de una interfaz los diferentes casos que se encuentran almacenados.
+	\begin{itemize}
+		\item 
+		\textbf{RF-9.1 Listar casos:} La interfaz tiene que ser capaz de listar todos los casos almacenados correctamente.
+		\item 
+		\textbf{RF-9.2 Añadir caso:} El sistema debe permitir añadir nuevos casos a la base de datos
+		\item 
+		\textbf{RF-9.3 Editar caso:} La aplicación tiene que permitir al administrador modificar los casos almacenados en la base de datos.
+	\end{itemize}
+	\item 
+	\textbf{RF-10 Gestión de aprendizaje:} El sistema tiene que permitir que el administrador pueda gestionar el aprendizaje del algoritmo.
+	\begin{itemize}
+		\item 
+		\textbf{RF-10.1 Aprender recomendación:} La aplicación tiene que ser capaz de aprender las diferentes recomendaciones que hayan sido aprobadas por el administrador.
+	\end{itemize}
 \end{itemize}
 
 A parte de los anteriores requisitos funcionales, tenemos requisitos no funcionales:
@@ -77,6 +101,8 @@ A parte de los anteriores requisitos funcionales, tenemos requisitos no funciona
 	\textbf{RNF-5 Registro de actividad:} La aplicación debe de ser capaz de registrar los diferentes enlaces accedidos por un usuario.
 	\item 
 	\textbf{RNF-6 Fácil manejo:} La aplicación tiene que ser sencilla de utilizar, tanto como para poder enviar las preguntas, como de visualizar las respuestas ofrecidas por el asistente. 
+	\item 
+	\textbf{RNF-7 Servicio virtualizado:} El servidor de la aplicación tiene que estar virtualizado en la nube, como \textit{Microsoft Azure}, permitiendo así que sea accesible desde cualquier localización.
 \end{itemize}
 
 \newpage
@@ -86,6 +112,18 @@ A parte de los anteriores requisitos funcionales, tenemos requisitos no funciona
 \subsection{Diagrama de casos de uso}
 
 \imagen{DiagramaCasos.png}{Diagrama de casos de uso}
+
+\subsection{Actores}
+
+En el sistema que se ha desarrollado, nos podemos encontrar con dos perfiles actores totalmente diferenciados:
+
+\begin{itemize}
+	\item 
+	\textbf{Usuario:} El usuario es el que se encarga de utilizar la aplicación Android para realizar las diferentes búsquedas que considere pertinentes.
+	\item 
+	\textbf{Administrador:} El administrador utiliza la interfaz web con sus credenciales, para gestionar los diferentes ámbitos del asistente de búsqueda.
+\end{itemize}
+
 
 \newpage
 
@@ -206,6 +244,188 @@ A parte de los anteriores requisitos funcionales, tenemos requisitos no funciona
 									& Valora la respuesta que se le ha otorgado. \\		
 	\textbf{Postcondiciones}		& Se almacena la valoración en la base de datos. \\
 	\textbf{Excepciones}			& Servidor web no disponible. \\
+}
+
+\tablaSinColores{CU-07 Reiniciar búsqueda}
+{p{4cm} p{10cm}}{2}{CU-07}
+{\textbf{CU-07} & \textbf{Reiniciar búsqueda}\\}{
+	\textbf{Versión} 				& 1.0\\
+	\textbf{Autor} 					& Carlos González Calatrava\\
+	\textbf{Requisitos asociados} 	& RF-7\\
+	\textbf{Descripción} 			& El usuario debe de ser capaz de reiniciar las palabras que se están utilizando para hacer la búsqueda. \\
+	\textbf{Precondiciones} 		& Se han realizado búsquedas con anterioridad. \\
+	\textbf{Acciones}				& El usuario abre la aplicación Android. \\
+									& Introduce texto o lo dicta por voz. \\
+									& Pulsa sobre el botón con el texto \textit{Nueva}.	\\
+	\textbf{Postcondiciones}		& Se realiza la búsqueda con las nuevas palabras. \\
+	\textbf{Excepciones}			& No se han realizado búsquedas con anterioridad. \\
+}
+
+\tablaSinColores{CU-08 Gestión del log}
+{p{4cm} p{10cm}}{2}{CU-08}
+{\textbf{CU-08} & \textbf{Gestión del log}\\}{
+	\textbf{Versión} 				& 1.0\\
+	\textbf{Autor} 					& Carlos González Calatrava\\
+	\textbf{Requisitos asociados} 	& RF-8 \& RF-8.1 \\
+	\textbf{Descripción} 			& Permite al administrador gestionar el registro de las búsquedas realizadas con el asistente virtual. \\
+	\textbf{Precondiciones} 		& La base de datos se encuentra accesible. \\
+									& El administrador se ha autenticado en el sistema con sus credenciales. \\
+	\textbf{Acciones}				& El usuario accede a la página web. \\
+									& El usuario abre la interfaz de administración. \\
+									& El usuario se autentica en el sistema con sus credenciales de administrador.	\\
+									& El administrador accede a la página de gestión del log. \\
+									& Se listan las diferentes búsquedas realizadas con el asistente virtual. \\
+									& Se permite ordenar las búsquedas por diferentes campos. \\
+									& Se permite exportar la lista a diferentes formatos. \\
+									& Se permite borrar la lista de búsquedas realizadas. \\
+	\textbf{Postcondiciones}		& El número de logs que se muestran es igual al número de logs que se encuentra en la base de datos. \\
+	\textbf{Excepciones}			& La base de datos no se encuentra accesible. \\
+}
+
+\tablaSinColores{CU-09 Listar log}
+{p{4cm} p{10cm}}{2}{CU-09}
+{\textbf{CU-09} & \textbf{Listar log}\\}{
+	\textbf{Versión} 				& 1.0\\
+	\textbf{Autor} 					& Carlos González Calatrava\\
+	\textbf{Requisitos asociados} 	& RF-8.1 \\
+	\textbf{Descripción} 			& Permite al administrador visualizar en forma de tabla el registro de todas las búsquedas que ha realizado un usuario utilizando el asistente virtual. \\
+	\textbf{Precondiciones} 		& La base de datos se encuentra accesible. \\
+									& El administrador se ha autenticado en el sistema con sus credenciales. \\
+	\textbf{Acciones}				& El usuario accede a la página web. \\
+									& El usuario abre la interfaz de administración. \\
+									& El usuario se autentica en el sistema con sus credenciales de administrador.	\\
+									& El administrador accede a la página de gestión del log. \\
+									& Se listan las diferentes búsquedas realizadas con el asistente virtual. \\
+	\textbf{Postcondiciones}		& El número de logs que se muestran es igual al número de logs que se encuentra en la base de datos. \\
+	\textbf{Excepciones}			& La base de datos no se encuentra accesible. \\
+}
+
+\tablaSinColores{CU-10 Gestión de casos}
+{p{4cm} p{10cm}}{2}{CU-10}
+{\textbf{CU-10} & \textbf{Gestión de casos}\\}{
+	\textbf{Versión} 				& 1.0\\
+	\textbf{Autor} 					& Carlos González Calatrava\\
+	\textbf{Requisitos asociados} 	& RF-9, RF-9.1, RF-9.2 \& RF-9.3 \\
+	\textbf{Descripción} 			& Permite al administrador gestionar los diferentes casos que son utilizados por el asistente virtual. \\
+	\textbf{Precondiciones} 		& La base de datos se encuentra accesible. \\
+									& El administrador se ha autenticado en el sistema con sus credenciales. \\
+	\textbf{Acciones}				& El usuario accede a la página web. \\
+									& El usuario abre la interfaz de administración. \\
+									& El usuario se autentica en el sistema con sus credenciales de administrador.	\\
+									& El administrador accede a las páginas de las sección \textit{Editor de casos }  \\
+									& Si se accede a la página \textit{Añadir Caso}, se muestra un formulario, con el cual se puede añadir un nuevo caso a la base de datos para que lo pueda utilizar el asistente virtual.\\
+									& Si se accede a la página \textit{Modificar Casos}, se muestra en forma de tabla los diferentes casos que utiliza el asistente virtual. \\
+									& Se muestran diferentes menús con los que se permite editar o eliminar cada uno de los diferentes casos. \\
+									& Se muestra una opción que permite exportar la tabla a diferentes formatos. \\
+	\textbf{Postcondiciones}		& El número de casos que se muestran es igual al número de casos que se encuentra en la base de datos. \\
+	\textbf{Excepciones}			& La base de datos no se encuentra accesible. \\
+}
+
+\tablaSinColores{CU-11 Listar casos}
+{p{4cm} p{10cm}}{2}{CU-11}
+{\textbf{CU-11} & \textbf{Listar casos}\\}{
+	\textbf{Versión} 				& 1.0\\
+	\textbf{Autor} 					& Carlos González Calatrava\\
+	\textbf{Requisitos asociados} 	& RF-9.1 \\
+	\textbf{Descripción} 			& Permite al administrador ver en forma de tabla los casos almacenados en la base de datos. \\
+	\textbf{Precondiciones} 		& La base de datos se encuentra accesible. \\
+									& El administrador se ha autenticado en el sistema con sus credenciales. \\
+	\textbf{Acciones}				& El usuario accede a la página web. \\
+									& El usuario abre la interfaz de administración. \\
+									& El usuario se autentica en el sistema con sus credenciales de administrador.	\\
+									& El administrador accede a la página \textit{Modificar Casos}. \\
+									& Se muestran todos los casos almacenados en forma de tabla. \\
+	\textbf{Postcondiciones}		& El número de casos que se muestran es igual al número de casos que se encuentra en la base de datos. \\
+	\textbf{Excepciones}			& La base de datos no se encuentra accesible. \\
+}
+
+\tablaSinColores{CU-12 Añadir caso}
+{p{4cm} p{10cm}}{2}{CU-12}
+{\textbf{CU-12} & \textbf{Añadir caso}\\}{
+	\textbf{Versión} 				& 1.0\\
+	\textbf{Autor} 					& Carlos González Calatrava\\
+	\textbf{Requisitos asociados} 	& RF-9.2 \\
+	\textbf{Descripción} 			& Permite al administrador añadir un nuevo caso a la base de datos para que lo pueda utilizar el asistente virtual. \\
+	\textbf{Precondiciones} 		& La base de datos se encuentra accesible. \\
+									& El administrador se ha autenticado en el sistema con sus credenciales. \\
+	\textbf{Acciones}				& El usuario accede a la página web. \\
+									& El usuario abre la interfaz de administración. \\
+									& El usuario se autentica en el sistema con sus credenciales de administrador.	\\
+									& El administrador accede a la página \textit{Añadir Caso}. \\
+									& Se muestra el formulario para poder añadir un nuevo caso. \\
+									& El administrador rellena los campos obligatorios y aquellos opcionales que considere oportunos. \\
+									& Pulsa sobre el botón de \textit{Aceptar} para añadir el nuevo caso. \\
+	\textbf{Postcondiciones}		& El caso que se ha añadido se encuentra en la base de datos. \\
+	\textbf{Excepciones}			& La base de datos no se encuentra accesible. \\
+									& Los campos marcados como obligatorios no se han rellenado. \\
+}
+
+\tablaSinColores{CU-13 Editar caso}
+{p{4cm} p{10cm}}{2}{CU-13}
+{\textbf{CU-13} & \textbf{Editar caso}\\}{
+	\textbf{Versión} 				& 1.0\\
+	\textbf{Autor} 					& Carlos González Calatrava\\
+	\textbf{Requisitos asociados} 	& RF-9.3 \\
+	\textbf{Descripción} 			& Permite al administrador editar un caso que ya existe en la base de datos. \\
+	\textbf{Precondiciones} 		& La base de datos se encuentra accesible. \\
+									& El administrador se ha autenticado en el sistema con sus credenciales. \\
+									& El caso que se quiere modificar, existe. \\
+	\textbf{Acciones}				& El usuario accede a la página web. \\
+									& El usuario abre la interfaz de administración. \\
+									& El usuario se autentica en el sistema con sus credenciales de administrador.	\\
+									& El administrador accede a la página \textit{Modificar Caso}. \\
+									& Se muestra la tabla con todos los casos almacenados en la base de datos. \\
+									& El administrador pulsa sobre el botón \textit{Editar} del caso que quiere modificar. \\
+									& Se muestra un formulario con los datos del caso a modificar. \\
+									& El administrador cambia o rellena los campos que considere oportuno, dejando siempre rellenados los campos que son obligatorios. \\
+									& El administrador pulsa sobre el botón \textit{Aceptar} para modificar el caso. \\
+	\textbf{Postcondiciones}		& El caso que se ha añadido se encuentra en la base de datos. \\
+	\textbf{Excepciones}			& La base de datos no se encuentra accesible. \\
+									& Los campos marcados como obligatorios no se han rellenado. \\
+}
+
+\newpage
+
+\tablaSinColores{CU-14 Gestión de aprendizaje}
+{p{4cm} p{10cm}}{2}{CU-14}
+{\textbf{CU-14} & \textbf{Gestión de aprendizaje}\\}{
+	\textbf{Versión} 				& 1.0\\
+	\textbf{Autor} 					& Carlos González Calatrava\\
+	\textbf{Requisitos asociados} 	& RF-10 \& RF-10.1 \\
+	\textbf{Descripción} 			& Permite al administrador gestionar los diferentes casos que son utilizados por el asistente virtual. \\
+	\textbf{Precondiciones} 		& La base de datos se encuentra accesible. \\
+									& El administrador se ha autenticado en el sistema con sus credenciales. \\
+	\textbf{Acciones}				& El usuario accede a la página web. \\
+									& El usuario abre la interfaz de administración. \\
+									& El usuario se autentica en el sistema con sus credenciales de administrador.	\\
+									& El administrador accede a la página \textit{Aprendizaje}. \\
+									& Se muestra una tabla con todas las recomendaciones que ha ido recogiendo el asistente virtual. \\
+									& Se muestran opciones para aprende o descartar la recomendación de aprendizaje. \\
+									& Se muestra una opción para poder exportar la tabla de recomendaciones a diferentes formatos. \\
+	\textbf{Postcondiciones}		& El número de recomendaciones que se muestran es igual al número de recomendaciones que se encuentra en la base de datos. \\
+	\textbf{Excepciones}			& La base de datos no se encuentra accesible. \\
+}
+
+\tablaSinColores{CU-15 Aprender recomendación}
+{p{4cm} p{10cm}}{2}{CU-15}
+{\textbf{CU-15} & \textbf{Aprender recomendación}\\}{
+	\textbf{Versión} 				& 1.0\\
+	\textbf{Autor} 					& Carlos González Calatrava\\
+	\textbf{Requisitos asociados} 	& RF-10.1 \\
+	\textbf{Descripción} 			& Permite al administrador considerar como buena la recomendación de aprendizaje del asistente virtual. \\
+	\textbf{Precondiciones} 		& La base de datos se encuentra accesible. \\
+									& El administrador se ha autenticado en el sistema con sus credenciales. \\
+									& Existe al menos una recomendación de aprendizaje. \\
+	\textbf{Acciones}				& El usuario accede a la página web. \\
+									& El usuario abre la interfaz de administración. \\
+									& El usuario se autentica en el sistema con sus credenciales de administrador.	\\
+									& El administrador accede a la página \textit{Aprendizaje}. \\
+									& Se muestra una tabla con todas las recomendaciones que ha ido recogiendo el asistente virtual. \\
+									& El administrador pulsa sobre la opción \textit{Aprender} de la recomendación que desee. \\
+	\textbf{Postcondiciones}		& El número de recomendaciones que se muestran es igual al número de recomendaciones que se encuentra en la base de datos. \\
+									& El nuevo caso se encuentra disponible en la base de datos. \\
+									& La recomendación ha sido eliminada de la interfaz de aprendizaje. \\
+	\textbf{Excepciones}			& La base de datos no se encuentra accesible. \\
 }
 
 

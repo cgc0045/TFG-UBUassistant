@@ -2,7 +2,37 @@
 
 \section{Introducción}
 
+En este apartado se va a detallar como se han estructurado los datos, los procedimientos y la arquitectura del proyecto que se ha desarrollado.
+
 \section{Diseño de datos}
+
+En este proyecto, nos podemos encontrar con dos entidades que se relacionan entre ellas.
+
+\begin{itemize}
+	\tightlist
+	\item
+	\textbf{CaseDescription:} esta entidad es la encargada de almacenar los diferentes casos descritos para el algoritmo de IA que lleva el asistente. Para definir el caso lleva un identificador, así como siete palabras clave que describen cada uno de los diferentes casos.
+	\item
+	\textbf{CaseSolution:} esta entidad se encarga de almacenar las diferentes respuestas que da el algoritmo de IA a cada uno de los diferentes casos descriptivos. Los atributos de esta entidad son un identificador y una respuesta, que por defecto en todos los casos es una dirección web.
+\end{itemize}
+
+La relación entre estas dos entidades está realizada a través de Hibernate, sin necesidad de emplear ninguna clave externa para poder hacerlo.
+
+\imagen{DiagramaER.png}{Diagrama E/R}
+
+A parte de las dos entidades que hemos mencionado con anterioridad, existen otras entidades representadas en forma de tablas.
+
+\begin{itemize}
+	\tightlist
+	\item
+	\textbf{aprendizaje:} Esta entidad se encarga de almacenar los diferentes casos que puede aprender nuestro algoritmo. Para almacenar los diferentes casos, se emplea un identificador (\textit{id}), el identificador del usuario que ha propuesto el aprendizaje (\textit{userid}) y dos palabras que definen el caso (\textit{palabra1} \& \textit{palabra2}). 
+	\item
+	\textbf{logger:} La función de esta entidad es almacenar un registro de todas las respuestas accedidas por los usuarios. Para ello, se utiliza un identificador (\textit{id}), el identificador del usuario que ha accedido a la respuesta (\textit{userid}), la fecha de acceso a la respuesta (\textit{fecha}), las siete posibles palabras que pueden describir el caso (\textit{keyWord1 - keyWord7}), la categoría de la respuesta dada (\textit{categoria}), la respuesta accedida (respuesta), el número de veces que se ha accedido a la respuesta (\textit{num\_busquedas}), el número de veces que se ha votado esa respuesta (\textit{num\_votos}) y la valoración total que ha recibido la respuesta (\textit{valoracion\_total}).
+	\item 
+	\textbf{frases:} Esta entidad se encarga de almacenar una serie de frases que se otorga junto a la respuesta, para dar así un aspecto más humano a nuestro asistente. Para ello, se utiliza un identificador (\textit{id}) y la frases que se ofrecen junto a la pregunta (\textit{frase}).
+	\item 
+	\textbf{saludos:}
+\end{itemize}
 
 \section{Diseño procedimental}
 
