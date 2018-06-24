@@ -115,6 +115,21 @@ En esta reunión se mostró la nueva interfaz de la aplicación. A parte de esto
 
 Como objetivos de este sprint, se estableció afinar la forma en la que se abren los enlaces y añadir la valoración de las repuestas, así como el comienzo con la documentación del proyecto.
 
+\subsection{Sprint 13 (06/06/2018 - 12/06/2018)}
+
+En esta reunión se mostró la nueva forma en la que se muestran los enlaces, así como una primera versión de como funcionaría la ventana de valoración de las respuestas.
+
+Como objetivo, se estableció principalmente continuar de una forma más continuada con los anexos del proyecto.
+
+\subsection{Sprint 14 (13/06/2018 - 22/06/2018)}
+
+En esta reunión se mostró el estado de los anexos en aquel momento.
+
+Como objetivo, se estableció tener terminada toda la documentación para el día 25 de junio, así como tener implementado el mecanismo de valoración de las respuestas.
+
+\subsection{Sprint 15 (23/06/2018 - 27/06/2018)}
+
+En esta reunión se mostró el estado final de la aplicación desarrollada, obteniendo la aprobación del tutor para presentar el proyecto.
 
 
 \section{Estudio de viabilidad}
@@ -142,6 +157,8 @@ Con todos estos datos, podemos saber lo que le cuesta a la empresa el trabajador
 	Total 4 meses & \EUR{6000} \\
 }
 
+\newpage
+
 \subsubsection{Costes hardware}
 
 En este apartado se tienen en cuenta el costo de las herramientas hardware empleadas para el desarrollo del proyecto.
@@ -158,6 +175,8 @@ En este apartado se tienen en cuenta el costo de las herramientas hardware emple
 	Total & \EUR{1316.36} \\
 }
 
+
+
 \subsubsection{Costes alojamiento servidor}
 
 Aquí se tiene en cuenta los costes mensuales del servidor Microsoft Azure donde está alojado el servidor de nuestro asistente virtual.
@@ -172,12 +191,24 @@ Aquí se tiene en cuenta los costes mensuales del servidor Microsoft Azure donde
 	Total 4 meses & \EUR{133.76} \\
 }
 
+\subsubsection{Costes publicación}
+
+En este apartado se tiene en cuenta el coste que supone publicar la aplicación para poder descargarla desde \textit{Google Play Store}.
+
+\tablaSmallSinColores{Costes Publicación}
+{l r}{costespublicacion}
+{\textbf{Concepto} & \textbf{Coste}\\}{
+	Cuenta desarrollador Google \cite{developer:info} & \EUR{21.45} \\
+	\midrule
+	Total & \EUR{21.45} \\
+}
+
 \subsubsection{Costes licencias}
 
-En este apartado se tienen en cuenta aquellos softwares que poseen licencias de pago. Los precios hacen referencia al costo mensual
+En este apartado se tienen en cuenta aquellos softwares que poseen licencias de pago. Los precios hacen referencia al costo mensual.
 
-\tablaSmallSinColores{Costes Alojamiento}
-{l r}{costesalojamiento}
+\tablaSmallSinColores{Costes Licencias}
+{l r}{costeslicencia}
 {\textbf{Concepto} & \textbf{Coste}\\}{
 	Adobe Creative Cloud \cite{adobe:info} & \EUR{69.99} \\
 	IVA (21\%)	& \EUR{14.70} \\
@@ -243,12 +274,13 @@ Con todos los costes especificado anteriormente, podemos calcular el coste total
 	Costes humanos & \EUR{6000.00} \\
 	Costes hardware & \EUR{1316.36} \\
 	Costes alojamiento servidor & \EUR{133.76} \\
+	Costes publicación & \EUR{21.45} \\
 	Costes licencias & \EUR{338.76} \\
 	Costes redes & \EUR{229.60} \\
 	Costes oficina & \EUR{2800.00} \\
 	Costes varios & \EUR{40.00} \\
 	\midrule
-	Total proyecto & \EUR{10858.48} \\
+	Total proyecto & \EUR{10879.93} \\
 }
 
 \subsubsection{Beneficios}

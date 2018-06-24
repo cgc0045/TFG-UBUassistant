@@ -31,11 +31,121 @@ A parte de las dos entidades que hemos mencionado con anterioridad, existen otra
 	\item 
 	\textbf{frases:} Esta entidad se encarga de almacenar una serie de frases que se otorga junto a la respuesta, para dar así un aspecto más humano a nuestro asistente. Para ello, se utiliza un identificador (\textit{id}) y la frases que se ofrecen junto a la pregunta (\textit{frase}).
 	\item 
-	\textbf{saludos:}
+	\textbf{saludos:} Esta entidad se encarga de recoger los diferentes saludos que puede ofrecer el asistente virtual al usuario. Para almacenar estos saludos, se emplea un identificador (\textit{id}), un campo que es el saludo introducido por el usuario (\textit{saludo}) y la respuesta que da el asistente virtual (\textit{respuesta}).
 \end{itemize}
 
 \section{Diseño procedimental}
 
+En este apartado se detalla como pueden interacciones los diferentes participantes con el sistema.
+
+Vamos a explicar cuál es el funcionamiento del usuario con la aplicación Android para realizar las búsquedas. Para ello, vamos a ver como funciona el algoritmo de búsqueda de respuestas, empleando diferentes diagramas de secuencia.
+
+\imagen{PalabraReservada.png}{Diagrama de secuencia para una palabra reservada (Ej. \textit{Buenos días}).}
+
+\imagen{RespuestaUnica.png}{Diagrama de secuencia para una pregunta con una única respuesta.}
+
+\imagen{RespuestaMultiple.png}{Diagrama de secuencia para una pregunta con múltiples respuestas.}
+
+\imagen{SinRespuesta.png}{Diagrama de secuencia para una pregunta que no tiene respuesta.}
+
+\newpage
+
 \section{Diseño arquitectónico}
 
+Debido a que unos de los objetivos del proyecto es que la aplicación sea fácilmente adaptable a diferentes plataformas, desde un primer momento se decidió emplear \textit{MVC}. De esta manera, se tiene bien diferenciadas la capa de datos, la capa lógica y la capa de interfaz.
 
+\subsection{Modelo Vista Controlador}
+
+El Modelo-vista-controlador (\textit{MVC}) es un patrón de arquitectura, el cual separa los datos de la lógica de negocio y de la interfaz, para así poder realizar de forma correcta la reutilización de código y la separación de conceptos \cite{mvc:info}.
+
+\imagen{MVC.png}{Modelo-vista-controlador}
+
+El significado de cada uno de los componentes de este diseño arquitectónico es el siguiente:
+
+\begin{itemize}
+	\tightlist
+	\item 
+	\textbf{Modelo:} Representa los diferentes datos con los que trabaja la aplicación, por lo que esta parte se encarga de gestionar todos los accesos a dicha información.
+	\item 
+	\textbf{Vista:} Representa la lógica de negocio y la información de una forma correcta al usuario, por lo que normalmente es una interfaz de usuario.
+	\item 
+	\textbf{Controlador:} Representa los diferentes eventos que se pueden dar en la aplicación, por lo que se encarga de realizar las invocaciones pertinentes al modelo, además también puede comunicarse con la vista para realizar modificaciones de la representación de datos sobre ella. En definitiva, este componente es el que se encarga de hacer de intermediario entre la vista y el modelo.
+	
+\end{itemize}
+
+Para la aplicación de usuario, se ha empleado una aplicación para sistema operativo Android. Aplicando el concepto de MVC a la aplicación, obtenemos un sistema que cumple el siguiente diagrama:
+
+\imagen{mvc-android2.jpg}{Diagrama MVC de una aplicación Android}
+
+En cambio, el administrador emplea una aplicación web diseñada en JSP, con la cual realiza diferentes tareas. Si aplicamos el concepto de MVC a esta aplicación web, obtenemos el siguiente diagrama:
+
+\imagen{mvc-jsp.jpg}{Diagrama MVC en una aplicación web JSP}
+
+\subsection{Arquitectura de la aplicación de usuario}
+
+Para la realización de la aplicación de usuario, se ha realizado una aplicación Android.
+
+Dentro de las aplicaciones Android, se pueden emplear diferentes lenguajes para realizar la programación de la misma, pero para este proyecto se ha decidido que la aplicación esté realizada en JAVA, debido a que el servidor se encuentra programado en ese mismo lenguaje.
+
+\imagen{arquitectura-android.jpg}{Arquitectura de una aplicación Android}
+
+\subsection{Arquitectura de la aplicación web}
+
+Para la aplicación web de administración se ha desarrollado utilizando JSP.
+
+JSP (JavaServer Pages) es una tecnología que permite desarrollar páginas web dinámicas basadas en HTML y XML, en las cuales se permite alojar clases JAVA, las cuales manejan la lógica de negocio y el acceso a los datos.
+
+\imagen{arquitectura-jsp.png}{Arquitectura de una aplicación web basada en JSP}
+
+\subsection{Estructura de paquetes}
+
+El sistema está agrupado en paquetes, que comparten funcionalidades, facilitando así la comprensión del mismo. Hay que tener en cuenta que el sistema está separado en dos, por una parte la aplicación de usuario, mientras por otro lado está el servidor de la aplicación junto a la web de administración. 
+
+\subsubsection{Aplicación de usuario}
+
+La aplicación de usuario, tiene las clases dentro de un mismo paquete, mientras que en otro directorio, podemos encontrar los diferentes recursos que se han empleado para la confección de la aplicación. A parte, también tiene todos los recursos utilizados para la aplicación agrupados en diferentes carpetas, clasificados según su finalidad.
+
+\imagen{DiagramaPaquetesAndroid.png}{Diagrama de estructura de los paquetes en Android}
+
+\imagen{DiagramaRecursos.png}{Diagrama de estructura de los recursos}
+
+\subsubsection{Servidor web}
+
+Al igual que en la aplicación Android, en el servidor, se han agrupado las clases según las que comparten funcionalidad, permitiendo así, que sea más fácil la comprensión del sistema que se ha desarrollado. Teniendo en cuenta esto, obtenemos el siguiente diagrama de paquetes de nuestro servidor.
+
+\imagen{DiagramaPaquetesServidor.png}{Diagrama de estructura de los paquetes en el servidor}
+
+El contenido de cada uno de los paquetes es el siguiente:
+
+\begin{itemize}
+	\tightlist
+	\item 
+	\textbf{cbr:} Contiene la la lógica del algoritmo de razonamiento basado en casos.
+	\item 
+	\textbf{database:} Contiene las clases que se encargan de la comunicación con la base de datos MySQL. Tenemos separado en dos clases las conexiones encargadas para que funcione el asistente virtual (\textit{DatabaseConection}), de las conexiones encargadas de la administración del algoritmo (\textit{DatabaseAdministration}).
+	\item 
+	\textbf{handler:} Contiene la clase que se encarga de hacer de intermediario entre la aplicación del usuario y el algoritmo de razonamiento basado en casos.
+	\item 
+	\textbf{storage:} Contiene la clase que se encarga de almacenar el texto que se le ha mostrado al administrador cuando utiliza la interfaz web del asistente.
+	\item 
+	\textbf{representation:} Contiene las diferentes clases que representan el modelo y que son utilizadas por el algoritmo para poder conectarse correctamente con la base de datos.
+	\item 
+	\textbf{util:} Contiene una clase que es la encargada de comparar los diferentes resultados que nos devuelve el algoritmo de razonamiento basado en casos.
+\end{itemize}
+
+\newpage
+
+\subsection{Navegabilidad}
+El sistema que se ha desarrollado tiene dos apartados bien diferenciados, por un lado es la aplicación de usuario para Android y por otro lado la página web que se emplea para la administración del algoritmo. Dentro de la página web, podemos diferenciar dos interfaces, la página de administración propiamente dicha y la posibilidad de utilizar el asistente virtual desde la página web, permitiendo así que el administrador pueda hacer las pruebas pertientes para el correcto funcionamiento del algoritmo.
+
+Teniendo en cuenta, esto que se ha mencionado, se puede obtener el siguiente diagrama de navegabilidad.
+
+\imagen{DiagramaNavegabilidad.png}{Diagrama de navegabilidad}
+
+\subsection{Colores}
+
+Los colores que se han elegido para el desarrollo del proyecto, han sido los de la Universidad de Burgos, ya que uno de los objetivos del proyecto es mantener la imagen coorporativa de la universidad, siendo los colores un azul de tono medio y el granate. Además, como tercer color, se ha elegido un tono grisáceo bastante cercano al negro. En las situaciones en las que se necesita un color de fondo, se ha optado por utilizar el blanco.
+
+\newpage
+
+\imagen{Colores.png}{Colores}
