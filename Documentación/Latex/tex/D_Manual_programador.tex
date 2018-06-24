@@ -2,10 +2,260 @@
 
 \section{Introducción}
 
+En este apartado se va a explicar la estructura de directorios del proyecto que se ha desarrollado. También se incluyen los pasos necesarios para poder compilar, instalar y ejecutar el proyecto de una forma adecuada. A parte de todo esto, se incluye un manual de programador, para configurar correctamente los diferentes entornos que se han utilizado durante el proyecto.
+
 \section{Estructura de directorios}
+
+Los directorios que posee nuestro proyecto es el siguiente:
+
+\begin{itemize}
+	\tightlist
+	\item
+	\textbf{/:} el directorio raíz del proyecto posee el fichero \textit{README.md}, el cual contiene la licencia del proyecto. A parte de esto, tiene dentro todas las demás carpetas del proyecto, las cuales se detallan a continuación.
+	\item 
+	\textbf{/Código Fuente:} este directorio posee los diferentes ficheros fuente del proyecto, tanto de la aplicación Android como del servidor web. En este directorio también podemos encontrar el fichero SQL necesario para poder crear correctamente la base de datos con todos los casos base de nuestro algoritmo.
+	\item 
+	\textbf{/Código Fuente/Android/UBUassistant:} el contenido de este directorio es los ficheros necesarios para poder compilar la aplicación sin necesidad de utilizar \textit{Android Studio} para ello. Además incluye los directorios que poseen los ficheros fuente de la aplicación.
+	\item 
+	\textbf{/Código Fuente/Android/UBUassistant/app/build:} en este directorio se almacenan las diferentes clases compiladas de la aplicación en diferentes directorios.
+	\item 
+	\textbf{/Código Fuente/Android/UBUassistant/app/build/outputs/apk/debug:} en este directorio podemos encontrar el fichero APK de nuestra aplicación Android.
+	\item 
+	\textbf{/Código Fuente/Android/UBUassistant/app/src/main:} el contenido de este directorio es el código fuente de la aplicación Android junto a los recursos utilizados.
+	\item 
+	\textbf{/Código Fuente/Android/UBUassistant/app/src/main/java:} código fuente de la aplicación Android.
+	\item 
+	\textbf{/Código Fuente/Android/UBUassistant/app/src/main/res:} recursos utilizados en la aplicación Android.
+	\item 
+	\textbf{/Código Fuente/Tomcat App:} en este directorio encontramos los ficheros de nuestro servidor web. En este directorio nos encontramos con las carpetas \textit{UBUassistant} y \textit{UBUassistant\_admin}, estas dos carpetas poseen la misma estructura de directorios, con la diferencia que en \textit{UBUassistant} los ficheros JSP están programados para poder comunicarse con la aplicación Android, mientras que en \textit{UBUassistant\_admin}, los ficheros JSP están programados para mostrar la página de administración del algoritmo. Como referencia a estas dos carpetas, vamos a usar siempre la nomenclatura de \textit{UBUassistant}.
+	\item 
+	\textbf{/Código Fuente/Tomcat App/doc/javadoc:} en este directorio encontramos la documentación del código de nuestro proyecto generada con JavaDoc.
+	\item 
+	\textbf{/Código Fuente/Tomcat App/lib:} en este directorio nos encontramos con las diferentes librerías en formato JAR que son necesarias para el correcto funcionamiento de nuestro servidor.
+	\item 
+	\textbf{/Código Fuente/Tomcat App/rsc:} el contenido de este directorio son los diferentes recursos necesarios para nuestro servidor, como pueden ser los ficheros para realizar correctamente la conexión con la base de datos.
+	\item 
+	\textbf{/Código Fuente/Tomcat App/src:} en este directorio nos encontramos con el código fuente de nuestro servidor.
+	\item 
+	\textbf{/Código Fuente/Tomcat App/src/main:} clases del servidor, ficheros de configuración y archivos JSP/HTML.
+	\item 
+	\textbf{/Código Fuente/Tomcat App/src/main/java:} en este directorio encontramos los diferentes ficheros Java de nuestro servidor.
+	\item 
+	\textbf{/Código Fuente/Tomcat App/src/main/resources:} los diferentes ficheros de configuración de nuestro servidor.
+	\item 
+	\textbf{/Código Fuente/Tomcat App/src/main/webapp:} ficheros JSP/HTML para que funcione nuestro servidor. Como hemos mencionado antes, dependiendo del directorio en el que nos encontremos, los ficheros JSP sirven para la conexión de nuestro servidor con el cliente en Android o para ejecutar la aplicación web de administración.
+	\item 
+	\textbf{/Código Fuente/Tomcat App/target:} clases y librerías Maven compiladas del servidor web.
+	\item 
+	\textbf{/Documentación:} en este directorio nos podemos encontrar con la documentación del proyecto realizada con \textit{LaTeX}.
+	\item 
+	\textbf{/Documentación/img:} diferentes imágenes utilizadas en la documentación del proyecto.
+	\item 
+	\textbf{/Documentación/tex:} ficheros utilizados para la generación de la documentación.
+	\item 
+	\textbf{/Ejecutables:} en este directorio nos encontramos con los ficheros WAR para poder utilizarlos directamente en el servidor, como la aplicación APK para poder instalarla directamente en nuestro dispositivo Android.
+\end{itemize}
 
 \section{Manual del programador}
 
+Las herramientas que se han utilizado para el desarrollo del proyecto y que son necesarias tener instaladas en el sistema son:
+
+\begin{itemize}
+	\tightlist
+	\item
+	\textbf{Java JDK 8}
+	\item
+	\textbf{Eclipse JEE}
+	\item
+	\textbf{Android Studio}
+	\item
+	\textbf{Tomcat}
+	\item
+	\textbf{MySQL}
+\end{itemize}
+
+No todas las herramientas que se han instalado tienen que ir instaladas en el mismo ordenador, sino que unas se instalan en el ordenador que se ha utilizado para programar el sistemas, mientras que otras se instalan en la máquina remota de Microsoft Azure que se utiliza como servidor de la aplicación.
+
+Debido a que se ha utilizado como sistema operativo Linux, se va a explicar como instalar las siguientes herramientas en este sistema operativo.
+
+\subsection{Herramientas de programación}
+
+\subsubsection{Java JDK 8} \label{{jdk}}
+
+Java JDK (\textit{Java Development Kit}) es un conjunto de herramientas necesarias para el desarrollo de aplicaciones Java. Para instalarlo en un sistema Linux, hay que abrir una sesión en el terminal e introducir los siguientes comandos \cite{jdk:install}:
+
+\begin{center}
+	\textit{\textbf{sudo add-apt-repository ppa:webupd8team/java}} \\
+	\textbf{\textit{sudo apt update}} \\
+	\textit{\textbf{sudo apt install oracle-java8-set-default}}
+\end{center}
+
+Con estos comandos, el paquete se instala y configura automáticamente, incluyendo las diferentes variables de entorno.
+
+\subsubsection{Eclipse JEE}
+
+Eclipse JEE es una versión de Eclipse que con todas las herramientas que son necesarias para el desarrollo de aplicaciones web basadas en Java.
+
+Para la instalación, primero tenemos que descargarnos la aplicación desde la página web oficial \cite{eclipse:install}. Una vez que tengamos el fichero descargado, lo descomprimimos en la carpeta que deseemos. Desde esa carpeta, ya se puede iniciar la aplicación directamente si abrimos el fichero \textit{eclipse}. En caso de que queramos crear un acceso en nuestra barra de inicio, introducimos el siguiente comando desde una ventana del terminal:
+
+\begin{center}
+	\textbf{\textit{nano ~/.local/share/applications/opt\_eclipse.desktop}}
+\end{center}
+
+En el editor que se nos ha abierto, introducimos lo siguiente y guardamos el fichero.
+
+\imagen{EclipseDesktop.png}{Configuración .dektop Eclipse}
+
+Finalmente, para que se pueda ejecutar el programa desde el acceso directo correctamente, introducimos el siguiente comando:
+
+\begin{center}
+	\textbf{\textit{chmod +x ~/.local/share/applications/opt\_eclipse.desktop}}
+\end{center}
+
+\subsubsection{Android Studio}
+
+Android Studio es el IDE oficial que nos ofrece Google para el desarrollo de aplicaciones para Android. Para descargar la última versión, lo podemos hacer desde su página web oficial \cite{androidstudio:install}. Una vez que tenemos descargado el fichero, lo podemos descomprimir en la localización que nosotros deseemos, al igual que en Eclipse. Una vez que lo tenemos descomprimido, lo podemos ejecutar a través del fichero \textit{CARPETA\_ANDROID\_STUDIO/bin/studio.sh}.
+
+Si queremos crear un acceso a nuestra barra de inicio, introducimos el siguiente comando en una terminal:
+
+\begin{center}
+	\textbf{\textit{nano ~/.local/share/applications/androidstudio.desktop}}
+\end{center}
+
+Dentro del editor, introducimos el siguiente texto y lo guardamos:
+
+\begin{flushleft}
+	\textbf{\textit{
+	[Desktop Entry] \\
+	Version=1.0 \\
+	Type=Application \\
+	Name=Android Studio \\
+	Exec=CARPETA\_ANDROID\_STUDIO/bin/studio.sh \%f \\
+	Icon=CARPETA\_ANDROID\_STUDIO/bin/studio.png \\
+	Categories=Development;IDE; \\
+	Terminal=false \\
+	StartupNotify=true \\
+	StartupWMClass=android-studio \\
+	}}
+\end{flushleft}
+
+Finalmente, para que se puede ejecutar desde la aplicación, introducimos el siguiente comando desde una terminal:
+
+\begin{center}
+	\textbf{\textit{chmod +x ~/.local/share/applications/androidstudio.desktop}}
+\end{center}
+
+\imagen{AndroidStudioInterfaz.png}{Interfaz Android Studio}
+
+\subsection{Herramientas del servidor}
+
+\subsubsection{Java JDK 8}
+
+En el servidor, también es necesario que tengamos instalado Java JDK 8, por lo que seguimos los mismos pasos que se han mencionado con anterioridad en la sección \ref{{jdk}}.
+
+\subsubsection{Tomcat}
+Tomcat es una plataforma que nos permite ejecutar aplicaciones web basadas en Java que se encuentren en formato WAR. Para la instalación, primero descargamos la última versión de Tomcat 9 desde la página oficial de Tomcat \cite{tomcat:download}. Una vez que tengamos descargado el fichero, abrimos una terminal e introducimos los siguientes comandos \cite{tomcat:install}, recomendando la ejecución del terminal con permisos de administrador:
+
+\begin{center}
+	\textbf{\textit{
+	groupadd tomcat \\
+	useradd -s /bin/false -g tomcat -d /opt/tomcat tomcat \\
+	cd /CARPETA\_FICHEROS\_TOMCAT \\
+	cp ./FICHERO\_TOMCAT.tar.gz /opt \\
+	tar -xzvf ./FICHERO\_TOMCAT.tar.gz \\
+	mv apache-tomcat-9.X.X/ tomcat/ \\
+	chown -R tomcat:tomcat /opt/tomcat \\
+	chmod +x /opt/tomcat/bin/* \\
+	nano ~/.bashrc \\
+	}}
+\end{center}
+
+En el fichero que se ha abierto para editar, introducimos la siguiente línea al final del fichero y lo guardamos:
+
+\begin{flushleft}
+	\textbf{\textit{export CATALINA\_HOME=/opt/tomcat}}
+\end{flushleft}
+
+Sin cerrar la terminal, seguimos introduciendo los siguientes comandos:
+
+\begin{center}
+	\textbf{\textit{
+	source ~/.bashrc \\
+	\$CATALINA\_HOME/bin/startup.sh
+	}}
+\end{center}
+
+Con esto, tendríamos Tomcat totalmente configurado  y funcionando. Para ver que funciona correctamente, podemos acceder introduciendo el ip del servidor en un navegador (\textit{http://192.168.x.x:8080/}) y nos debería de aparecer lo siguiente:
+
+\imagen{Tomcat.png}{Ventana inicio Tomcat}
+
+Finalmente, hay que configurar el inicio de Tomcat como servicio, para que este se inicie automáticamente cada vez que se inicia el servidor. Para ello, abrimos una ventana del terminal e introducimos los siguientes comandos:
+
+\begin{center}
+	\textbf{\textit{
+	\$CATALINA\_HOME/bin/shutdown.sh \\
+	chown -hR tomcat:tomcat /opt/tomcat/ \\
+	cd /etc/systemd/system/ \\
+	nano apache-tomcat.service
+	}}
+\end{center}
+
+En el fichero que se nos abre para modificar, introducimos las siguientes líneas y guardamos el fichero:
+
+\imagen{TomcatService.png}{Configuración fichero de servicio de Tomcat}
+
+Sin cerrar la terminal, introducimos los siguientes comandos:
+
+\begin{center}
+	\textbf{\textit{
+	systemctl daemon-reload \\
+	systemctl start apache-tomcat \\
+	systemctl enable apache-tomcat \\
+	}}
+\end{center}
+
+Con todo esto, ya estaría correctamente configurado nuestro servidor de Tomcat y en caso de que tengamos que reiniciar nuestro servidor, nos garantizamos que el servicio se inicia automáticamente.
+
+\subsubsection{MySQL}
+
+MySQL es un sistema de gestión de base de datos. Para la instalación, tenemos que abrir una ventana del terminal e introducir los siguientes comandos \cite{mysql:install}:
+
+\begin{center}
+	\textbf{\textit{
+			sudo apt install mysql-server \\
+			sudo mysql\_secure\_installation \\
+	}}
+\end{center}
+
+Estas acciones, mostrarán una serie de mensajes para configurar el usuario \textit{root} de la base de datos. En la primera opción que nos aparece, le indicamos que no queremos usar \textit{Validate Password Plugin}. Lo siguiente que haremos es introducir la contraseña del usuario \textit{root}, la cuál para este proyecto el valor que se la ha establecido es \textit{1234}. El resto de opciones que nos va dando, las aceptamos todas para que finalice la configuración de MySQL. Finalmente, para que todo quede correctamente inicializado, introducimos el siguiente comando en una terminal:
+\begin{center}
+	\textbf{\textit{mysqld --initialize}}
+\end{center}
+
+Con estos pasos, ya estaría todo configurado correctamente. Para administrar las bases de datos MySQL, solamente tenemos que introducir el siguiente comando en una ventana del terminal:
+
+\begin{center}
+	\textbf{\textit{mysql -u root -p}}
+\end{center}
+
+\imagen{MySQLTerminal.png}{Ventana de administración de MySQL}
+
+\newpage
+
 \section{Compilación, instalación y ejecución del proyecto}
+
+\subsection{Obtención del código}
+
+Lo primero que tenemos que hacer, es obtener el código de la aplicación. Para ello, se puede descargar desde el respositorio GitHub del proyecto \cite{github:ubuassistant}.
+
+Una vez que nos encontramos dentro de la página del repositorio, lo podemos descargar pulsando primero sobre el botón \textit{Clone or download} y posteriormente sobre \textit{Download ZIP}. Una vez que se termine de descargar el fichero, lo extraemos en la ruta que el usuario prefiera.
+
+\imagen{DescargaProyecto.png}{Descarga del proyecto desde GitHub}
+
+Una vez que hemos realizado esto, lo que tenemos que hacer es importar las diferentes partes del proyecto en sus respectivos IDE's.
+
+\subsection{Importar proyecto en Android}
+
+Lo primero que tenemos que hacer es abrir la aplicación de Android Studio. Una vez que la tenemos abierta, nos dirigimos al menú \textit{File} y pulsamos sobre la opción \textit{Open}.
 
 \section{Pruebas del sistema}
