@@ -2,10 +2,131 @@
 
 \section{Introducción}
 
+En este apartado se van a detallar los requisitos necesarios para poder ejecutar la aplicación Android, así como la web de administración. A parte de esto, se especifica los pasos necesarios para la instalación y el funcionamiento de los mismos.
+
 \section{Requisitos de usuarios}
+
+\subsubsection{Aplicación Android}
+
+Los requisitos para poder ejecutar la aplicación en Android son:
+
+\begin{itemize}
+	\tightlist
+	\item 
+	Dispositivo Android con versión 4.4 o superior.
+	\item 
+	Acceso a Internet (WiFi o datos móviles).
+\end{itemize}
+
+\subsubsection{Web de administración}
+
+Los requisitos necesarios para poder utilizar la web de administración son:
+
+\begin{itemize}
+	\tightlist
+	\item 
+	Dispositivo con posibilidad de utilizar un navegador web.
+	\item 
+	Navegador web con JavaScript compatible y activado.
+	\item 
+	Acceso a Internet.
+\end{itemize}
 
 \section{Instalación}
 
+\subsubsection{Aplicación Android}
+
+Para poder instalar la aplicación APK, primero tenemos que activar la opción \textit{Orígenes desconocidos} en el dispositivo. Para ello accedemos a los ajustes del dispositivo, accedemos a la opción \textit{Seguridad} y activamos la opción \textit{Orígenes desconocidos}.
+
+\imagenPeque{CapturaSeguridad.png}{Opciones de seguridad Android}
+
+A continuación procedemos a la instalación de la aplicación, para ello primero tenemos que copiar el fichero APK a nuestro dispositivo. Una vez que termine la copia del fichero, desde nuestro dispositivo abrimos el fichero con un explorador de archivos. En la ventana que nos aparece, le damos a la opción \textit{Instalar}.
+
+\imagenPeque{CapturaInstalacion.png}{Instalación UBUassistant}
+
+Con estos pasos, la aplicación ya está instalada en el dispositivo Android.
+
+\subsection{Web de administración}
+
+Para poder utilizar la web de administración solamente es necesario tener instalado en el dispositivo en el que se vaya a utilizar un navegador web, ya que la aplicación de administración está alojado en un servidor.
+
+Para acceder a la página de administración en el navegador hay que introducir la siguiente URL:
+
+\begin{center}
+	\textit{\textbf{http://IP\_SERVIDOR:8080/UBUassistant\_admin}}
+\end{center}
+
 \section{Manual del usuario}
 
+En este manual se trata de guiar al usuario en el funcionamiento del asistente virtual con la aplicación Android, así como en la aplicación de administración web.
+
+\subsection{Aplicación Android}
+
+Lo primero que vemos al iniciar la aplicación es una ventana en la que aparecen el logo de la aplicación, junto al de la Universidad de Burgos. Lo siguiente que aparece es la interfaz del asistente virtual, la cual se asemeja a diferentes aplicaciones de mensajería para dispositivos móviles.
+
+\imagenMediana{CapturaInterfaz.png}{Interfaz aplicación Android}
+
+En la parte inferior, encontramos una barra, la cual encontramos un cuadro donde podemos introducir el texto para interactuar con el asistente virtual. También nos encontramos con un botón para poder introducir el texto mediante voz y dos botones los cuales envían el texto al servidor.
+
+\imagenMediana{CapturaVoz.png}{Reconocimiento de voz}
+
+Dependiendo de la búsqueda que hagamos, podemos encontrar diferentes situaciones de respuesta.
+
+\newpage
+
+\subsubsection{Interacción con el asistente virtual}
+
+Se puede interaccionar con el asistente virtual con mensajes como \textit{hola, buenos días, adiós, etc}.
+
+\imagenMediana{CapturaSaludo.png}{Interacción con el asistente virtual}
+
+\newpage
+
+\subsubsection{Respuesta única}
+
+Tras realizar una consulta con el asistente virtual, se pueden obtener diferentes situaciones de respuesta. Una de ellas, es que la búsqueda tenga una única respuesta. Un ejemplo de esto, puede ser la búsqueda del término \textit{correo}.
+
+\imagenMediana{CapturaUnica.png}{Respuesta única}
+
+\newpage
+
+\subsubsection{Múltiples respuestas}
+
+Otra de las posibles situaciones, es que la búsqueda que hemos realizado tenga múltiples respuestas. En esta situación, el asistente nos enseña todas las posibles respuestas que ha encontrado, para que se elija la que mas se ajusta al objetivo del usuario. Un ejemplo de este tipo de búsqueda es utilizando el término \textit{informática}.
+
+\imagenMediana{CapturaMultiple.png}{Múltiples respuestas}
+
+\newpage
+
+\subsubsection{Sin respuesta}
+
+La última posible situación que se puede llegar a dar, es que la búsqueda que se ha realizado no posee ninguna respuesta. En este caso, el asistente mostrará tres recomendaciones para ver si se ajustan al objetivo de búsqueda realizada por el usuario. Para obtener un ejemplo de este tipo de búsqueda, se puede utilizar el término \textit{Google}.
+
+\imagenMediana{CapturaSin.png}{Pregunta sin respuesta}
+
+\subsubsection{Enviar búsqueda y nueva búsqueda}
+
+En la interfaz, podemos encontrar dos botones, uno con el texto \textit{ENVIAR} y otro con el texto \textit{ŃUEVO}.
+
+El botón \textit{ENVIAR} sirve para enviar la respuesta siguiendo con las búsquedas que se han hecho con anterioridad, de esta manera, el usuario puede ir refinando la búsqueda hasta obtener la respuesta deseada.
+
+\imagenMediana{CapturaEnviar.png}{Continuar búsqueda}
+
+El botón \textit{NUEVO} sirve para reiniciar los términos de la búsqueda, de forma que el usuario puede empezar a realizar una búsqueda desde cero, no teniendo en cuenta el asistente los términos utilizados anteriormente.
+
+\imagenMediana{CapturaNuevo.png}{Reiniciar búsqueda}
+
+\subsubsection{Página web}
+
+Cuando el usuario selecciona una respuesta otorgada por el asistente virtual, se nos abre la página web de la respuesta desde la propia aplicación, pudiendo interactuar con ella sin tener que salir de la aplicación.
+
+\imagenMediana{CapturaWeb.png}{Respuesta consultada}
+
+\subsubsection{Valoración}
+
+Cuando el usuario termina de consultar la página web y vuelve al asistente, una ventana emergente, en la cual se le da la opción de valorar la respuesta obtenida.
+
+IMAGEN-VALOR
+
+\subsection{Aplicación web de administración}
 
