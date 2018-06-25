@@ -256,6 +256,110 @@ Una vez que hemos realizado esto, lo que tenemos que hacer es importar las difer
 
 \subsection{Importar proyecto en Android}
 
-Lo primero que tenemos que hacer es abrir la aplicación de Android Studio. Una vez que la tenemos abierta, nos dirigimos al menú \textit{File} y pulsamos sobre la opción \textit{Open}.
+Lo primero que tenemos que hacer es abrir la aplicación de Android Studio. Una vez que la tenemos abierta, nos dirigimos al menú \textit{File} y pulsamos sobre la opción \textit{Open}. Se nos abrirá una nueva ventana, en la cuál podemos navegar hasta el directorio de nuestra aplicación. Android Studio nos facilita encontrar los proyectos que han sido creados con la misma herramienta, ya que cuando identifica uno, cambia el icono de carpeta por el icono de Android Studio. Una vez que tenemos seleccionada la carpeta, pulsamos sobre el botón \textit{OK}.
+
+\imagenMuyPeque{IconoAS.png}{Icono Android Studio}
+
+Si todo ha sido importado correctamente, en el menú de la izquierda nos debería de aparecer los diferentes componentes que conforman la aplicación.
+
+\imagen{ImportAS.png}{Proyecto importado en Android Studio}
+
+Para exportar la aplicación a un fichero APK, en la barra de opciones superior abrimos el menú \textit{Build} y seleccionamos la opción \textit{Build APK(s)}. Esta opción nos genera un fichero APK en la ruta:
+\begin{center}
+	\textit{\textbf{CARPETA\_APLICACIÓN\_ANDROID/app/build/outputs/apk/debug}}
+\end{center}
+
+\subsection{Importar proyecto en Eclipse JEE}
+
+Lo primero que hacemos es iniciar Elcipse JEE y seleccionamos la carpeta donde queremos alojar nuestro \textit{Workspace}. Una vez que se termina de abrir el programa, sobre el menú de la izquierda abrimos un menú pulsando sobre el botón derecho de nuestro ratón y en el desplegable de la opción \textit{Import} seleccionamos \textit{Import...}. En la ventana que se abre, nos dirigimos a la opción llamada \textit{Maven}, seleccionamos la opción \textit{Existing Maven Projects} y pulsamos sobre el botón \textit{Next}.
+
+\imagenMediana{ImportMaven.png}{Selección del tipo de proyecto}
+
+En la siguiente ventana que nos aparece, hacemos seleccionamos la opción \textit{Browse...}, navegamos hasta el directorio donde se aloja la parte del código del servidor web y seleccionamos la opción \textit{OK}. De nuevo a la ventana que teníamos con anterioridad, seleccionamos el proyecto y para terminar la importación, seleccionamos la opción \textit{Finish}.
+
+\imagenMediana{ImportProjectEclipse.png}{Selección del proyecto}
+
+
+Si todo se ha realizado de forma correcta, en el menú de la izquierda nos tiene que aparecer el proyecto y si lo desplegamos, nos aparecerán los diferentes directorios y ficheros del proyecto.
+
+\imagenPeque{ProyectoImportadoEclipse.png}{Proyecto importado en Eclipse JEE}
+
+Ahora, hay que configurar el \textit{PATH} del proyecto, para que se importen correctamente las diferentes librerías que se usan en la aplicación. Para ello, seleccionamos el proyecto y con el botón derecho del ratón desplegamos el menú de opciones. Con el ratón, nos dirigimos a la opción \textit{Build Path} y en el desplegable seleccionamos \textit{Configure Build Path}. En la ventana que ha aparecido, seleccionamos la opción \textit{Add JARs...}. A continuación, se abre una ventana, la cuál permite desplazarse por los directorios del proyecto, abrimos la carpeta \textit{lib} y seleccionamos todos los ficheros JAR que hay en su interior. Para finalizar la configuración, seleccionamos la opción \textit{Apply and Close}.
+
+\imagen{PathEclipse.png}{Configuración del PATH en Eclipse JEE}
+
+Finalmente, hay que configurar el proyecto para que cuando exportemos la aplicación al fichero WAR para usarlo en nuestro servidor Tomcat, incluya todas las librerías que se utilizan en el proyecto.
+
+Para ello, seleccionamos nuestro proyecto y en el menú de opciones que abrimos pulsando el botón derecho del ratón, seleccionamos la opción \textit{Properties}. En la ventana que nos aparece, seleccionamos en el menú de la izquierda la opción \textit{Deployment Assembly}. En la parte derecha de la ventana nos aparecerá un listado con carpetas y ficheros. Para añadir nuestras librerías a esta lista, pulsamos sobre \textit{Add...}. En la ventana que nos ha aparecido, seleccionamos \textit{Java Build Path Entries} y seleccionamos todas las librería que nos aparecen. Para finalizar la configuración, pulsamos sobre \textit{Apply and Close}.
+
+\imagen{ConfWAREclipse.png}{Configuración de librerías en el fichero WAR}
+
+Con todo esto, tendríamos el proyecto configurado correctamente para poder modificarlo y exportarlo correctamente.
+
+Para exportar el proyecto a un fichero WAR, seleccionamos el proyecto, abrimos el menú de opciones con el botón derecho de nuestro ratón y sobre el desplegable \textit{Export} seleccionamos la opción \textit{WAR file}. En la ventana que se abre, seleccionamos el directorio donde queremos guardar el fichero junto a su nombre y pulsamos sobre \textit{Finish}.
+
+\imagenMediana{ExportWAR.png}{Exportar servidor a fichero WAR}
+
 
 \section{Pruebas del sistema}
+
+Para comprobar las funcionalidades del proyecto se han realizado una serie de tests y pruebas. Las pruebas realizadas en el servidor son diferentes a las realizadas en la aplicación Android.
+
+\subsection{Pruebas aplicación Android}
+
+Para la aplicación Android, se han realizado una serie de pruebas de forma manual para comprobar las diferentes funcionalidades que lleva implementada. Las diferentes pruebas que se han realizado, junto al resultado esperado, así como el objetivo del mismo se pueden observar en la siguiente tabla.
+
+\tablaSinColores{Pruebas manuales}
+{p{4cm} p{4cm} p{6cm}}{3}{pruebasmanuales}
+{\textbf{Entrada} & \textbf{Respuesta} & \textbf{Finalidad}\\}{
+	esternocleidomastoideo (introducido por voz)	& esternocleidomastoideo	& Comprobar la funcionalidad de reconocimiento de voz. \\
+	\midrule
+	informática máster online						& informatica(master, online) & Comprobar la funcionalidad de obtención de única respuesta. \\
+	\midrule
+	informática										& informatica(master)		& Comprobar la funcionalidad de \\
+													& informatica(online)		& obtener múltiples respuestas. \\
+													& informatica (master, online) & \\
+													& informatica				& \\
+	\midrule
+	google											& lengua (online)			& Comprobar la funcionalidad de \\
+													& abogacia					& búsqueda sin resultados y \\
+													& mecanica y electronica	& ofrece recomendaciones. \\
+	\midrule
+	buenos días										& Buenos días, ponme a prueba con tus preguntas. & Comprobar la funcionalidad de uso de palabras reservadas, como las de saludo. \\
+}
+
+Para saber la respuesta que nos tenía que dar estas pruebas (exceptuando la prueba de comando de voz), se realizaron primero diferentes pruebas con la aplicación web original desarrollada en el anterior TFG. Por cada prueba se realizaron diferentes iteraciones por cada prueba, asegurándose así que siempre se obtiene el mismo resultado.
+
+\subsection{Pruebas servidor Tomcat}
+
+Para probar los cambios en el servidor web Tomcat, se han aprovechado algunos de los test JUnit que se realizó Daniel Santidrián Alonso en la versión previa del TFG, mientras que otras pruebas se han realizado de forma manual.
+
+\subsubsection{Test JUnit 4}
+
+Se han aprovechado los tests existentes de JUnit para comprobar que la funcionalidad de la base de datos ampliada a siete vocablos funciona correctamente. Para ello, se han hecho unos pequeños cambios en el test para que este se ajuste a este requisito del proyecto. Esta prueba consta en un total de 12 test unitarios alojados en 3 clases.
+
+\imagen{TestDatabase.png}{Test unitarios de la base de datos}
+
+Para la ejecución de cada una de las clases, solamente es necesario abrirlas y ejecutarlas.
+
+\imagen{EjecucionTest.png}{Ejecución de una clase con test unitarios}
+
+\subsubsection{Test manuales}
+
+Para comprobar que los cambios en la interfaz de la web de administración se realizaron de forma manual, ya que los test que se encontraban preparados en la versión anterior del TFG solamente son válidos para Windows. Las pruebas que se realizaron fueron:
+
+\tablaSinColores{Pruebas manuales web de administración}
+{p{3cm} p{3cm} p{8cm}}{3}{pruebasmanuales2}
+{\textbf{Entrada} & \textbf{Respuesta} & \textbf{Finalidad}\\}{
+	Añadir nuevo caso	& Caso añadido a la base de datos	& Comprobar que la funcionalidad de adición de nuevos casos con siete vocablos funciona correctamente. \\
+	\midrule
+	Editar caso existente	& Caso modificado en la base de datos & Comprobar que la funcionalidad de modificación de casos con siete vocablos funciona correctamente. \\
+	\midrule
+	Eliminar caso existente & Caso eliminado de la base de datos & Comprobar que a pesar de haber ampliado a siete vocables, el borrado de casos sigue funcionando correctamente. \\
+	\midrule
+	\textit{Ninguna}		& Visualización del log	& Comprobar que el log se muestra correctamente a pesar de haber ampliado a siete vocablos. \\
+	\midrule
+	\textit{Ninguna}		& Fichero exportado		& Comprobar que el log se exporta correctamente con siete vocablos. \\
+	\midrule
+	Aceptar aprendizaje		& Recomendación añadida como caso	& Comprobar que las recomendaciones se añaden correctamente con siete vocablos al asistente virtual. \\
+}
