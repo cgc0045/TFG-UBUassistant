@@ -75,7 +75,7 @@ Una vez que teníamos el servidor con las respuestas, hubo que cambiar la forma 
 
 Para poder hacer esto, se tuvo que modificar a parte de los ficheros JSP, diferentes funciones de JAVA, para poder generar así un fichero JSON que tuviera como mínimo de forma clara el mensaje que da de respuesta. A parte, en los diferentes casos en los que va acompañado de una respuesta con los diferentes enlaces a la página web de la Universidad de Burgos, se cambió para que también esté de forma clara tanto el nombre del apartado que da como respuesta como la dirección URL. Hasta que puedo obtener la respuesta de forma deseada, se realizaron varios intentos de prueba error, utilizando como visor de las respuestas, el navegador web \textit{Mozilla Firefox}, ya que nos muestra de una forma muy intuitiva los datos de un fichero JSON.
 
-\section{Cambio de framework de razonamiento basado en casos}
+\section{Cambio de framework de razonamiento basado en casos} \label{cambioCBR}
 
 Una de las propuestas en la defensa del TFG del año pasado fue la búsqueda de un framework de razonamiento basado en casos que fuera más moderno. Debido a este comentario, en las primeras fases del proyecto, se estudiaron los diferentes frameworks de razonamiento basado en casos que son de uso gratuito \cite{cbrcomp:art}.
 
@@ -107,7 +107,7 @@ Para ello, lo primero que se hizo fue conectar la aplicación al servidor a trav
 
 Una vez que ya se tenía la respuesta en nuestra aplicación Android, se empezó a diseñar la forma en la que los datos iban a ser mostrados por la aplicación. En una primera versión se decidió utilizar los \textit{ListView} de Android. Finalmente esto fue descartado, debido a que la apariencia que da no se consideró muy adecuada para una aplicación de este estilo.
 
-\imagen{list}{Ejemplo de \textit{ListView}}
+\imagenPeque{list}{Ejemplo de \textit{ListView}}
 
 Al final se optó por utilizar los \textit{RecyclerView}, ya que da un aspecto más apropiado a la aplicación. Este tipo de vista es utilizado por diferentes aplicaciones de chat, tales como \textit{Whatsapp} o \textit{Telegram}. Para diferenciar las mensajes enviados por el usuario, de las respuestas del asistente, se optó por seguir el mismo esquema utilizado por el TFG anterior. Los mensajes del usuario van dentro de un recuadro de color blanco con el texto en negro, mientas que las respuestas del asistente van en un recuadro azul, con el texto en blanco. De esta forma, se intenta en mantener todo lo posible la misma imagen que en el TFG anterior.
 

@@ -23,17 +23,33 @@ El significado de cada uno de los tres componentes de este modelo son:
 Estos conceptos pueden ser aplicados a nuestra aplicación Android, obteniendo así un Modelo Vista Controlador muy bien diferenciado y estructurado. Esto lo podemos ver claramente en el siguiente diagrama.
 \imagen{MVC-Android}{Modelo Vista Controlador en Android}
 
+\section{Jersey REST}
+
+\begin{itemize}
+	\tightlist
+	\item
+	Herramientas consideradas: \href{https://www.programarya.com/Cursos-Avanzados/Java/Sockets}{Sockets en Java} y \href{https://jersey.github.io/}{Jersey REST}.
+	\item
+	Herramienta elegida: \href{https://jersey.github.io/}{API REST}.
+\end{itemize}
+
+REST es una interfaz que se encarga de conectar sistemas utilizando conexiones de tipo HTTP y realizar operaciones sobre los datos intercambiado con ficheros de tipo XML o JSON entre otros. Una de las principales características de REST es que puede realizar cuatro operaciones: \textbf{POST} (\textit{crear}), \textbf{GET}(\textit{leer y consultar}), \textbf{PUT}(\textit{editar}) y \textbf{DELETE} (\textit{eliminar}) \cite{rest:info}.
+
+Se ha decidido utilizar REST como tecnología para conectar el cliente con el servidor, debido a que de esta forma nos garantizamos la adaptabilidad de la conexión del servidor con otras tecnologías y lenguajes de programación.
+
 \section{Control de versiones}
 
 \begin{itemize}
 	\tightlist
 	\item
-	Herramientas consideradas: \href{https://git-scm.com/}{Git}.
+	Herramientas consideradas: \href{https://git-scm.com/}{Git} y \href{https://www.mercurial-scm.org/}{Mercurial}.
 	\item
 	Herramienta elegida: \href{https://git-scm.com/}{Git}.
 \end{itemize}
 
 Git es un software de control de versiones pensado para proyectos que poseen una gran cantidad de ficheros fuente cuyo propósito es registrar todos los cambios efectuados en dichos ficheros. Además es un software de código libre distribuido bajo licencia \textit{GPL GNU} \cite{git:wiki}.
+
+La decisión de utilizar \textit{Git} se ha basado en que se ha trabajado con anterioridad con la herramienta, teniendo ya unos conocimientos base sobre ella.
 
 \section{Hosting del repositorio}
 
@@ -105,6 +121,20 @@ De todos los softwares valorados para emplear como IDE se decidió utilizar Ecli
 Android Studio es el IDE oficial para el desarrollo de aplicaciones para Android. Este IDE es el sucesor de Eclipse como IDE oficial de desarrollo, funciona gratuitamente bajo \textit{Licencia Apache 2.0} y está disponible para Windows, macOS y Linux \cite{androidstudio:wiki}.
 
 Esta herramienta ha sido elegida principalmente por que es la herramienta oficial que nos ofrece Google y trae consigo todo lo necesario para desarrollar la aplicación, sin tener que descargar complementos para el software, como pasa en el caso de Eclipse.
+
+\section{Alojamiento del servidor}
+
+\begin{itemize}
+	\tightlist
+	\item
+	IDE's considerados: \href{https://azure.microsoft.com/es-es/}{Microsoft Azure}, \href{https://aws.amazon.com/es/}{Amazon AWS}, \href{https://cloud.google.com/}{Google Cloud} y servidor local.
+	\item
+	IDE elegidos: \href{https://azure.microsoft.com/es-es/}{Microsoft Azure}.
+\end{itemize}
+
+Microsoft Azure es un servicio en la nube que se aloja en los Data Centers de Microsoft. Esta plataforma posee diferentes servicios para aplicaciones, desde procesamiento de datos hasta servicios de comunicación segura \cite{azure:info}.
+
+De todas las plataformas estudiadas, se ha decidido utilizar Microsoft Azure, debido a que posee una suscripción gratuita para estudiante, la cual ofrece 100\$ de crédito para gastar en servicios de forma gratuita. Debido a que la cuenta de correo electrónico de la Universidad de Burgos es de Microsoft, se ha tenido derecho a emplear este tipo de suscripción.
 
 \section{Documentación}
 

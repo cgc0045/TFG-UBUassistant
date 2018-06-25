@@ -4,7 +4,9 @@ Para entender mejor el funcionamiento de este TFG, es necesario conocer el funci
 
 Un sistema CBR es aquel que trata de simular el mismo comportamiento que realizaría un ser humano cuando tiene ante si una serie de problemas para resolver.
 
-Estos sistemas, al igual que haría una persona, basan sus decisiones en experiencias previas para intentar obtener la mejor respuesta al problema que se ha planteado \cite{cbr:wiki}. En el caso de UBUassistant, no se emplea un algoritmo que empieza a aprender desde cero, sino que se incluye un conocimiento base desde el punto de vista del programador.
+Estos sistemas, al igual que haría una persona, basan sus decisiones en experiencias previas para intentar obtener la mejor respuesta al problema que se ha planteado \cite{cbr:wiki}. Como se sugirió en la defensa del proyecto que se está mejorando, se han estudiado otros framework de razonamiento basado en casos, para considerar un posible cambio. Este estudio de otros frameworks, lo podemos consultar en la sección \ref{cambioCBR}.
+
+En el caso de UBUassistant, se está empleando un algoritmo que utiliza una serie de casos base. A partir de estos casos, el sistema puede ir aprendiendo con las diferentes recomendaciones ofrecidas por los usuarios.
 
 Estos conocimientos base, a nivel de algoritmo son conocidos como casos. Los casos empleados para este algoritmo, están formados por un máximo de siete palabras que definen cada uno de los posibles casos que se pueden llegar a dar. El algoritmo, por cada uno de estos casos, tiene asociado una solución, la cual nos devuelve la dirección URL de un apartado dentro de la página de la Universidad de Burgos.
 
@@ -24,4 +26,4 @@ Finalmente, con el propósito de que el algoritmo vaya creciendo y obteniendo m�
 
 Para el desarrollo de este algoritmo, se ha empleado \textit{jCOLIBRI 2} \cite{jcolibri:info}.
 
-\imagen{jcolibri}{Logo de \textit{jCOLIBRI2}}
+\imagenMediana{jcolibri}{Logo de \textit{jCOLIBRI2}}

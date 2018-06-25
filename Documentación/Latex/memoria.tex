@@ -49,6 +49,41 @@
 	\end{figure}
 }
 
+\newcommand{\imagenLarga}[2]{
+	\begin{figure}[!h]
+		\centering
+		\includegraphics[width=1.2\textwidth]{#1}
+		\caption{#2}\label{fig:#1}
+	\end{figure}
+	\FloatBarrier
+}
+
+\newcommand{\imagenMediana}[2]{
+	\begin{figure}[!h]
+		\centering
+		\includegraphics[width=0.6\textwidth]{#1}
+		\caption{#2}\label{fig:#1}
+	\end{figure}
+	\FloatBarrier
+}
+
+\newcommand{\imagenPeque}[2]{
+	\begin{figure}[!h]
+		\centering
+		\includegraphics[width=0.4\textwidth]{#1}
+		\caption{#2}\label{fig:#1}
+	\end{figure}
+	\FloatBarrier
+}
+
+\newcommand{\imagenMuyPeque}[2]{
+	\begin{figure}[!h]
+		\centering
+		\includegraphics[width=0.2\textwidth]{#1}
+		\caption{#2}\label{fig:#1}
+	\end{figure}
+}
+
 
 
 % El comando \figura nos permite insertar figuras comodamente, y utilizando
@@ -456,9 +491,6 @@ Virtual assistant, orientation in web portals, case based reasoning, tutored lea
 
 \listoffigures
 
-\clearpage
-
-\listoftables
 \clearpage
 
 \mainmatter
