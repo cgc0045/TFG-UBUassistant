@@ -3,12 +3,16 @@ package es.ubu.cgc0045.ubuassistant;
 import android.annotation.SuppressLint;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.speech.RecognizerIntent;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -43,19 +47,37 @@ public class Main2Activity extends AppCompatActivity {
     private EditText resultText;
     private JSONObject json;
     private int responseCode;
+    private Global global;
+    private ConstraintLayout cl;
+
+    private static String URL = "http://ubuassistant.westeurope.cloudapp.azure.com";
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle("UBUassistant");
+
         setContentView(R.layout.activity_main2);
+
+        cl = findViewById(R.id.mainLayout);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            cl.getForeground().setAlpha(0);
+        }
+
+
+
         messages = new ArrayList<>();
+        global = (Global) getApplicationContext();
+        global.setCl(cl);
         resultText = findViewById(R.id.edittext_chatbox);
 
         enviar = findViewById(R.id.button_chatbox_send);
         enviar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                global.setWords(resultText.getText().toString());
+                Log.w("Palabras buscadas", global.getWords().get(global.getWords().size()-1));
 
                 messages.add(new Message(messages.size(),resultText.getText().toString()));
 
@@ -67,7 +89,7 @@ public class Main2Activity extends AppCompatActivity {
 
 
                 try {
-                    String solution = new Main2Activity.getResponse().execute(messages.get(messages.size()-1).getMessage()).get();
+                    String solution = new getResponse().execute(messages.get(messages.size()-1).getMessage()).get();
                     messages.add(new Message(messages.size(),solution));
                     adapter.notifyDataSetChanged();
                     recyclerView.scrollToPosition(messages.size()-1);
@@ -97,8 +119,6 @@ public class Main2Activity extends AppCompatActivity {
 
         adapter = new MessageListAdapter(this, messages);
         recyclerView.setAdapter(adapter);
-        //LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        //recyclerView.setLayoutManager(layoutManager);
 
 
     }
@@ -196,12 +216,13 @@ public class Main2Activity extends AppCompatActivity {
             try{
                 String send = castToHTML(strings[0]);
 
-                URL serverURL = new URL("http://ubuvm.westeurope.cloudapp.azure.com:8080/UBUassistant/service/" + send);
-                Log.w("URL conexión: ", "http://ubuvm.westeurope.cloudapp.azure.com:8080/UBUassistant/service/" + send);
+                URL serverURL = new URL(URL + ":8080/UBUassistant/service/" + send);
+                Log.w("URL conexión: ", URL + ":8080/UBUassistant/service/" + send);
 
                 conexion = (HttpURLConnection) serverURL.openConnection();
 
                 responseCode = conexion.getResponseCode();
+                global.setState(responseCode);
 
                 Log.w("Res", String.valueOf(responseCode));
 
@@ -237,7 +258,7 @@ public class Main2Activity extends AppCompatActivity {
         protected  String doInBackground(String... params) {
             try {
 
-                URL pruebaURL = new URL("http://ubuvm.westeurope.cloudapp.azure.com:8080/UBUassistant/service/");
+                URL pruebaURL = new URL( URL + ":8080/UBUassistant/service/");
                 conexion = (HttpURLConnection) pruebaURL.openConnection();
 
                 if(conexion.getResponseCode() == 200){
