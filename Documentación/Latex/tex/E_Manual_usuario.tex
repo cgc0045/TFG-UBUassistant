@@ -126,7 +126,51 @@ Cuando el usuario selecciona una respuesta otorgada por el asistente virtual, se
 
 Cuando el usuario termina de consultar la página web y vuelve al asistente, una ventana emergente, en la cual se le da la opción de valorar la respuesta obtenida.
 
-IMAGEN-VALOR
+\imagenMediana{CapturaValoracion.png}{Valoración de la respuesta}
 
 \subsection{Aplicación web de administración}
 
+Según accedemos a la aplicación de administración, lo que vemos es en la parte superior es el logo de UBUassistant. En la parte superior derecha, nos encontramos con un símbolo de un engranaje y llave inglesa, el cual nos dirige a la página de inicio de sesión de administrador. En la parte inferior izquierda, nos encontramos el logo de la aplicación, el cual si lo pulsamos, se abre el asistente, de tal forma que el administrador puede realizar todas las pruebas pertinentes sobre el funcionamiento del asistente.
+
+\imagen{AdminInterfaz.png}{Interfaz de administración}
+
+Cuando pulsamos sobre el logo situado en la parte derecha superior, se accede a la pantalla en la que el administrador tiene que introducir sus credenciales.
+
+\imagen{AdminLogin.png}{Interfaz de inicio de sesión}
+
+Una vez que el administrador ha iniciado sesión correctamente, automáticamente se abre la interfaz de administración. En la parte superior de la interfaz, se encuentran los botones para que el administrador pueda navegar hacia las diferentes vistas.
+
+Como pantalla principal, aparece el \textit{log} del sistema. En esta ventana, el administrador puede visualizar todas las respuestas que se han abierto con el asistente en forma de tabla. El dato más importante que puede consultar el administrador, es la valoración que el usuario le ha dado a la respuesta.
+
+\imagen{AdminLog.png}{Interfaz de \textit{log}}
+
+En la interfaz de aprendizaje, podemos ver las recomendaciones de los usuarios para que el algoritmo aprenda en los casos de que no puede ofrecer respuestas. Estas mejoras vienen de cuando el algoritmo no encuentra respuesta y de las recomendaciones ofrecidas al usuario, éste abre una de ellas. A parte de ver las recomendaciones, el administrador desde esta página puede aceptar la recomendación, por lo que al asistente lo aprende en el momento; o desechar la recomendación de aprendizaje.
+
+\imagen{AdminAprende.png}{Interfaz de aprendizaje}
+
+En la opción \textit{Editor de casos}, el administrador se encuentra con dos opciones, \textit{Añadir caso} y \textit{Modificar caso}.
+
+\imagenMediana{AdminCasosMenu.png}{Menú editor de casos}
+
+\label{anadirCaso}
+En el caso de \textit{Añadir caso}, la interfaz muestra un formulario, con el cual se puede añadir un nuevo caso a la base de datos. El formulario tiene unos campos que son necesarios para poder añadir un caso. Estos campos obligatorios son, \textit{Palabra Clave 1}, \textit{Categoría} y \textit{Respuesta}.
+
+\imagen{AdminCasoAnadir.png}{Interfaz añadir caso}
+
+En la opción \textit{Modificar casos}, nos aparece en forma de tabla todos los casos que posee el asistente virtual. Desde esta interfaz, el administrador puede editar o eliminar un caso.
+
+\imagen{AdminCasoTabla.png}{Interfaz de administración de casos}
+
+En el caso de que se elija la opción \textit{Editar}, se abre una nueva interfaz con un formulario igual al de \textit{Añadir caso} (\ref{anadirCaso}), teniendo que tener rellenados los mismos campos obligatorios. En este caso, el formulario trae campos rellenados según el caso que hayamos elegido para modificar.
+
+\imagen{AdminCasoEditar.png}{Interfaz editar caso}
+
+En el caso de que se elija la opción \textit{Eliminar}, aparece un mensaje de aviso, para preguntarnos si estamos seguros de querer borrar el caso.
+
+\imagen{AdminCasoEliminar.png}{Aviso de borrado de caso}
+
+A parte de todas estas vistas que se han comentado, en el caso de que los datos se muestran en forma de tabla, el administrador tiene la opción de extraer la tabla en diferentes formatos, Esto se puede realizar pulsando el botón \textit{Guardar como}, situado en la parte superior izquierda de las tablas.
+
+\imagen{AdminExport.png}{Exportar tabla}
+
+Otra función importante de las tablas es que son ordenables. De esta forma, el administrador, puede ver los datos de la forma que crea más conveniente. Para ordenar la tabla, solamente hay que pulsar sobre la cabecera de la columna que se quiere ordenar. La primera vez, la tabla se ordena de forma ascendente o de A-Z. La segunda vez, la tabla se ordena de forma descendente o de Z-A.
