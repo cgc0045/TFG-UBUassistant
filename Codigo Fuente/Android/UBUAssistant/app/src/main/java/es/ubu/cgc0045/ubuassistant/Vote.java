@@ -1,9 +1,8 @@
 package es.ubu.cgc0045.ubuassistant;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Context;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -12,52 +11,46 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.RatingBar;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
 
 public class Vote extends Activity {
 
-    private Button enviar;
     private RatingBar ratingBar;
     private Global global;
     private ConstraintLayout cl;
-    private Button rechazar;
 
-
+    /**
+     * Method used to finish the activity.
+     */
     @Override
     public void finish(){
         fgTransparent();
         super.finish();
     }
 
-
+    /**
+     * Method used to initialize the variables and start the procedure.
+     * @param savedInstanceState Previous state of the app.
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.votewindow);
         ratingBar = findViewById(R.id.ratingBar);
         getWindow().getDecorView().setBackgroundColor(Color.WHITE);
-        enviar = findViewById(R.id.enviar);
+        Button enviar = findViewById(R.id.enviar);
         enviar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,7 +61,7 @@ public class Vote extends Activity {
             }
         });
 
-        rechazar = findViewById(R.id.cancelar);
+        Button rechazar = findViewById(R.id.cancelar);
         rechazar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -89,24 +82,28 @@ public class Vote extends Activity {
         getWindowManager().getDefaultDisplay().getMetrics(dm);
 
         int width = dm.widthPixels;
-        int height = dm.heightPixels;
 
         getWindow().setLayout((int) (width*0.8), (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 225, getResources().getDisplayMetrics()));
 
     }
 
+    /**
+     * Method used to set the alpha channel of the foreground to 0 value.
+     */
     private void fgTransparent(){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             cl.getForeground().setAlpha(0);
         }
     }
 
+    @SuppressLint("StaticFieldLeak")
     private class valueResponse extends AsyncTask<String, Void, String> {
         String retorno;
-        ArrayList<Integer> responseCodes;
-        HttpURLConnection conexion;
         JSONObject json;
 
+        /**
+         * Method used to create the JSON file.
+         */
         private void createJSON(){
             json = new JSONObject();
             JSONArray userID = new JSONArray();
@@ -130,18 +127,17 @@ public class Vote extends Activity {
             }
         }
 
-        @Override
-        protected void onPreExecute(){
-            responseCodes = new ArrayList<>(Arrays.asList(200,201,202,203));
-        }
-
+        /**
+         * Method used to do procedures in an AsyncTask.
+         * @param strings Array with parameters in String class
+         * @return Response message obtained form the server
+         */
         @Override
         protected String doInBackground(String... strings) {
             createJSON();
 
             String JsonDATA = json.toString();
             HttpURLConnection urlConnection = null;
-            BufferedReader reader = null;
 
             try {
                 URL url = new URL(global.getUrl() + ":8080/UBUassistant/post/vote");
@@ -160,12 +156,6 @@ public class Vote extends Activity {
             } finally {
                 if (urlConnection != null) {
                     urlConnection.disconnect();
-                }
-                if (reader != null) {
-                    try {
-                        reader.close();
-                    } catch (final IOException e) {
-                    }
                 }
             }
             return retorno;

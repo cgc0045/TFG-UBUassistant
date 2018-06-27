@@ -4,12 +4,16 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.PixelFormat;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+/**
+ * @author Carlos González Calatrava
+ */
 public class SplashScreen extends Activity{
     public void onAttachedToWindow(){
         super.onAttachedToWindow();
@@ -19,6 +23,10 @@ public class SplashScreen extends Activity{
 
     Thread splashThread;
 
+    /**
+     * Method used to initialize the variables and start the procedure.
+     * @param savedInstanceState Previous state of the app.
+     */
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -26,6 +34,9 @@ public class SplashScreen extends Activity{
         StartAnimations();
     }
 
+    /**
+     * Method used to start the initial animation of the app
+     */
     public void StartAnimations(){
         //Create the animation and start it
         Animation anim = AnimationUtils.loadAnimation(this, R.anim.alpha);
@@ -51,12 +62,12 @@ public class SplashScreen extends Activity{
                         waited += 100;
                     }
 
-                    Intent it = new Intent(SplashScreen.this, Main2Activity.class);
+                    Intent it = new Intent(SplashScreen.this, MainActivity.class);
                     it.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(it);
                     SplashScreen.this.finish();
                 } catch (InterruptedException e){
-
+                    Log.e("InterruptedException", e.getMessage());
                 } finally {
                     SplashScreen.this.finish();
                 }

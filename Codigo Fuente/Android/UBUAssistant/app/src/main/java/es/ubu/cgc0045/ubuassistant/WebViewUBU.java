@@ -1,56 +1,48 @@
 package es.ubu.cgc0045.ubuassistant;
 
-import android.content.Context;
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
-import android.provider.Settings;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.LayoutInflater;
+import android.webkit.DownloadListener;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.PopupWindow;
-import android.widget.Toast;
 
-import org.apache.commons.io.IOUtils;
-import org.apache.http.HttpHeaders;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStreamWriter;
-import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
+import java.util.Objects;
 
+/**
+ * @author Carlos González Calatrava
+ */
 public class WebViewUBU extends AppCompatActivity {
     String title;
     Global global;
     private String android_id;
     String url;
 
+    /**
+     * Method used to initialize the variables and the components
+     * @param savedInstanceState Previous saved instance of the app
+     */
+    @SuppressLint({"HardwareIds", "SetJavaScriptEnabled"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,7 +52,7 @@ public class WebViewUBU extends AppCompatActivity {
         setContentView(R.layout.activity_web_view_ubu);
 
         if(savedInstanceState == null){
-            url = getIntent().getDataString().replace("ubuassistant://","");
+            url = Objects.requireNonNull(getIntent().getDataString()).replace("ubuassistant://","");
         }
 
         WebView myWebView = findViewById(R.id.webview);
@@ -73,17 +65,28 @@ public class WebViewUBU extends AppCompatActivity {
                 Log.w("Global", global.getWords().get(0));
             }
         });
+        myWebView.setDownloadListener(new DownloadListener() {
+            @Override
+            public void onDownloadStart(String url, String userAgent, String contentDisposition, String mimetype, long contentLength) {
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                startActivity(i);
+            }
+        });
         myWebView.loadUrl(url);
 
         Toolbar myToolbar = findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         new logVisit().execute();
 
     }
 
+    /**
+     * Method used to do action when back button is pressed.
+     */
     @Override
     public void onBackPressed(){
         super.onBackPressed();
@@ -92,25 +95,31 @@ public class WebViewUBU extends AppCompatActivity {
         startActivity(i);
     }
 
+    /**
+     * Method used to enable to return to the parent activity
+     * @return true
+     */
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
     }
 
+    @SuppressLint("StaticFieldLeak")
     private class logVisit extends AsyncTask<String, Void, String> {
         String retorno;
-        ArrayList<Integer> responseCodes;
-        HttpURLConnection conexion;
         JSONObject json;
 
+        /**
+         * Method used to create the log JSON file.
+         */
         private void createJSON(){
             json = new JSONObject();
             JSONArray userID = new JSONArray();
             JSONArray palabras = new JSONArray();
             JSONArray respuesta = new JSONArray();
 
-            DateFormat formatForId = new SimpleDateFormat("yyMMddHHmmssSSS");
+            @SuppressLint("SimpleDateFormat") DateFormat formatForId = new SimpleDateFormat("yyMMddHHmmssSSS");
             String id = formatForId.format(new Date()) + "_" + android_id;
             userID.put(id);
             global.setUserID(id);
@@ -130,34 +139,36 @@ public class WebViewUBU extends AppCompatActivity {
             }
         }
 
+        /**
+         * Method used to create the learn JSON file
+         */
         private void createLearnJSON(){
             json = new JSONObject();
 
             try {
                 json.put("userID", global.getUserID());
-                String p1 = "";
+                StringBuilder p1 = new StringBuilder();
                 for (String s: global.getWords()){
-                    p1 += p1.equals("") ? s : (" " + s);
+                    p1.append(p1.toString().equals("") ? s : (" " + s));
                 }
-                json.put("p1", p1);
+                json.put("p1", p1.toString());
                 json.put("p2", url);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
 
-        @Override
-        protected void onPreExecute(){
-            responseCodes = new ArrayList<>(Arrays.asList(200,201,202,203));
-        }
-
+        /**
+         * Method used to do procedures in an AsyncTask.
+         * @param strings Array with parameters in String class
+         * @return Response message obtained form the server
+         */
         @Override
         protected String doInBackground(String... strings) {
             createJSON();
 
             String JsonDATA = json.toString();
             HttpURLConnection urlConnection = null;
-            BufferedReader reader = null;
 
             try {
                 URL url = new URL(global.getUrl() + ":8080/UBUassistant/post/log");
@@ -176,12 +187,6 @@ public class WebViewUBU extends AppCompatActivity {
             } finally {
                 if (urlConnection != null) {
                     urlConnection.disconnect();
-                }
-                if (reader != null) {
-                    try {
-                        reader.close();
-                    } catch (final IOException e) {
-                    }
                 }
             }
 
@@ -207,12 +212,6 @@ public class WebViewUBU extends AppCompatActivity {
                 } finally {
                     if (urlConnection != null) {
                         urlConnection.disconnect();
-                    }
-                    if (reader != null) {
-                        try {
-                            reader.close();
-                        } catch (final IOException e) {
-                        }
                     }
                 }
             }
