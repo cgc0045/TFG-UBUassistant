@@ -20,7 +20,7 @@ import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 
 /**
  * 
- * @author Daniel Santidrian Alonso
+ * @author Daniel Santidrian Alonso y Carlos González Calatrava
  *
  */
 public class DatabaseConnection {
@@ -108,7 +108,7 @@ public class DatabaseConnection {
 	 * @param p1 the word that gets the best similarity of the text input by the user
 	 * @param p2 the answer that will be associated to the first word
 	 */
-	public void learnCases(String p1, String p2){
+	public void learnCases(String id, String p1, String p2){
 		
 		boolean flag = false;
 		String palabra2=" ";
@@ -132,7 +132,7 @@ public class DatabaseConnection {
 				
 				pst = con.prepareStatement(
 						"INSERT INTO aprendizaje (userid, palabra1, palabra2) VALUES (?, ?, ?)");
-				pst.setString(1, userID);
+				pst.setString(1, id);
 				pst.setString(2, p1);
 				pst.setString(3, p2);
 				
@@ -187,6 +187,7 @@ public class DatabaseConnection {
 				}
 			}	
 			
+			
 			if(flag){
 				
 				pst = con.prepareStatement("UPDATE logger SET num_busquedas = ?, fecha=? WHERE id=?");
@@ -201,24 +202,24 @@ public class DatabaseConnection {
 				categoria=getCategoria(respuesta);
 				
 				pst = con.prepareStatement("INSERT INTO logger "
-												+ "(keyWord1, keyWord2, keyWord3, keyWord4, keyWord5, categoria, num_busquedas, num_votos, valoracion_total,"
+												+ "(keyWord1, keyWord2, keyWord3, keyWord4, keyWord5,keyWord6,keyWord7, categoria, num_busquedas, num_votos, valoracion_total,"
 												+ " fecha, respuesta, userid) "
-												+ " VALUES (?,?,?,?,?,?,?,?,?,?,?,?)");
+												+ " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 				
 				for(int i=0; i<temp.size(); i++){
 					pst.setString(i+1, temp.get(i));
 				}
 				
-				for(int i=temp.size()+1;i<6;i++)
+				for(int i=temp.size()+1;i<8;i++)
 					pst.setNull(i, java.sql.Types.VARCHAR);
 				
-				pst.setString(6, categoria);
-				pst.setInt(7, 1);
-				pst.setInt(8, 0);
-				pst.setInt(9, 0);
-				pst.setString(10, sdf.format(new Date()));
-				pst.setString(11, respuesta);
-				pst.setString(12, userID);
+				pst.setString(8, categoria);
+				pst.setInt(9, 1);
+				pst.setInt(10, 0);
+				pst.setInt(11, 0);
+				pst.setString(12, sdf.format(new Date()));
+				pst.setString(13, respuesta);
+				pst.setString(14, userID);
 				pst.executeUpdate();
 			}	
 			
@@ -270,6 +271,7 @@ public class DatabaseConnection {
 		List<String> temp = new ArrayList<>();
 		
 		temp.addAll(palabras);
+		logger.info("Temp: " + temp);
 		Collections.sort(temp);
 		
 		try {
@@ -279,8 +281,14 @@ public class DatabaseConnection {
 				
 				List<String> databaseWords = createDatabaseWords(rs);
 				
+				logger.info(databaseWords);
+				
+				logger.info(userID + " = " + rs.getString("userid"));
+				logger.info(userID.equals(rs.getString("userid")));
+				
 				if(databaseWords.equals(temp) && userID.equals(rs.getString("userid"))){
-
+					
+					
 					palabraId=rs.getInt("id");
 					numvotos=rs.getInt("num_votos");
 					valoraciontotal=rs.getInt("valoracion_total");

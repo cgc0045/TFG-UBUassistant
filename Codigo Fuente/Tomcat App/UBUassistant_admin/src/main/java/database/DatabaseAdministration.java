@@ -13,7 +13,7 @@ import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 
 /**
  * 
- * @author Daniel Santidrian Alonso
+ * @author Daniel Santidrian Alonso y Carlos González Calatrava
  *
  */
 public class DatabaseAdministration {

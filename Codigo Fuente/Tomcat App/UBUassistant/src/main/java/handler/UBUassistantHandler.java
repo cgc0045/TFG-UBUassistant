@@ -24,7 +24,7 @@ import util.ResultsComparator;
 
 /**
  * 
- * @author Daniel Santidrian Alonso
+ * @author Daniel Santidrian Alonso y Carlos González Calatrava
  *
  */
 public class UBUassistantHandler {
@@ -198,9 +198,6 @@ public class UBUassistantHandler {
 		
 		String temp=finalResults.get(finalResults.keySet().iterator().next()).iterator().next();
 		
-		/*if(temp.contains("http"))
-			response += "<a href="+temp+" target=\"_blank\">"+temp+"</a>";
-		else*/
 		response = temp;
 		
 		CBRCase c = casesToReatin.keySet().iterator().next();
@@ -211,8 +208,6 @@ public class UBUassistantHandler {
 			
 		LinkedHashSet<String> palabras=finalResults.keySet().iterator().next();
 		currentWords=palabras;
-		//Increasing the number of searches of the word
-		db.aumentarNumBusquedas(palabras,finalResults.get(finalResults.keySet().iterator().next()).iterator().next());
 		//Calling the method to ask the user about the utility of the answer
 		putStarBar();
 			
@@ -257,12 +252,6 @@ public class UBUassistantHandler {
 				tempList.add(word);
 				tempList.add(answer);
 				
-				/*multipleButtons+="<form method=\"post\" id=\"multipleForm\" class=\"multipleForm\" action=\"multipleAnswer.jsp;jsessionid="+getSessionId()+"\">"+
-										"<input type=\"hidden\" id=\"keyWord\" name=\"usertText\" value=\""+word+"\">"+
-									    "<input type=\"hidden\" id=\"answer\" name=\"answer\" value=\""+answer+"\">"+
-									    "<input type=\"hidden\" id=\"buttonDiv\" name=\"buttonDiv\">"+
-									    "<input type=\"button\" id=\"but\" class=\"multBut\" onclick=\"hideAndSubmit(this)\" value=\""+word+"\">"+
-									"</form>";*/
 				multipleButtons.add(tempList);
 			}else{
 				break;
@@ -310,13 +299,6 @@ public class UBUassistantHandler {
 					
 					temp.add(word);
 					temp.add(answer);
-					
-					/*suggestButtons+="<form method=\"post\" action=\"noAnswer.jsp;jsessionid="+getSessionId()+"\" style=\"display: inline-block;\">"+
-						"<input type=\"hidden\" id=\"num\" name=\"num\" value=\""+i+"\">"+
-					    "<input type=\"hidden\" id=\"keyWord\" name=\"usertText\" value=\""+word+"\">"+
-					    "<input type=\"hidden\" id=\"answer\" name=\"answer\" value=\""+answer+"\">"+
-					    "<input type=\"submit\" class=\"sugBut\" value=\""+word+"\">"+
-					    "</form>";*/
 					
 					suggestButtons.add(temp);
 					
@@ -428,6 +410,10 @@ public class UBUassistantHandler {
 		return starBar;
 	}
 	
+	/**
+	 * Method that returns a list with buttons content 
+	 * @return button List with buttons text
+	 */
 	public List<String> getButton() {
 		return button;
 	}

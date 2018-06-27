@@ -21,9 +21,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.apache.log4j.Logger;
 
 import handler.UBUassistantHandler;
-
+/**
+ * 
+ * @author Carlos González Calatrava
+ *
+ */
 @Path("/service")
 public class ResponseUser {
+	
 	
 	@XmlRootElement
 	private class Respuesta{
@@ -45,6 +50,12 @@ public class ResponseUser {
 		}
 	}
 
+	/**
+	 * Method used to send one response or mutiple responses to the client.
+	 * @param userText Text that send the client to search the responses.
+	 * @param request Http connection request.
+	 * @return Status code and JSON file with the responses.
+	 */
 	@GET
 	@Path("/{question}")
 	@Produces(MediaType.APPLICATION_JSON)

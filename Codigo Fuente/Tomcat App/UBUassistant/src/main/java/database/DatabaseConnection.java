@@ -20,7 +20,7 @@ import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 
 /**
  * 
- * @author Daniel Santidrian Alonso
+ * @author Daniel Santidrian Alonso y Carlos González Calatrava
  *
  */
 public class DatabaseConnection {
@@ -108,7 +108,7 @@ public class DatabaseConnection {
 	 * @param p1 the word that gets the best similarity of the text input by the user
 	 * @param p2 the answer that will be associated to the first word
 	 */
-	public void learnCases(String p1, String p2){
+	public void learnCases(String id, String p1, String p2){
 		
 		boolean flag = false;
 		String palabra2=" ";
@@ -132,7 +132,7 @@ public class DatabaseConnection {
 				
 				pst = con.prepareStatement(
 						"INSERT INTO aprendizaje (userid, palabra1, palabra2) VALUES (?, ?, ?)");
-				pst.setString(1, userID);
+				pst.setString(1, id);
 				pst.setString(2, p1);
 				pst.setString(3, p2);
 				
@@ -210,7 +210,7 @@ public class DatabaseConnection {
 					pst.setString(i+1, temp.get(i));
 				}
 				
-				for(int i=temp.size()+1;i<6;i++)
+				for(int i=temp.size()+1;i<8;i++)
 					pst.setNull(i, java.sql.Types.VARCHAR);
 				
 				pst.setString(8, categoria);

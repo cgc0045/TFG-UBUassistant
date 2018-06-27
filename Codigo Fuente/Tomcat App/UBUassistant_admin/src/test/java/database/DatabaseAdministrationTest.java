@@ -15,7 +15,7 @@ import org.junit.Test;
 
 /**
  * 
- * @author Daniel Santidrian Alonso
+ * @author Daniel Santidrian Alonso & Carlos González Calatrava
  *
  */
 public class DatabaseAdministrationTest extends AbstractTestCase{
@@ -105,7 +105,7 @@ public class DatabaseAdministrationTest extends AbstractTestCase{
 			rs.next();
 			int id=rs.getInt("id");
 			
-			String[] lista2 = new String[5];
+			String[] lista2 = new String[7];
 			lista2[0]="editCase";
 			
 			db.editCase(String.valueOf(id), lista2, "editCat", "editAnswer");
@@ -122,8 +122,7 @@ public class DatabaseAdministrationTest extends AbstractTestCase{
 			while (rs2.next() && rs3.next()) {
 				cat=rs2.getString("categoria");
 				resp=rs3.getString("answer");
-			}	
-			
+			}
 			
 			assertEquals(cat, "editCat");
 			assertEquals(resp, "editAnswer");
@@ -166,7 +165,7 @@ public class DatabaseAdministrationTest extends AbstractTestCase{
 			rs.next();
 			int id=rs.getInt("id");
 			
-			String[] lista2 = new String[5];
+			String[] lista2 = new String[7];
 			lista2[0]="editCase";
 			
 			db.removeCase(String.valueOf(id));
@@ -211,7 +210,7 @@ public class DatabaseAdministrationTest extends AbstractTestCase{
 			pst.setString(2, PALABRA1);
 			pst.setString(3, PALABRA2);
 			
-			pst.executeUpdate();
+			pst.execute();
 			
 			db.executeLearn(PALABRA1, PALABRA2);
 			
@@ -293,8 +292,8 @@ public class DatabaseAdministrationTest extends AbstractTestCase{
 		try{
 			
 			pst = con.prepareStatement("INSERT INTO logger "
-						+ "(userid,fecha,keyWord1,keyWord2,keyWord3,keyWord4,keyWord5,categoria,respuesta,"+
-						"num_busquedas,num_votos,valoracion_total) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)");
+						+ "(userid,fecha,keyWord1,keyWord2,keyWord3,keyWord4,keyWord5,keyWord6,keyWord7,categoria,respuesta,"+
+						"num_busquedas,num_votos,valoracion_total) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 		
 			pst.setString(1, USERID);
 			pst.setString(2, "2017-06-14 11:41:55");
@@ -303,11 +302,13 @@ public class DatabaseAdministrationTest extends AbstractTestCase{
 			pst.setString(5, "palabra3");
 			pst.setString(6, "palabra4");
 			pst.setString(7, "palabra5");
-			pst.setString(8, "cat");
-			pst.setString(9, "resp");
-			pst.setInt(10, 2);
-			pst.setInt(11, 3);
-			pst.setInt(12, 4);
+			pst.setString(8, "palabra6");
+			pst.setString(9, "palabra7");
+			pst.setString(10, "cat");
+			pst.setString(11, "resp");
+			pst.setInt(12, 2);
+			pst.setInt(13, 3);
+			pst.setInt(14, 4);
 			
 			pst.executeUpdate();
 			

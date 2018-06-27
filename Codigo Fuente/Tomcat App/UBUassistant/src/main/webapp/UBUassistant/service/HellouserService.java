@@ -7,16 +7,25 @@ import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.GET;
-import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 
 import handler.UBUassistantHandler;
 
+/**
+ * 
+ * @author Carlos González Calatrava
+ *
+ */
 @Path("/service")
 public class HellouserService {
 
+	/**
+	 * Method that send a salute to the client.
+	 * @param request Http connection request.
+	 * @return Status code and salute.
+	 */
 	@GET
 	public Response sayHello(@Context HttpServletRequest request) {
 		

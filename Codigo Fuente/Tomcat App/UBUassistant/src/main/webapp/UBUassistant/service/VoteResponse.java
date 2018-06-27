@@ -18,9 +18,12 @@ import org.json.JSONObject;
 
 import database.DatabaseConnection;
 import handler.UBUassistantHandler;
-import storage.Storage;
-
-@Path("/vote")
+/**
+ * 
+ * @author Carlos González Calatrava
+ *
+ */
+@Path("/post")
 public class VoteResponse {
 
 	@XmlRootElement
@@ -36,21 +39,84 @@ public class VoteResponse {
 	    }
 	}
 	
+	/**
+	 * Method used to learn new cases send it by the client.
+	 * @param request Http connection request.
+	 * @param input JSON file to consume.
+	 * @return State code
+	 */
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	@Path("/log")
-	public Response log(String input) {
+	@Path("/learn")
+	public Response learn(@Context HttpServletRequest request, String input) {
 		Logger log = Logger.getLogger(getClass());
 		JSONObject json = new JSONObject(input);
 		
 		log.info("Recibido el POST");
 		log.info(input);
 		
-		return Response.status(201).entity(input).build();
+		HttpSession session = request.getSession();	
+		String id=json.get("userID").toString();
+		UBUassistantHandler handler = new UBUassistantHandler(id);		
+		handler.setSessionId(session.getId());		
+		session.setAttribute("ubuassistantHandler", handler); 				
+		UBUassistantHandler ubuassistant= (UBUassistantHandler) session.getAttribute("ubuassistantHandler");
+		
+		DatabaseConnection db = ubuassistant.getDb();
+		
+		
+		String p1 = json.get("p1").toString();
+		String p2 = json.get("p2").toString();
+		
+		db.learnCases(id, p1, p2);
+		
+		return Response.status(201).build();
 	}
 	
+	/**
+	 * Method used to store in log one response opened by the user
+	 * @param request Http connection request.
+	 * @param input JSON file to consume.
+	 * @return Status code.
+	 */
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
+	@Path("/log")
+	public Response log(@Context HttpServletRequest request, String input) {
+		Logger log = Logger.getLogger(getClass());
+		JSONObject json = new JSONObject(input);
+		
+		log.info("Recibido el POST");
+		log.info(input);
+		
+		HttpSession session = request.getSession();	
+		String userID=json.getJSONArray("userID").getString(0);
+		UBUassistantHandler handler = new UBUassistantHandler(userID);		
+		handler.setSessionId(session.getId());		
+		session.setAttribute("ubuassistantHandler", handler); 				
+		UBUassistantHandler ubuassistant= (UBUassistantHandler) session.getAttribute("ubuassistantHandler");
+		
+		DatabaseConnection db = ubuassistant.getDb();
+		LinkedHashSet<String> words = new LinkedHashSet<String>();
+		
+		for(Object o: json.getJSONArray("palabras")){
+			words.add(o.toString());
+		}
+		
+		db.aumentarNumBusquedas(words, json.getJSONArray("respuesta").getString(0));
+		
+		return Response.status(201).build();
+	}
+	
+	/**
+	 * Method used to store a vote emitted by a user.
+	 * @param request Http connection request.
+	 * @param input JSON file to consume.
+	 * @return Status code.
+	 */
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Path("/vote")
 	public Response vote(@Context HttpServletRequest request, String input) {
 		Logger log = Logger.getLogger(getClass());
 		
@@ -72,7 +138,7 @@ public class VoteResponse {
 		LinkedHashSet<String> words = new LinkedHashSet<String>();
 		
 		
-		for(Object o: json.getJSONArray("Palabras").getJSONArray(0)){
+		for(Object o: json.getJSONArray("palabras")){
 			words.add(o.toString());
 		}
 		
@@ -81,12 +147,9 @@ public class VoteResponse {
 		
 		db.saveVote(words, json.getJSONArray("valoracion").getInt(0));
 		
-		Storage storage = ubuassistant.getStorage();
+		log.info(userID);		
 		
-		log.info(userID);
-		
-		
-		return Response.status(201).entity(input).build();
+		return Response.status(201).build();
 	}
 	
 }

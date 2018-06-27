@@ -18,7 +18,7 @@ import org.junit.Test;
 
 /**
  * 
- * @author Daniel Santidrian Alonso
+ * @author Daniel Santidrian Alonso & Carlos González Calatrava
  *
  */
 public class DatabaseConnectionTest extends AbstractTestCase{
@@ -99,7 +99,7 @@ public class DatabaseConnectionTest extends AbstractTestCase{
 	@Test
 	public void learnTest() {
 		
-		db.learnCases(INVENTADA,RESPUESTAINVENTADA);
+		db.learnCases("test_learn",INVENTADA,RESPUESTAINVENTADA);
 		
 		Statement stmt = null;
 		ResultSet rs = null;
@@ -131,8 +131,8 @@ public class DatabaseConnectionTest extends AbstractTestCase{
 	@Test
 	public void learnMultipleTest() {
 		
-		db.learnCases(INVENTADA,"respuesta inventada1");
-		db.learnCases(INVENTADA,"respuesta inventada2");
+		db.learnCases("test_learn",INVENTADA,"respuesta inventada1");
+		db.learnCases("test_learn",INVENTADA,"respuesta inventada2");
 		
 		Statement stmt = null;
 		ResultSet rs = null;
