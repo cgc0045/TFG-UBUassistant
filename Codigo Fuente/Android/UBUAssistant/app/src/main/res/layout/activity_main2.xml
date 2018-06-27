@@ -73,7 +73,7 @@
             android:textSize="14dp" />
 
         <Button
-            android:id="@+id/button_chatbox_send2"
+            android:id="@+id/button_new"
             android:layout_width="64dp"
             android:layout_height="48dp"
             android:layout_gravity="bottom"

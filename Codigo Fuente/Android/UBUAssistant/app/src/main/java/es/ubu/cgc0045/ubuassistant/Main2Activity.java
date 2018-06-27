@@ -37,8 +37,11 @@ import java.net.Socket;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 import java.util.concurrent.ExecutionException;
 
 public class Main2Activity extends AppCompatActivity {
@@ -48,12 +51,15 @@ public class Main2Activity extends AppCompatActivity {
     private List<Message> messages;
     private ImageButton mic;
     private Button enviar;
+    private Button nuevo;
     private EditText resultText;
     private JSONObject json;
     private int responseCode;
     private Global global;
     private ConstraintLayout cl;
     private Context context;
+    private Set<String> busqueda;
+    private List<String> temp;
 
     private static List<String> URLS = new ArrayList<>(Arrays.asList("http://ubuassistant.westeurope.cloudapp.azure.com","http://charlie96.ddns.jazztel.es"));
     private static String URL = URLS.get(0);
@@ -73,6 +79,7 @@ public class Main2Activity extends AppCompatActivity {
 
         context = this;
 
+        busqueda = new HashSet<>();
         messages = new ArrayList<>();
         global = (Global) getApplicationContext();
         global.setCl(cl);
@@ -82,30 +89,23 @@ public class Main2Activity extends AppCompatActivity {
         enviar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                global.setWords(resultText.getText().toString());
-                Log.w("Palabras buscadas", global.getWords().get(global.getWords().size()-1));
+                guardaBusqueda();
 
-                messages.add(new Message(messages.size(),resultText.getText().toString()));
+                enviarPregunta();
 
-                adapter.notifyItemInserted(messages.size()-1);
-                //adapter.notifyDataSetChanged();
-                recyclerView.scrollToPosition(messages.size());
-                Log.e("Enviado", resultText.getText().toString());
-                //recyclerView.setSelection(adapter.getCount() - 1);
+                resultText.setText("");
+            }
+        });
 
+        nuevo = findViewById(R.id.button_new);
+        nuevo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                nuevaBusqueda();
 
-                try {
-                    String solution = new getResponse().execute(messages.get(messages.size()-1).getMessage()).get();
-                    messages.add(new Message(messages.size(),solution));
-                    adapter.notifyDataSetChanged();
-                    recyclerView.scrollToPosition(messages.size()-1);
-                    //messages.setSelection(adapter.getCount() - 1);
-                } catch (InterruptedException e) {
-                    Log.e("InterruptedException", e.getMessage());
-                } catch (ExecutionException e) {
-                    Log.e("ExecutionException", e.getMessage());
-                }
+                enviarPregunta();
 
+                resultText.setText("");
             }
         });
 
@@ -127,6 +127,74 @@ public class Main2Activity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
 
 
+    }
+
+    private void guardaBusqueda(){
+        if (busqueda.size() == 0){
+            busqueda.addAll(new ArrayList<>(Arrays.asList(resultText.getText().toString().split(" "))));
+
+        }else{
+            temp = Arrays.asList(resultText.getText().toString().split(" "));
+            Log.e("Array temp", temp.toString());
+            busqueda.addAll(temp);
+
+        }
+
+        for (Iterator<String> iterator = busqueda.iterator(); iterator.hasNext();) {
+            String s =  iterator.next();
+            if (s.length() <= 3) {
+                iterator.remove();
+            }
+        }
+    }
+
+    private void nuevaBusqueda(){
+        busqueda.clear();
+        busqueda.addAll(new ArrayList<>(Arrays.asList(resultText.getText().toString().split(" "))));
+
+        for (Iterator<String> iterator = busqueda.iterator(); iterator.hasNext();) {
+            String s =  iterator.next();
+            if (s.length() <= 3) {
+                iterator.remove();
+            }
+        }
+    }
+
+    private void enviarPregunta(){
+        Log.e("Array terminos", busqueda.toString());
+        global.setWords(resultText.getText().toString());
+        Log.w("Palabras buscadas", busqueda.toString());
+
+        //messages.add(new Message(messages.size(),resultText.getText().toString()));
+        messages.add(new Message(messages.size(),busquedaToString()));
+
+        adapter.notifyItemInserted(messages.size()-1);
+        //adapter.notifyDataSetChanged();
+        recyclerView.scrollToPosition(messages.size());
+        Log.e("Enviado", resultText.getText().toString());
+        //recyclerView.setSelection(adapter.getCount() - 1);
+
+
+        try {
+            String solution = new getResponse().execute(messages.get(messages.size()-1).getMessage()).get();
+            messages.add(new Message(messages.size(),solution));
+            adapter.notifyDataSetChanged();
+            recyclerView.scrollToPosition(messages.size()-1);
+            //messages.setSelection(adapter.getCount() - 1);
+        } catch (InterruptedException e) {
+            Log.e("InterruptedException", e.getMessage());
+        } catch (ExecutionException e) {
+            Log.e("ExecutionException", e.getMessage());
+        }
+    }
+
+    private String busquedaToString(){
+        String busca = "";
+        for (String s: busqueda){
+            busca+=s+" ";
+        }
+
+        return busca;
     }
 
     public void onButtonClick(View v){
