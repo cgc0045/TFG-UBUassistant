@@ -162,7 +162,7 @@ public class Main2Activity extends AppCompatActivity {
 
     private void enviarPregunta(){
         Log.e("Array terminos", busqueda.toString());
-        global.setWords(resultText.getText().toString());
+        global.setWords(new ArrayList<String>(busqueda));
         Log.w("Palabras buscadas", busqueda.toString());
 
         //messages.add(new Message(messages.size(),resultText.getText().toString()));
@@ -371,6 +371,8 @@ public class Main2Activity extends AppCompatActivity {
                 valid_2 = checkIfURLExists();
                 Log.e("Accesible 2", String.valueOf(valid_2));
             }
+
+            global.setUrl(URL);
 
             if (valid_1 || valid_2) {
 

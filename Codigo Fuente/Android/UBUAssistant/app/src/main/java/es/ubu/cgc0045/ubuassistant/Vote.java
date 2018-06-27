@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
@@ -17,12 +18,30 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+
 public class Vote extends Activity {
 
-    Button enviar;
-    RatingBar ratingBar;
-    Global global;
-    ConstraintLayout cl;
+    private Button enviar;
+    private RatingBar ratingBar;
+    private Global global;
+    private ConstraintLayout cl;
+    private Button rechazar;
 
 
     @Override
@@ -44,8 +63,15 @@ public class Vote extends Activity {
             public void onClick(View v) {
                 int rate = ((int) ratingBar.getRating());
                 Log.e("Valoración", String.valueOf(rate));
-                Toast toast = Toast.makeText(getApplicationContext(), String.valueOf(rate), Toast.LENGTH_LONG);
-                toast.show();
+                new valueResponse().execute();
+                finish();
+            }
+        });
+
+        rechazar = findViewById(R.id.cancelar);
+        rechazar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 finish();
             }
         });
@@ -75,9 +101,74 @@ public class Vote extends Activity {
         }
     }
 
-    public void rateMe(View view){
+    private class valueResponse extends AsyncTask<String, Void, String> {
+        String retorno;
+        ArrayList<Integer> responseCodes;
+        HttpURLConnection conexion;
+        JSONObject json;
 
-        Toast.makeText(getApplicationContext(),
-                String.valueOf(ratingBar.getRating()), Toast.LENGTH_LONG).show();
+        private void createJSON(){
+            json = new JSONObject();
+            JSONArray userID = new JSONArray();
+            JSONArray palabras = new JSONArray();
+            JSONArray valoracion = new JSONArray();
+
+            userID.put(global.getUserID());
+            for (String s: global.getWords()) {
+                palabras.put(s);
+                if (palabras.length() < 8) { break; }
+            }
+            int valor = ((int) ratingBar.getRating());
+            valoracion.put(valor == 0 ? 1 : valor);
+
+            try {
+                json.put("userID", userID);
+                json.put("palabras", palabras);
+                json.put("valoracion", valoracion);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        protected void onPreExecute(){
+            responseCodes = new ArrayList<>(Arrays.asList(200,201,202,203));
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+            createJSON();
+
+            String JsonDATA = json.toString();
+            HttpURLConnection urlConnection = null;
+            BufferedReader reader = null;
+
+            try {
+                URL url = new URL(global.getUrl() + ":8080/UBUassistant/post/vote");
+                urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.setDoOutput(true);
+                urlConnection.setRequestMethod("POST");
+                urlConnection.setRequestProperty("Content-Type", "application/json");
+                urlConnection.setRequestProperty("Accept", "application/json");
+                Writer writer = new BufferedWriter(new OutputStreamWriter(urlConnection.getOutputStream(), "UTF-8"));
+                writer.write(JsonDATA);
+                writer.close();
+                retorno = String.valueOf(urlConnection.getResponseCode());
+                Log.e("Respuesta POST", String.valueOf(urlConnection.getResponseCode()));
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                if (urlConnection != null) {
+                    urlConnection.disconnect();
+                }
+                if (reader != null) {
+                    try {
+                        reader.close();
+                    } catch (final IOException e) {
+                    }
+                }
+            }
+            return retorno;
+        }
     }
 }

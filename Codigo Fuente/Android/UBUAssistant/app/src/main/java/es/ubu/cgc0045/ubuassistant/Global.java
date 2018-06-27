@@ -5,6 +5,7 @@ import android.content.Context;
 import android.support.constraint.ConstraintLayout;
 import android.view.Window;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -14,6 +15,8 @@ public class Global extends Application {
     private List<String> words;
     private int state;
     private ConstraintLayout cl;
+    private String url;
+    private String userID;
 
     public Global(){
         words = new ArrayList<>();
@@ -21,8 +24,8 @@ public class Global extends Application {
     }
 
 
-    public void setWords(String words){
-        this.words = Arrays.asList(words.split(" "));
+    public void setWords(ArrayList<String> words){
+        this.words = words;
     }
 
     public List<String> getWords(){
@@ -39,7 +42,13 @@ public class Global extends Application {
 
     public void setCl(ConstraintLayout cl){ this.cl = cl; }
 
-    public ConstraintLayout getCl() {
-        return cl;
-    }
+    public ConstraintLayout getCl() { return cl; }
+
+    public void setUrl(String url){ this.url = url; }
+
+    public String getUrl() { return url; }
+
+    public void setUserID (String userID){ this.userID = userID; }
+
+    public String getUserID(){ return userID; }
 }
