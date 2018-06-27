@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.speech.RecognizerIntent;
@@ -13,13 +12,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
-import android.webkit.URLUtil;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
 import org.apache.commons.io.IOUtils;
@@ -31,9 +27,6 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
-import java.net.InetSocketAddress;
-import java.net.MalformedURLException;
-import java.net.Socket;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -44,35 +37,34 @@ import java.util.Locale;
 import java.util.Set;
 import java.util.concurrent.ExecutionException;
 
-public class Main2Activity extends AppCompatActivity {
+/**
+ * @author Carlos González Calatrava
+ */
+public class MainActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private MessageListAdapter adapter;
     private List<Message> messages;
-    private ImageButton mic;
-    private Button enviar;
-    private Button nuevo;
     private EditText resultText;
-    private JSONObject json;
-    private int responseCode;
     private Global global;
-    private ConstraintLayout cl;
     private Context context;
     private Set<String> busqueda;
-    private List<String> temp;
 
     private static List<String> URLS = new ArrayList<>(Arrays.asList("http://ubuassistant.westeurope.cloudapp.azure.com","http://charlie96.ddns.jazztel.es"));
     private static String URL = URLS.get(0);
 
-
+    /**
+     * Method used to initialize the variables and the components
+     * @param savedInstanceState Previous saved instance of the app
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTitle("UBUassistant");
 
-        setContentView(R.layout.activity_main2);
+        setContentView(R.layout.activity_main);
 
-        cl = findViewById(R.id.mainLayout);
+        ConstraintLayout cl = findViewById(R.id.mainLayout);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             cl.getForeground().setAlpha(0);
         }
@@ -85,7 +77,7 @@ public class Main2Activity extends AppCompatActivity {
         global.setCl(cl);
         resultText = findViewById(R.id.edittext_chatbox);
 
-        enviar = findViewById(R.id.button_chatbox_send);
+        Button enviar = findViewById(R.id.button_chatbox_send);
         enviar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -97,7 +89,7 @@ public class Main2Activity extends AppCompatActivity {
             }
         });
 
-        nuevo = findViewById(R.id.button_new);
+        Button nuevo = findViewById(R.id.button_new);
         nuevo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -129,12 +121,15 @@ public class Main2Activity extends AppCompatActivity {
 
     }
 
+    /**
+     * Method used to save in a list the words used to do the search.
+     */
     private void guardaBusqueda(){
         if (busqueda.size() == 0){
             busqueda.addAll(new ArrayList<>(Arrays.asList(resultText.getText().toString().split(" "))));
 
         }else{
-            temp = Arrays.asList(resultText.getText().toString().split(" "));
+            List<String> temp = Arrays.asList(resultText.getText().toString().split(" "));
             Log.e("Array temp", temp.toString());
             busqueda.addAll(temp);
 
@@ -148,6 +143,9 @@ public class Main2Activity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Method used to clear the list that store the words used to do the search.
+     */
     private void nuevaBusqueda(){
         busqueda.clear();
         busqueda.addAll(new ArrayList<>(Arrays.asList(resultText.getText().toString().split(" "))));
@@ -160,19 +158,19 @@ public class Main2Activity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Method used to send the words to the server to do a search and receive a response from it.
+     */
     private void enviarPregunta(){
         Log.e("Array terminos", busqueda.toString());
-        global.setWords(new ArrayList<String>(busqueda));
+        global.setWords(new ArrayList<>(busqueda));
         Log.w("Palabras buscadas", busqueda.toString());
 
-        //messages.add(new Message(messages.size(),resultText.getText().toString()));
-        messages.add(new Message(messages.size(),busquedaToString()));
+                messages.add(new Message(messages.size(),busquedaToString()));
 
         adapter.notifyItemInserted(messages.size()-1);
-        //adapter.notifyDataSetChanged();
         recyclerView.scrollToPosition(messages.size());
         Log.e("Enviado", resultText.getText().toString());
-        //recyclerView.setSelection(adapter.getCount() - 1);
 
 
         try {
@@ -180,7 +178,6 @@ public class Main2Activity extends AppCompatActivity {
             messages.add(new Message(messages.size(),solution));
             adapter.notifyDataSetChanged();
             recyclerView.scrollToPosition(messages.size()-1);
-            //messages.setSelection(adapter.getCount() - 1);
         } catch (InterruptedException e) {
             Log.e("InterruptedException", e.getMessage());
         } catch (ExecutionException e) {
@@ -188,15 +185,23 @@ public class Main2Activity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Method used to cast the list with the words into an unique string. The words are splitted by one white space.
+     * @return string with all  words from the list
+     */
     private String busquedaToString(){
-        String busca = "";
+        StringBuilder busca = new StringBuilder();
         for (String s: busqueda){
-            busca+=s+" ";
+            busca.append(s).append(" ");
         }
 
-        return busca;
+        return busca.toString();
     }
 
+    /**
+     * Method used to start the cast from voice to text.
+     * @param v Actual view of the application
+     */
     public void onButtonClick(View v){
         if(v.getId() == R.id.imageButton2){
 
@@ -204,6 +209,9 @@ public class Main2Activity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Method used to cast the voice into text.
+     */
     public void promptSpeechInput(){
         Intent i = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         i.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
@@ -217,6 +225,13 @@ public class Main2Activity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Method used to parse the voice recognition to legible string.
+     *
+     * @param request_code Code send it by the voice recognition
+     * @param result_code Code generated after the parsing
+     * @param i Intent used to get the voice recognition activity
+     */
     public void onActivityResult(int request_code, int result_code, Intent i){
         super.onActivityResult(request_code, result_code, i);
 
@@ -231,6 +246,11 @@ public class Main2Activity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Method used to convert the sending string to html format for the server understanding the request.
+     * @param mes String used to convert
+     * @return String converted in HTML format
+     */
     private String castToHTML(String mes){
 
         char[] chars = mes.toCharArray();
@@ -252,18 +272,23 @@ public class Main2Activity extends AppCompatActivity {
         return StringUtils.stripAccents(response.toString());
     }
 
-    private String parseResponse(String text, int code){
-        String respuesta = "";
+    /**
+     * Method used to parse the json response and create the hyperlinks of response.
+     * @param text JSON file
+     * @return String with legible response
+     */
+    private String parseResponse(String text){
+        StringBuilder respuesta = new StringBuilder();
 
         try {
-            json = new JSONObject(text);
+            JSONObject json = new JSONObject(text);
 
-            respuesta = json.getString("message");
+            respuesta = new StringBuilder(json.getString("message"));
 
             JSONArray responses = json.getJSONArray("responses");
 
             for (int i=0; i < responses.length(); i++){
-                respuesta += "<br><br><a href='ubuassistant://" + responses.getJSONArray(i).getString(1) + "'> " + responses.getJSONArray(i).getString(0) + "</a>";
+                respuesta.append("<br><br><a href='ubuassistant://").append(responses.getJSONArray(i).getString(1)).append("'> ").append(responses.getJSONArray(i).getString(0)).append("</a>");
             }
 
         } catch (JSONException e) {
@@ -271,19 +296,28 @@ public class Main2Activity extends AppCompatActivity {
         }
 
 
-        return respuesta;
+        return respuesta.toString();
     }
 
+    @SuppressLint("StaticFieldLeak")
     private class getResponse extends AsyncTask<String, Void, String>{
         String retorno;
         ArrayList<Integer> responseCodes;
         HttpURLConnection conexion;
 
+        /**
+         * Method used to do tasks before to start the AsyncTask
+         */
         @Override
         protected void onPreExecute(){
             responseCodes = new ArrayList<>(Arrays.asList(200,201,202,203));
         }
 
+        /**
+         * Method used to do procedures in an AsyncTask.
+         * @param strings Array with parameters in String class
+         * @return Response message obtained form the server
+         */
         @Override
         protected String doInBackground(String... strings) {
 
@@ -295,7 +329,7 @@ public class Main2Activity extends AppCompatActivity {
 
                 conexion = (HttpURLConnection) serverURL.openConnection();
 
-                responseCode = conexion.getResponseCode();
+                int responseCode = conexion.getResponseCode();
                 global.setState(responseCode);
 
                 Log.w("Res", String.valueOf(responseCode));
@@ -304,14 +338,12 @@ public class Main2Activity extends AppCompatActivity {
                     InputStream res = conexion.getInputStream();
                     retorno = IOUtils.toString(res);
 
-                    retorno = parseResponse(retorno, conexion.getResponseCode());
+                    retorno = parseResponse(retorno);
 
                     Log.w("Respuesta", retorno);
                 }else{
                     retorno = "No se ha conectado al servidor";
                 }
-            } catch (MalformedURLException e) {
-                Log.e("Error url", e.toString());
             } catch (IOException e){
                 Log.e("Error url", e.toString());
             }
@@ -321,29 +353,20 @@ public class Main2Activity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Method used to check if an URL exists.
+     * @return boolean state about the URL existence.
+     */
     private static boolean checkIfURLExists() {
         HttpURLConnection httpUrlConn;
         try {
-            httpUrlConn = (HttpURLConnection) new URL(URL + ":8080")
-                    .openConnection();
+            httpUrlConn = (HttpURLConnection) new URL(URL + ":8080").openConnection();
 
-            // A HEAD request is just like a GET request, except that it asks
-            // the server to return the response headers only, and not the
-            // actual resource (i.e. no message body).
-            // This is useful to check characteristics of a resource without
-            // actually downloading it,thus saving bandwidth. Use HEAD when
-            // you don't actually need a file's contents.
+
             httpUrlConn.setRequestMethod("HEAD");
 
-            // Set timeouts in milliseconds
-            httpUrlConn.setConnectTimeout(5000);
-            httpUrlConn.setReadTimeout(5000);
-
-            // Print HTTP status code/message for your information.
-            System.out.println("Response Code: "
-                    + httpUrlConn.getResponseCode());
-            System.out.println("Response Message: "
-                    + httpUrlConn.getResponseMessage());
+            httpUrlConn.setConnectTimeout(7500);
+            httpUrlConn.setReadTimeout(7500);
 
             return (httpUrlConn.getResponseCode() == HttpURLConnection.HTTP_OK);
         } catch (Exception e) {
@@ -359,6 +382,11 @@ public class Main2Activity extends AppCompatActivity {
         String retorno;
         HttpURLConnection conexion;
 
+        /**
+         * Method used to do procedures in an AsyncTask.
+         * @param params Array with parameters in String class
+         * @return Response message obtained form the server
+         */
         @Override
         protected  String doInBackground(String... params) {
             boolean valid_1 = checkIfURLExists();
@@ -405,5 +433,4 @@ public class Main2Activity extends AppCompatActivity {
             }
         }
     }
-
 }
