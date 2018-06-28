@@ -1,8 +1,10 @@
 package es.ubu.cgc0045.ubuassistant;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.PixelFormat;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Window;
@@ -10,6 +12,21 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
+import java.net.HttpURLConnection;
+import java.net.InetSocketAddress;
+import java.net.Socket;
+import java.net.SocketAddress;
+import java.net.URL;
+import java.util.List;
 
 /**
  * @author Carlos González Calatrava
@@ -62,7 +79,7 @@ public class SplashScreen extends Activity{
                         waited += 100;
                     }
 
-                    Intent it = new Intent(SplashScreen.this, MainActivity.class);
+                    Intent it = isOnline() ? new Intent(SplashScreen.this, MainActivity.class) : new Intent(SplashScreen.this, NotInternetAccess.class);
                     it.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(it);
                     SplashScreen.this.finish();
@@ -74,5 +91,18 @@ public class SplashScreen extends Activity{
             }
         };
         splashThread.start();
+    }
+
+    public boolean isOnline() {
+        try {
+            int timeoutMs = 5000;
+            Socket sock = new Socket();
+            SocketAddress sockaddr = new InetSocketAddress("8.8.8.8", 53);
+
+            sock.connect(sockaddr, timeoutMs);
+            sock.close();
+
+            return true;
+        } catch (IOException e) { return false; }
     }
 }

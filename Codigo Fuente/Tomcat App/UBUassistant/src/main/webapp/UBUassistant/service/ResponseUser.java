@@ -98,8 +98,6 @@ public class ResponseUser {
 		if(suggestButtons != null && suggestButtons.size() > 0){
 		
 			LinkedHashSet<String> temp = new LinkedHashSet<String>();
-		  	temp.add(userText);
-		  	ubuassistant.getDb().aumentarNumBusquedas(temp, null);
 		  	
 		  	response.addAll(suggestButtons);
 		  	status=201;

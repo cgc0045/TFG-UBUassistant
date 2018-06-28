@@ -1,4 +1,0 @@
-Afecta negativamente respecto a los requisitos previos de la versión anterior.
-    - Aprendizaje gestionado
-    - Almacenamiento en base de datos
-    

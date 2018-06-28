@@ -1,4 +1,0 @@
-18/05/2018
---------------------------------------------------------------------------
-Modificado la forma de devolver los datos. En el TFG anterior estaba mezclado con código HTML para la web, ahora devuelve el texto que es necesario de forma correcta.
-Los resultados se devuelven en forma de fichero JSON, siendo el primer elemento la respuesta de asistente y el resto de elementos la dirección web respuesta o los posibles resultados.

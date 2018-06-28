@@ -24,6 +24,7 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
 
 public class Vote extends Activity {
 
@@ -110,10 +111,15 @@ public class Vote extends Activity {
             JSONArray palabras = new JSONArray();
             JSONArray valoracion = new JSONArray();
 
+            List<String> temp = global.getWords();
+
+            while (temp.size() > 7){
+                temp.remove(temp.size()-1);
+            }
+
             userID.put(global.getUserID());
-            for (String s: global.getWords()) {
+            for (String s: temp) {
                 palabras.put(s);
-                if (palabras.length() < 8) { break; }
             }
             int valor = ((int) ratingBar.getRating());
             valoracion.put(valor == 0 ? 1 : valor);
